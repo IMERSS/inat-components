@@ -1,0 +1,23 @@
+.obs {
+    cursor: pointer;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    padding: 8px;
+}
+
+.obs:hover {
+    background-color: #efefef;
+}
+
+.obs h3 {
+    margin: 0;
+}
+
+.image {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.textContent {
+    padding: 0 20px 20px;
+}
