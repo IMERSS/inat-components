@@ -12,7 +12,7 @@ export type ObservationProps = {
 
 export const Observation = ({ imageUrl, taxonName, seenBy, obsDate, linkUrl }: ObservationProps) => {
     const gotoObservation = useCallback(() => {
-        window.location.href = linkUrl;
+        window.open(linkUrl);
     }, [linkUrl]);
 
     return (
