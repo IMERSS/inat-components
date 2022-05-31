@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { RecentObservations } from "./components/recentObservations/RecentObservations";
-// import { PopularSpecies } from "./components/popularSpecies/"
+import { RecentObservations } from './components/recentObservations/RecentObservations';
+import { PopularTaxa } from './components/popularTaxa/Taxa';
 import { Favourites } from "./components/favourites/Favourites"
-import './App.css';
+import styles from './css/general.module.css';
 
 const enum Page {
     recent = "recent",
@@ -12,10 +12,10 @@ const enum Page {
 }
 
 function App() {
-    const [page, setPage] = useState(Page.favourites);
+    const [page, setPage] = useState(Page.recent);
 
     return (
-        <div className="App">
+        <div className={styles.page}>
             <select onChange={(e) => setPage(e.target.value as Page)}>
                 <option value={Page.recent}>Recent</option>
                 <option value={Page.favourites}>Most favourited</option>
@@ -24,6 +24,7 @@ function App() {
             </select>
             {page === Page.recent && <RecentObservations />}
             {page === Page.favourites && <Favourites />}
+            {page === Page.popularSpecies && <PopularTaxa />}
         </div>
     );
 }

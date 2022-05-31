@@ -2,7 +2,7 @@
     cursor: pointer;
     border-radius: 8px;
     background-color: #f9f9f9;
-    padding: 8px;
+    text-align: center;
 }
 
 .obs:hover {

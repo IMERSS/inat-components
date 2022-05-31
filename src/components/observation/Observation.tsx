@@ -17,13 +17,14 @@ export const Observation = ({ imageUrl, taxonName, seenBy, obsDate, linkUrl }: O
 
     return (
         <article className={styles.obs} onClick={gotoObservation}>
-            <img
-                className={styles.image}
-                src={imageUrl}
-                style={{
-                    // backgroundImage: `url(${imageUrl})`
-                }}
-            />
+            <div style={{
+                width: 200,
+                height: 200,
+                overflow: "hidden",
+                borderRadius: 5,
+                background: `url(${imageUrl}) 50% 50% no-repeat`,
+                margin: '0 auto'
+            }} />
             <div className={styles.textContent}>
                 <h3>{taxonName}</h3>
                 <div>{obsDate}</div>
