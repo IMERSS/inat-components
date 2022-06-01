@@ -3,9 +3,8 @@ import {Observation} from "../observation/Observation";
 import generalStyles from "../../css/general.module.scss";
 import {PageProps} from "../../general";
 import * as C from "../../constants";
-import styles from "../recentObservations/RecentObservations.module.css";
 
-export const PopularTaxa = ({ year, taxonId, placeId }: PageProps) => {
+export const CommonTaxa = ({ year, taxonId, placeId }: PageProps) => {
     const [taxa, setTaxa] = useState<any>([]);
 
     useEffect(() => {
@@ -29,7 +28,7 @@ export const PopularTaxa = ({ year, taxonId, placeId }: PageProps) => {
         };
 
         getData();
-    }, [year]);
+    }, [year, placeId, taxonId]);
 
     return (
         <div className={generalStyles.grid}>
@@ -41,7 +40,7 @@ export const PopularTaxa = ({ year, taxonId, placeId }: PageProps) => {
                         key={taxon.id}
                         imageUrl={taxon.default_photo.url.replace(/square/, "medium")}
                         linkUrl={url}>
-                        <div className={styles.textContent}>
+                        <div className={generalStyles.obsLabel}>
                             <h3>{taxon.name}</h3>
                             <div>{taxon.observations_count}</div>
                         </div>

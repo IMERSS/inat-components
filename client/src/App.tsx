@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RecentObservations } from './components/recentObservations/RecentObservations';
-import { PopularTaxa } from './components/popularTaxa/Taxa';
+import { CommonTaxa } from './components/commonTaxa/Taxa';
 import { Favourites } from "./components/favourites/Favourites"
 import styles from './css/general.module.scss';
 import Years from "./components/yearDropdown/Years";
@@ -47,7 +47,7 @@ function App() {
                 </div>
 
                 {tab === Tab.recent && <RecentObservations taxonId={taxonId} placeId={placeId} />}
-                {tab === Tab.mostCommon && <PopularTaxa year={year} taxonId={taxonId} placeId={placeId} />}
+                {tab === Tab.mostCommon && <CommonTaxa year={year} taxonId={taxonId} placeId={placeId} />}
                 {tab === Tab.favourites && <Favourites year={year} taxonId={taxonId} placeId={placeId} />}
             </div>
         </>

@@ -3,7 +3,6 @@ import { Observation } from "../observation/Observation";
 import generalStyles from "../../css/general.module.scss";
 import { PageProps } from "../../general";
 import * as C from "../../constants";
-import styles from "../recentObservations/RecentObservations.module.css";
 
 export const Favourites = ({ year, placeId, taxonId }: PageProps) => {
     const [observations, setObservations] = useState<any>([]);
@@ -29,7 +28,7 @@ export const Favourites = ({ year, placeId, taxonId }: PageProps) => {
                         key={obs.id}
                         imageUrl={obs.observation_photos[0].photo.url.replace(/square/, "medium")}
                         linkUrl={obs.uri}>
-                        <div className={styles.textContent}>
+                        <div className={generalStyles.obsLabel}>
                             <h3>{obs.taxon ? obs.taxon.name : ""}</h3>
                             <div>{obs.user.login}</div>
                             <div>{obs.observed_on_string}</div>
