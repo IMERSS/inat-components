@@ -3,12 +3,16 @@ import { Observation } from "../observation/Observation";
 import generalStyles from "../../css/general.module.scss";
 import {getRecentObservations} from "../../utils/api";
 
-export const RecentObservations = ({ taxonId, placeId }: any) => {
+export const RecentObservations = ({ taxonId, placeId, setLoading }: any) => {
     const [observations, setObservations] = useState<any>([]);
 
     useEffect(() => {
-        getRecentObservations(taxonId, placeId, setObservations);
-    }, [taxonId, placeId]);
+        setLoading(true);
+        getRecentObservations(taxonId, placeId, (obs: any) => {
+            setObservations(obs);
+            setLoading(false);
+        });
+    }, [taxonId, placeId, setLoading]);
 
     return (
         <div className={generalStyles.grid}>

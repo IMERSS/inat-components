@@ -5,7 +5,7 @@ import { Favourites } from "./components/favourites/Favourites"
 import styles from './css/general.module.scss';
 import Years from "./components/yearDropdown/Years";
 import Settings from "./components/settings/Settings";
-// import Loader from "react-spinners/MoonLoader";
+import Loader from "react-spinners/MoonLoader";
 import * as C from "./constants";
 import {Tab} from "./general";
 import Tabs from "./components/tabs/Tabs";
@@ -13,6 +13,7 @@ import Tabs from "./components/tabs/Tabs";
 function App() {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState("all");
+    const [loading, setLoading] = useState(false);
     const [taxonId, setTaxonId] = useState(C.DEFAULT_TAXON_ID);
     const [placeId, setPlaceId] = useState(C.DEFAULT_PLACE_ID);
 
@@ -46,7 +47,17 @@ function App() {
                     <h1>{getTitle()}</h1>
                 </div>
 
-                {tab === Tab.recent && <RecentObservations taxonId={taxonId} placeId={placeId} />}
+                {loading && <div className={styles.loader}>
+                    <Loader />
+                </div>}
+
+                {tab === Tab.recent && (
+                    <RecentObservations
+                        taxonId={taxonId}
+                        placeId={placeId}
+                        setLoading={setLoading}
+                    />
+                )}
                 {tab === Tab.mostCommon && <CommonTaxa year={year} taxonId={taxonId} placeId={placeId} />}
                 {tab === Tab.favourites && <Favourites year={year} taxonId={taxonId} placeId={placeId} />}
             </div>
