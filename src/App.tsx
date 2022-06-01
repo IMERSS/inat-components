@@ -2,32 +2,29 @@ import React, { useState } from 'react';
 import { RecentObservations } from './components/recentObservations/RecentObservations';
 import { PopularTaxa } from './components/popularTaxa/Taxa';
 import { Favourites } from "./components/favourites/Favourites"
-import styles from './css/general.module.css';
+import styles from './css/general.module.scss';
 import Years from "./components/yearDropdown/Years";
 import Settings from "./components/settings/Settings";
+// import Loader from "react-spinners/MoonLoader";
 import * as C from "./constants";
-
-const enum Page {
-    recent = "recent",
-    favourites = "favourites",
-    popularSpecies = "popularSpecies",
-    stats = "stats"
-}
+import {Tab} from "./general";
+import Tabs from "./components/tabs/Tabs";
 
 function App() {
-    const [page, setPage] = useState(Page.recent);
+    const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState("all");
     const [taxonId, setTaxonId] = useState(C.DEFAULT_TAXON_ID);
     const [placeId, setPlaceId] = useState(C.DEFAULT_PLACE_ID);
 
     const getTitle = () => {
         const map = {
-            [Page.recent]: "Recent observations",
-            [Page.favourites]: "Most favourited",
-            [Page.popularSpecies]: "Popular species",
-            [Page.stats]: "General stats",
+            [Tab.recent]: "Recent observations",
+            [Tab.mostCommon]: "Most common",
+            [Tab.favourites]: "Most favourited",
+            [Tab.rarest]: "Rarest",
+            [Tab.stats]: "General stats",
         };
-        return map[page];
+        return map[tab];
     }
 
     return (
@@ -39,15 +36,9 @@ function App() {
                 onChangePlace={setPlaceId}
             />
             <div className={styles.page}>
-                <select onChange={(e) => setPage(e.target.value as Page)}>
-                    <option value={Page.recent}>Recent</option>
-                    <option value={Page.favourites}>Most favourited</option>
-                    <option value={Page.popularSpecies}>Most Popular Species</option>
-                    <option value={Page.stats}>Stats</option>
-                </select>
-
+                <Tabs selectedTab={tab} onChangeTab={setTab} />
                 <div>
-                    {page !== Page.recent && (
+                    {tab !== Tab.recent && (
                         <div style={{ float: "right" }}>
                             <Years value={year} onChange={setYear} />
                         </div>
@@ -55,9 +46,9 @@ function App() {
                     <h1>{getTitle()}</h1>
                 </div>
 
-                {page === Page.recent && <RecentObservations taxonId={taxonId} placeId={placeId} />}
-                {page === Page.favourites && <Favourites year={year} taxonId={taxonId} placeId={placeId} />}
-                {page === Page.popularSpecies && <PopularTaxa year={year} taxonId={taxonId} placeId={placeId} />}
+                {tab === Tab.recent && <RecentObservations taxonId={taxonId} placeId={placeId} />}
+                {tab === Tab.mostCommon && <PopularTaxa year={year} taxonId={taxonId} placeId={placeId} />}
+                {tab === Tab.favourites && <Favourites year={year} taxonId={taxonId} placeId={placeId} />}
             </div>
         </>
     );

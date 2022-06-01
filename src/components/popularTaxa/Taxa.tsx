@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Observation} from "../observation/Observation";
-import generalStyles from "../../css/general.module.css";
+import generalStyles from "../../css/general.module.scss";
 import {PageProps} from "../../general";
 import * as C from "../../constants";
+import styles from "../recentObservations/RecentObservations.module.css";
 
 export const PopularTaxa = ({ year, taxonId, placeId }: PageProps) => {
     const [taxa, setTaxa] = useState<any>([]);
@@ -39,12 +40,12 @@ export const PopularTaxa = ({ year, taxonId, placeId }: PageProps) => {
                     <Observation
                         key={taxon.id}
                         imageUrl={taxon.default_photo.url.replace(/square/, "medium")}
-                        taxonName={taxon.name}
-                        observationId={taxon.id}
-                        seenBy={taxon.observations_count}
-                        obsDate={""}
-                        linkUrl={url}
-                    />
+                        linkUrl={url}>
+                        <div className={styles.textContent}>
+                            <h3>{taxon.name}</h3>
+                            <div>{taxon.observations_count}</div>
+                        </div>
+                    </Observation>
                 );
             })}
         </div>

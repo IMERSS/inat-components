@@ -23,12 +23,13 @@ export const RecentObservations = ({ taxonId, placeId }: any) => {
                     <Observation
                         key={obs.id}
                         imageUrl={obs.observation_photos[0].photo.url.replace(/square/, "medium")}
-                        taxonName={obs.taxon ? obs.taxon.name : ""}
-                        observationId={obs.id}
-                        seenBy={obs.user.login}
-                        obsDate={obs.observed_on_string}
-                        linkUrl={obs.uri}
-                    />
+                        linkUrl={obs.uri}>
+                        <div className={styles.textContent}>
+                            <h3>{obs.taxon ? obs.taxon.name : ""}</h3>
+                            <div>{obs.observed_on_string}</div>
+                            <div>{obs.user.login}</div>
+                        </div>
+                    </Observation>
                 );
             })}
         </div>

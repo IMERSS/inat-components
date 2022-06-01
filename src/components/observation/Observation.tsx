@@ -3,14 +3,11 @@ import styles from "./Observation.module.css";
 
 export type ObservationProps = {
     imageUrl: string;
-    taxonName: string;
-    observationId: number;
-    seenBy: string;
-    obsDate: string;
     linkUrl: string;
+    children: any;
 };
 
-export const Observation = ({ imageUrl, taxonName, seenBy, obsDate, linkUrl }: ObservationProps) => {
+export const Observation = ({ imageUrl, linkUrl, children }: ObservationProps) => {
     const gotoObservation = useCallback(() => {
         window.open(linkUrl);
     }, [linkUrl]);
@@ -23,13 +20,9 @@ export const Observation = ({ imageUrl, taxonName, seenBy, obsDate, linkUrl }: O
                 overflow: "hidden",
                 borderRadius: 5,
                 background: `url(${imageUrl}) 50% 50% no-repeat`,
-                margin: '0 auto'
+                margin: "0 auto"
             }} />
-            <div className={styles.textContent}>
-                <h3>{taxonName}</h3>
-                <div>{obsDate}</div>
-                <div>{seenBy}</div>
-            </div>
+            {children}
         </article>
     );
 };
