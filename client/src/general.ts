@@ -8,6 +8,5 @@ export enum Tab {
     recent = "recent",
     favourites = "favourites",
     mostCommon = "mostCommon",
-    rarest = "rarest",
     stats = "stats"
 }

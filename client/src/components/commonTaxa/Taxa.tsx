@@ -1,52 +1,43 @@
 import React, {useEffect, useState} from 'react';
 import {Observation} from "../observation/Observation";
-import generalStyles from "../../css/general.module.scss";
+import Loader from "../loader/Loader";
 import {PageProps} from "../../general";
-import * as C from "../../constants";
+import {getCommonTaxa} from "../../utils/api";
+import {numberWithCommas} from "../../utils/numberUtils";
+import generalStyles from "../../css/general.module.scss";
 
 export const CommonTaxa = ({ year, taxonId, placeId }: PageProps) => {
     const [taxa, setTaxa] = useState<any>([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const getData = async () => {
-            let url = `${C.BASE_URL}/v1/observations/species_counts?verifiable=true&spam=false&place_id=${placeId}&taxon_id=${taxonId}&locale=en-US&per_page=${C.PER_PAGE}`;
-            if (year !== "all") {
-                url += `&d1=${year}-01-01&d2=${year}-12-31`;
-            }
-
-            const response = await fetch(url);
-            const resp = await response.json();
-            const sortedTaxa = resp.results.sort((a: any, b: any) => {
-                if (a.taxon.observations_count > b.taxon.observations_count) {
-                    return -1;
-                } else if (a.taxon.observations_count < b.taxon.observations_count) {
-                    return 1;
-                }
-                return 0;
-            })
-            setTaxa(sortedTaxa);
-        };
-
-        getData();
+        setLoading(true);
+        getCommonTaxa(taxonId, placeId, year, (resp: any) => {
+            setTaxa(resp);
+            setLoading(false);
+        });
     }, [year, placeId, taxonId]);
 
     return (
-        <div className={generalStyles.grid}>
-            {taxa.map(({ taxon }: any) => {
-                const url = `https://www.inaturalist.org/taxa/${taxon.id}`;
+        <div style={{ position: 'relative' }}>
+            <Loader loading={loading} />
+            <div className={generalStyles.grid}>
+                {taxa.map(({ taxon }: any) => {
+                    const url = `https://www.inaturalist.org/taxa/${taxon.id}`;
 
-                return (
-                    <Observation
-                        key={taxon.id}
-                        imageUrl={taxon.default_photo.url.replace(/square/, "medium")}
-                        linkUrl={url}>
-                        <div className={generalStyles.obsLabel}>
-                            <h3>{taxon.name}</h3>
-                            <div>{taxon.observations_count}</div>
-                        </div>
-                    </Observation>
-                );
-            })}
+                    return (
+                        <Observation
+                            key={taxon.id}
+                            imageUrl={taxon.default_photo.url.replace(/square/, "medium")}
+                            linkUrl={url}>
+                            <div className={generalStyles.obsLabel}>
+                                <h3>{taxon.name}</h3>
+                                <div>{numberWithCommas(taxon.observations_count)}</div>
+                            </div>
+                        </Observation>
+                    );
+                })}
+            </div>
         </div>
     )
 };

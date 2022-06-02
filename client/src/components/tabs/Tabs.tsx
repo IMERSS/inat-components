@@ -16,9 +16,6 @@ const Tabs = ({ selectedTab, onChangeTab }: TabsProps) => {
             <li onClick={() => onChangeTab(Tab.mostCommon)} className={selectedTab === Tab.mostCommon ? styles.selected : ""}>
                 Most Common
             </li>
-            <li onClick={() => onChangeTab(Tab.rarest)} className={selectedTab === Tab.rarest ? styles.selected : ""}>
-                Rarest
-            </li>
             <li onClick={() => onChangeTab(Tab.favourites)} className={selectedTab === Tab.favourites ? styles.selected : ""}>
                 Favourites
             </li>
