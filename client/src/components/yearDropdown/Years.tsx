@@ -17,7 +17,7 @@ const Years = ({ value, onChange }: YearsProps) => {
 
     return (
         <select onChange={(e) => onChange(e.target.value)} defaultValue={value}>
-            <option>All years</option>
+            <option value="all">All years</option>
             {years.map((year) => <option value={year} key={year}>{year}</option>)}
         </select>
     )
