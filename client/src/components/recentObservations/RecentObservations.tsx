@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Observation } from "../observation/Observation";
 import Loader from "../loader/Loader";
-import * as C from "../../constants";
-import generalStyles from "../../css/general.module.scss";
 import {getRecentObservations, RecentObservationData, RecentObservationsRespData} from "../../utils/api";
+import * as C from "../../constants";
+import styles from "./RecentObservations.module.scss";
+import generalStyles from "../../css/general.module.scss";
 
 export enum DataSource {
     autoLoad = "autoLoad",
@@ -69,8 +70,12 @@ export const RecentObservations = ({
     const Load = components?.loader ? components.loader as any : Loader;
     const Label = components?.label ? components.label as any : RecentObservationLabel;
 
+    let classes = styles.panel;
+    if (className) {
+        classes += ` ${className}`;
+    }
     return (
-        <div style={{ position: "relative" }}>
+        <div className={classes}>
             <Load loading={loading} />
             <div className={generalStyles.grid}>
                 {observations.map((obs: RecentObservationData) => (

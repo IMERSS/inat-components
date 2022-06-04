@@ -2,24 +2,47 @@
 
 > Currently in development. 
 
-This repo contains some prebuilt React components to display iNaturalist data. The 
-original purpose was to provide some interactive info for the BC Lepidoptera website, 
-but it was written in a generic way to allow it being used by any website.
+This repo contains some prebuilt React components to display iNaturalist data. The goal was to provide some
+interactive info for the BC Lepidoptera website so visitors could see some interesting high-level information about 
+lepidoptera (butterflies and moths) in British Columbia, but it was written in a generic way to allow it being used by
+any website and for any taxon or place. 
 
-This repo stores both the component code themselves (soon to be published to npm) andthe backend scripts to scrape iNat 
-data and store them in JSON files for consumption by the front-end. Typically you don't want to ping iNat on every 
-request to display the data: it's slow and would hammer their servers unnecessarily. The 
+The purpose of these components is _not_ to be exhaustive. iNat contains a _huge_ amount of inforamtion about taxa, 
+observations, users and so forth. We're not trying to re-invent the wheel - just to provide a high-level view of the
+data. For digging into the data, it's designed to link back to iNaturalist itself. As such, the data fed into the
+front-end component listed below is quite limited. 
+
+This repo stores both the components themselves (to be published to npm) and the backend scripts to scrape iNat 
+data and store it in JSON files for use by the front-end components. Typically you don't want to ping iNat on every 
+request to display the data: it's slow and would hammer their servers unnecessarily. But that option _is_ available 
+with these components. 
+
+### Demo
+
+> Coming soon.
+
+### Installation 
+
+Depends on what you're doing! To use the components, just use npm, pnpm or yarn - whatever you happen to be using.
+
+```
+npm install inat-components
+pnpm ... (Ben: check this!)
+yarn add inat-components
+```
 
 
 ### Features:
  
-- Written in Typescript with well-defined typings for components and interfaces.
+- Written in Typescript with typings for components and interfaces.
 - Generic. Can display information for any taxon and any place. 
 - Three choices of data source:
-  1. feed JSON data to components via prop
-  2. ping an external cached data source (recommended)
-  3. ping iNaturalist API directly (not recommended)
--
+  1. feed JSON data to components via prop (requires you to generate the data)
+  2. ping an external cached data source (recommended - this lib contains a tool to generate that data for you)
+  3. ping iNaturalist API directly (not recommended, but handy for local development)
+- Default styling provided, but you can override anything you want. 
+- Option to customize the labels of the various components, plus overwrite the loader.
+
 
 ### Available components 
 

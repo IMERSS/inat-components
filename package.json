@@ -1,9 +1,10 @@
 {
   "name": "inat-components",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "cd client && yarn start",
+    "bootstrap": "cd client && yarn install",
     "generate": "cd server && deno index.ts"
   }
 }

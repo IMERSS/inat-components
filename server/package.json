@@ -1,11 +1,12 @@
 {
-  "name": "iNat server",
+  "name": "inat-components-server-and-scripts",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
+  "description": "Contains scripts to generate static JSON files of iNat data in format used by the React components. Also contains a simple server to dole up the static assets.",
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Ben Keen",
+  "license": "MIT"
 }
