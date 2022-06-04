@@ -1,4 +1,4 @@
-//
+import * as utils from "../client/src/utils/api";
 
 const configurations = [
     {
@@ -13,3 +13,7 @@ const configurations = [
 
 
 // process configurations here
+configurations.forEach(() => {
+    console.log(utils);
+    // utils.getRecentObservations()
+});

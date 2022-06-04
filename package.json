@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "cd client && yarn start"
+    "start": "cd client && yarn start",
+    "generate": "cd server && deno index.ts"
   }
 }

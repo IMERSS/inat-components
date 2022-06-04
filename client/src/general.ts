@@ -1,7 +1,7 @@
 export type PageProps = {
     year: "all" | string;
-    taxonId: string;
-    placeId: string;
+    taxonId: number;
+    placeId: number;
 }
 
 export enum Tab {

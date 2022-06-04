@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { RecentObservations } from './components/recentObservations/RecentObservations';
-import { CommonTaxa } from './components/commonTaxa/Taxa';
-import { Favourites } from "./components/favourites/Favourites"
-import styles from './css/general.module.scss';
-import Years from "./components/yearDropdown/Years";
-import Settings from "./components/settings/Settings";
-import * as C from "./constants";
-import {Tab} from "./general";
-import Tabs from "./components/tabs/Tabs";
-import {Summary} from "./components/summary/Summary";
+import { RecentObservations } from '../components/recentObservations/RecentObservations';
+import { CommonTaxa } from '../components/commonTaxa/Taxa';
+import { Favourites } from "../components/favourites/Favourites"
+import styles from '../css/general.module.scss';
+import Years from "../components/yearDropdown/Years";
+import Settings from "./settings/Settings";
+import * as C from "../constants";
+import {Tab} from "../general";
+import Tabs from "../components/tabs/Tabs";
+import {Summary} from "../components/summary/Summary";
 
 function App() {
     const [tab, setTab] = useState(Tab.recent);

@@ -4,8 +4,8 @@ import {numberWithCommas} from "../../utils/numberUtils";
 import Loader from "../loader/Loader";
 
 export type SummaryProps = {
-    taxonId: string;
-    placeId: string;
+    taxonId: number;
+    placeId: number;
 };
 
 export const Summary = ({ taxonId, placeId }: SummaryProps) => {
@@ -26,6 +26,7 @@ export const Summary = ({ taxonId, placeId }: SummaryProps) => {
 
             <ul>
                 <li>Total number of observers: <b>{data.numObservers ? numberWithCommas(data.numObservers): ""}</b></li>
+                <li>Total number of observations: <b>{data.numObservations ? numberWithCommas(data.numObservations): ""}</b></li>
             </ul>
         </div>
     );
