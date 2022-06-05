@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { RecentObservations } from '../components/recentObservations/RecentObservations';
-import { CommonTaxa } from '../components/commonTaxa/Taxa';
-import { Favourites } from "../components/favourites/Favourites"
+import React, {useState} from 'react';
+import {DataSource, RecentObservations} from '../components/recentObservations/RecentObservations';
+import {CommonTaxa} from '../components/commonTaxa/Taxa';
+import {Favourites} from "../components/favourites/Favourites"
 import styles from '../css/general.module.scss';
 import Years from "../components/yearDropdown/Years";
 import Settings from "./settings/Settings";
@@ -26,6 +26,9 @@ function App() {
         return map[tab];
     }
 
+    //                 {tab === Tab.recent && <RecentObservations taxonId={taxonId} placeId={placeId} />}
+
+    // http://localhost:7777/bcleps-recent-obs-47157.json
     return (
         <>
             <Settings
@@ -46,7 +49,8 @@ function App() {
                     <h1>{getTitle()}</h1>
                 </div>
 
-                {tab === Tab.recent && <RecentObservations taxonId={taxonId} placeId={placeId} />}
+                {tab === Tab.recent && <RecentObservations dataUrl="http://localhost:7777/bcleps-recent-obs-47157.json" source={DataSource.url} />}
+
                 {tab === Tab.mostCommon && <CommonTaxa year={year} taxonId={taxonId} placeId={placeId} />}
                 {tab === Tab.favourites && <Favourites year={year} taxonId={taxonId} placeId={placeId} />}
                 {tab === Tab.stats && <Summary taxonId={taxonId} placeId={placeId} />}

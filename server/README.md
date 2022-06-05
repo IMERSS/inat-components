@@ -9,5 +9,8 @@ This folder of the repo contains two things:
 
 ### How to run scripts to generate JSON files
 
+```
+yarn generate
+```
 
 ### How to run server

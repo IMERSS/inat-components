@@ -38,6 +38,7 @@ export const RecentObservations = ({
     taxonId,
     placeId,
     data,
+    dataUrl,
     source = DataSource.autoLoad,
     perPage = C.PER_PAGE,
     components,
@@ -66,6 +67,27 @@ export const RecentObservations = ({
             setLoading(false);
         })();
     }, [source, taxonId, placeId]);
+
+    useEffect(() => {
+        if (source !== DataSource.url) {
+            return;
+        }
+
+        if (!dataUrl) {
+            console.error("Please supply a `dataUrl` prop for the `url` source prop option.");
+            return;
+        }
+
+        console.log({ source, dataUrl });
+
+        (async () => {
+            setLoading(true);
+            const obs = await fetch(dataUrl);
+            const json = await obs.json();
+            setObservations(json.results);
+            setLoading(false);
+        })();
+    }, [source, dataUrl]);
 
     const Load = components?.loader ? components.loader as any : Loader;
     const Label = components?.label ? components.label as any : RecentObservationLabel;
