@@ -1,20 +1,42 @@
 import * as utils from "../client/src/utils/api";
 
+export enum Apis {
+    recentObservations = "recentObservations"
+}
+
 const configurations = [
     {
         name: "BC Leps",
         filenamePrefix: "bcleps-",
-        refreshTime: 60, // in minutes
-        numYears: 10, // generates separate files for each year data + one for all time
-        configs: [
-            { taxonId: 47157, placeId: 7085 }
+        actions: [
+            {
+                api: Apis.recentObservations,
+                refreshTime: 60,
+                perPage: 100,
+                taxonId: 47157,
+                placeId: 7085,
+            }
         ]
     }
 ];
 
+const process = () => {
+    const promises: Promise<any>[] = [];
+    configurations.map((config) => {
 
-// process configurations here
-configurations.forEach(() => {
-    console.log(utils);
-    // utils.getRecentObservations()
-});
+        config.actions.map(async (action) => {
+            if (action.api === Apis.recentObservations) {
+                const obs = await utils.getRecentObservations({
+                    taxonId: action.taxonId,
+                    placeId: action.placeId,
+                    perPage: action.perPage
+                });
+
+                console.log(obs);
+            }
+        });
+    });
+}
+
+process();
+

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Observation } from "../observation/Observation";
 import Loader from "../loader/Loader";
-import {getRecentObservations, RecentObservationData, RecentObservationsRespData} from "../../utils/api";
+import {getRecentObservations, RecentObservationData, RecentObservationsRespData} from "../../utils/recentObservations";
 import * as C from "../../constants";
 import styles from "./RecentObservations.module.scss";
 import generalStyles from "../../css/general.module.scss";
@@ -62,7 +62,7 @@ export const RecentObservations = ({
         (async () => {
             setLoading(true);
             const obs = await getRecentObservations({ taxonId, placeId, perPage });
-            setObservations(obs);
+            setObservations(obs.results);
             setLoading(false);
         })();
     }, [source, taxonId, placeId]);
