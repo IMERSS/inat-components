@@ -1,20 +1,26 @@
 import React, {useState} from 'react';
-import {DataSource, RecentObservations} from '../components/recentObservations/RecentObservations';
+import {
+    DataSource,
+    RecentObservations,
+    RecentObservationsProps
+} from '../components/recentObservations/RecentObservations';
 import {CommonTaxa} from '../components/commonTaxa/Taxa';
 import {Favourites} from "../components/favourites/Favourites"
 import styles from '../css/general.module.scss';
 import Years from "../components/yearDropdown/Years";
-import Settings from "./settings/Settings";
+import Settings from "./settingsRow/Settings";
 import * as C from "../constants";
 import {Tab} from "../general";
 import Tabs from "../components/tabs/Tabs";
 import {Summary} from "../components/summary/Summary";
+import {getDemoFile} from "./demo.config";
 
 function App() {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState("all");
     const [taxonId, setTaxonId] = useState(C.DEFAULT_TAXON_ID);
     const [placeId, setPlaceId] = useState(C.DEFAULT_PLACE_ID);
+    const [dataSource, setDataSource] = useState(DataSource.autoLoad); // TODO change default
 
     const getTitle = () => {
         const map = {
@@ -26,9 +32,29 @@ function App() {
         return map[tab];
     }
 
-    //                 {tab === Tab.recent && <RecentObservations taxonId={taxonId} placeId={placeId} />}
+    const getCurrentTab = () => {
+        switch (tab) {
+            case Tab.recent: {
+                const props: Partial<RecentObservationsProps> = {
+                    source: dataSource
+                };
+                if (dataSource === DataSource.url) {
+                    props.dataUrl = getDemoFile();
+                }
 
-    // http://localhost:7777/bcleps-recent-obs-47157.json
+                return (
+                    <RecentObservations {...props} />
+                );
+            }
+        }
+
+        // {tab === Tab.mostCommon && <CommonTaxa year={year} taxonId={taxonId} placeId={placeId} />}
+        // {tab === Tab.favourites && <Favourites year={year} taxonId={taxonId} placeId={placeId} />}
+        // {tab === Tab.stats && <Summary taxonId={taxonId} placeId={placeId} />}
+    };
+
+    // {tab === Tab.recent && <RecentObservations taxonId={taxonId} placeId={placeId} />}
+
     return (
         <>
             <Settings
@@ -36,6 +62,8 @@ function App() {
                 onChangeTaxon={setTaxonId}
                 placeId={placeId}
                 onChangePlace={setPlaceId}
+                dataSource={dataSource}
+                onChangeDataSource={setDataSource}
             />
 
             <div className={styles.page}>
@@ -48,12 +76,7 @@ function App() {
                     )}
                     <h1>{getTitle()}</h1>
                 </div>
-
-                {tab === Tab.recent && <RecentObservations dataUrl="http://localhost:7777/bcleps-recent-obs-47157.json" source={DataSource.url} />}
-
-                {tab === Tab.mostCommon && <CommonTaxa year={year} taxonId={taxonId} placeId={placeId} />}
-                {tab === Tab.favourites && <Favourites year={year} taxonId={taxonId} placeId={placeId} />}
-                {tab === Tab.stats && <Summary taxonId={taxonId} placeId={placeId} />}
+                {getCurrentTab()}
             </div>
         </>
     );
