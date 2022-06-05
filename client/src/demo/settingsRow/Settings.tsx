@@ -1,7 +1,7 @@
 import React from "react";
 import { TAXA, PLACES } from "../demo.config";
 import styles from "./Settings.module.css";
-import {DataSource} from "../../components/recentObservations/RecentObservations";
+import {DataSource} from "../../typings";
 
 export type SettingsProp = {
     taxonId: number;

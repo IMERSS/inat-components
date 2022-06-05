@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {
-    DataSource,
     RecentObservations,
     RecentObservationsProps
 } from '../components/recentObservations/RecentObservations';
@@ -14,14 +13,14 @@ import {Tab} from "../general";
 import Tabs from "../components/tabs/Tabs";
 import {getDemoFileUrl} from "./demo.config";
 import styles from '../css/general.module.scss';
-import {INatApi} from "../typings";
+import {DataSource, INatApi} from "../typings";
 
 function App() {
     const [tab, setTab] = useState(Tab.recent);
-    const [year, setYear] = useState("all");
+    const [year, setYear] = useState<string>("all");
     const [taxonId, setTaxonId] = useState(C.DEFAULT_TAXON_ID);
     const [placeId, setPlaceId] = useState(C.DEFAULT_PLACE_ID);
-    const [dataSource, setDataSource] = useState(DataSource.autoLoad); // TODO change default
+    const [dataSource, setDataSource] = useState(DataSource.url);
 
     const getTitle = () => {
         const map = {
@@ -51,8 +50,23 @@ function App() {
                 );
             }
 
-            case Tab.mostCommon:
-                return <CommonTaxa year={year} taxonId={taxonId} placeId={placeId} />;
+            case Tab.mostCommon: {
+                const props: any = {
+                    source: dataSource,
+                    year
+                };
+                if (dataSource === DataSource.url) {
+                    props.dataUrl = getDemoFileUrl(INatApi.commonTaxa, taxonId, placeId);
+                } else {
+                    props.placeId = placeId;
+                    props.taxonId = taxonId;
+                }
+
+                return (
+                    <CommonTaxa {...props} />
+                );
+            }
+
             case Tab.favourites:
                 return <Favourites year={year} taxonId={taxonId} placeId={placeId} />;
             case Tab.stats:

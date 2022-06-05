@@ -5,12 +5,7 @@ import {getRecentObservations, RecentObservationData, RecentObservationsRespData
 import * as C from "../../constants";
 import styles from "./RecentObservations.module.scss";
 import generalStyles from "../../css/general.module.scss";
-
-export enum DataSource {
-    autoLoad = "autoLoad",
-    dataProp = "dataProp",
-    url = "url"
-}
+import {DataSource} from "../../typings";
 
 export type RecentObservationsProps = {
     source?: DataSource;
@@ -66,7 +61,7 @@ export const RecentObservations = ({
             setObservations(obs.results);
             setLoading(false);
         })();
-    }, [source, taxonId, placeId]);
+    }, [source, taxonId, placeId, perPage]);
 
     useEffect(() => {
         if (source !== DataSource.url) {

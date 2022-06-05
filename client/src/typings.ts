@@ -1,5 +1,14 @@
+export enum DataSource {
+    autoLoad = "autoLoad",
+    dataProp = "dataProp",
+    url = "url"
+}
+
 export enum INatApi {
-    recentObservations = "recentObservations"
+    recentObservations = "recentObservations",
+    commonTaxa = "commonTaxa",
+    favourites = "favourites",
+    stats = "stats"
 }
 
 export type Configuration = {
