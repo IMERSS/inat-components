@@ -1,5 +1,5 @@
 import React from "react";
-import { TAXONS, PLACES } from "../demo.config";
+import { TAXA, PLACES } from "../demo.config";
 import styles from "./Settings.module.css";
 import {DataSource} from "../../components/recentObservations/RecentObservations";
 
@@ -18,7 +18,7 @@ const Settings = ({ taxonId, onChangeTaxon, placeId, onChangePlace, dataSource, 
             <div>
                 <h4>Taxon</h4>
                 <select defaultValue={taxonId} onChange={(e) => onChangeTaxon(parseInt(e.target.value, 10))}>
-                    {TAXONS.map(({ taxonId, label }) => <option key={taxonId} value={taxonId}>{label}</option>)}
+                    {TAXA.map(({ taxonId, label }) => <option key={taxonId} value={taxonId}>{label}</option>)}
                 </select>
             </div>
             <div>

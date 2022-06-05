@@ -6,14 +6,15 @@ import {
 } from '../components/recentObservations/RecentObservations';
 import {CommonTaxa} from '../components/commonTaxa/Taxa';
 import {Favourites} from "../components/favourites/Favourites"
-import styles from '../css/general.module.scss';
+import {Summary} from "../components/summary/Summary";
 import Years from "../components/yearDropdown/Years";
 import Settings from "./settingsRow/Settings";
 import * as C from "../constants";
 import {Tab} from "../general";
 import Tabs from "../components/tabs/Tabs";
-import {Summary} from "../components/summary/Summary";
-import {getDemoFile} from "./demo.config";
+import {getDemoFileUrl} from "./demo.config";
+import styles from '../css/general.module.scss';
+import {INatApi} from "../typings";
 
 function App() {
     const [tab, setTab] = useState(Tab.recent);
@@ -39,21 +40,25 @@ function App() {
                     source: dataSource
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = getDemoFile();
+                    props.dataUrl = getDemoFileUrl(INatApi.recentObservations, taxonId, placeId);
+                } else {
+                    props.placeId = placeId;
+                    props.taxonId = taxonId;
                 }
 
                 return (
                     <RecentObservations {...props} />
                 );
             }
+
+            case Tab.mostCommon:
+                return <CommonTaxa year={year} taxonId={taxonId} placeId={placeId} />;
+            case Tab.favourites:
+                return <Favourites year={year} taxonId={taxonId} placeId={placeId} />;
+            case Tab.stats:
+                return <Summary taxonId={taxonId} placeId={placeId} />;
         }
-
-        // {tab === Tab.mostCommon && <CommonTaxa year={year} taxonId={taxonId} placeId={placeId} />}
-        // {tab === Tab.favourites && <Favourites year={year} taxonId={taxonId} placeId={placeId} />}
-        // {tab === Tab.stats && <Summary taxonId={taxonId} placeId={placeId} />}
     };
-
-    // {tab === Tab.recent && <RecentObservations taxonId={taxonId} placeId={placeId} />}
 
     return (
         <>

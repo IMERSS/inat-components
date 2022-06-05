@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "cd client && yarn start",
-    "webserver": "cd server && ts-node webserver.ts",
+    "server": "cd server && ts-node webserver.ts",
     "bootstrap": "cd client && yarn install",
     "generate": "cd server && ts-node index.ts"
   }

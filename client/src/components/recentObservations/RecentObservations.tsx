@@ -78,8 +78,6 @@ export const RecentObservations = ({
             return;
         }
 
-        console.log({ source, dataUrl });
-
         (async () => {
             setLoading(true);
             const obs = await fetch(dataUrl);
