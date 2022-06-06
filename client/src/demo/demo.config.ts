@@ -4,6 +4,7 @@
  * and re-run `yarn generate` in repo root to get the latest static JSON content.
  */
 import {Configuration, INatApi} from "../typings";
+import {getCurrentYear} from "../utils/dateUtils";
 
 export type Taxa = {
     label: string;
@@ -28,10 +29,11 @@ export const PLACES: Place[] = [
     { label: "Alberta", short: "alberta", placeId: 6834 }
 ];
 
+// this ok?
 export const DEMO_BASE_URL = "http://localhost:7777";
 
 // return the demo filename without the base URL
-export const getDemoFile = (api: INatApi, taxonId: number, placeId: number): string => {
+export const getDemoFile = (api: INatApi, taxonId: number, placeId: number, year?: string): string => {
     const taxonInfo = TAXA.find((i) => i.taxonId === taxonId) as Taxa;
     const placeInfo = PLACES.find((i) => i.placeId === placeId) as Place;
 
@@ -39,7 +41,8 @@ export const getDemoFile = (api: INatApi, taxonId: number, placeId: number): str
     if (api === INatApi.recentObservations) {
         filename = `${taxonInfo.short}-${placeInfo.short}-recent.json`;
     } else if (api === INatApi.commonTaxa) {
-        filename = `${taxonInfo.short}-${placeInfo.short}-commonTaxa.json`;
+        let yearStr = year === "all" ? "allyears" : year;
+        filename = `${taxonInfo.short}-${placeInfo.short}-${yearStr}-commonTaxa.json`;
     }
 
     return filename;
@@ -62,14 +65,29 @@ export const getDemoConfigurations = (): Configuration[] => {
                 filename: getDemoFile(INatApi.recentObservations, taxonInfo.taxonId, placeInfo.placeId)
             });
 
-            // common taxa
-            configurations.push({
+            // common taxa. For this, generate the last 10 years of info plus one for all years
+            const currentYear = getCurrentYear();
+            const baseData = {
                 api: INatApi.commonTaxa,
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: getDemoFile(INatApi.recentObservations, taxonInfo.taxonId, placeInfo.placeId)
-            });
+                filename: getDemoFile(INatApi.commonTaxa, taxonInfo.taxonId, placeInfo.placeId)
+            };
+
+            configurations.push({
+                ...baseData,
+                year: "all" // TODO
+            })
+
+            for (let year=currentYear-10; year<=currentYear; year++) {
+                configurations.push({
+                    ...baseData,
+                    year
+                });
+            }
+
+            configurations.push();
         });
     });
 

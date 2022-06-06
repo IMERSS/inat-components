@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { getCurrentYear } from "../../utils/dateUtils";
 import styles from "./Years.module.scss";
 
 interface YearsProps {
@@ -9,7 +10,7 @@ interface YearsProps {
 
 const Years = ({ value, onChange, className }: YearsProps) => {
     const [years] = useState(() => {
-        const currentYear = new Date().getFullYear();
+        const currentYear = getCurrentYear();
         const years = [];
         for (let i = currentYear; i>=currentYear-10; i--) {
             years.push(i);

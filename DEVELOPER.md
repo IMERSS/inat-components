@@ -21,4 +21,5 @@ goodies: hot reloading, etc.
 
 > TODO: 
 > - configuration? Maybe leave defaults as BC Lepidoptera? Might be best.
-> - add command & document here to generate the  
+> - add command & document here to generate the
+> - https://www.inaturalist.org/pages/api+recommended+practices - 1 request per second

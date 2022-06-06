@@ -17,6 +17,7 @@ export type Configuration = {
     taxonId: number;
     placeId: number;
     filename: string;
+    year?: string | number; // required for common taxa (separate type?)
     refreshTime?: number; // prob required
     minify?: boolean;
 };
