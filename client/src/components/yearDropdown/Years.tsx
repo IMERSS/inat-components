@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import styles from "./Years.module.scss";
 
 interface YearsProps {
     value: string;
     onChange: (year: string) => void;
+    className?: string;
 }
 
-const Years = ({ value, onChange }: YearsProps) => {
+const Years = ({ value, onChange, className }: YearsProps) => {
     const [years] = useState(() => {
         const currentYear = new Date().getFullYear();
         const years = [];
@@ -15,8 +17,12 @@ const Years = ({ value, onChange }: YearsProps) => {
         return years;
     });
 
+    let classes = styles.dropdown;
+    if (className) {
+        classes += ` ${className}`;
+    }
     return (
-        <select onChange={(e) => onChange(e.target.value)} defaultValue={value}>
+        <select className={classes} onChange={(e) => onChange(e.target.value)} defaultValue={value}>
             <option value="all">All years</option>
             {years.map((year) => <option value={year} key={year}>{year}</option>)}
         </select>

@@ -4,7 +4,6 @@ import generalStyles from "../../css/general.module.scss";
 import { PageProps } from "../../general";
 import Loader from "../loader/Loader";
 import {getFavourites} from "../../utils/api";
-import styles from "./Favourites.module.scss";
 
 export const Favourites = ({ year, placeId, taxonId }: PageProps) => {
     const [observations, setObservations] = useState<any>([]);
@@ -32,7 +31,7 @@ export const Favourites = ({ year, placeId, taxonId }: PageProps) => {
                                 <h3>{obs.taxon ? obs.taxon.name : ""}</h3>
                                 <div>{obs.user.login}</div>
                                 <div>{obs.observed_on_string}</div>
-                                <label className={styles.numFaves}>{obs.faves.length}</label>
+                                <label className={generalStyles.count}>{obs.faves.length}</label>
                             </div>
                         </Observation>
                     );

@@ -26,7 +26,7 @@ export type CommonTaxaProps = {
 export const CommonTaxaLabel = (data: CommonTaxData) => (
     <div className={generalStyles.obsLabel}>
         <h3>{data.taxonCommonName || data.taxonName}</h3>
-        <div>{numberWithCommas(data.obsCount)}</div>
+        <label className={generalStyles.count}>{numberWithCommas(data.obsCount)}</label>
     </div>
 );
 

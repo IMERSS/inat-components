@@ -1,4 +1,4 @@
-import * as utils from "../client/src/utils/api";
+import * as utils from "../client/src/utils/recentObservations";
 import fs from "fs";
 import {INatApi, ConfigurationSet} from "../client/src/typings";
 import {getDemoConfigurations} from "../client/src/demo/demo.config";

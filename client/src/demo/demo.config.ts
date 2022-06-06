@@ -17,10 +17,10 @@ export type Place = {
 }
 
 export const TAXA: Taxa[] = [
-    { label: "Lepidoptera", short: "leps", taxonId: 47157 },
-    { label: "Coleoptera", short: "beetles", taxonId: 47208 },
-    { label: "Diptera", short: "flies", taxonId: 47822 },
-    { label: "Mantodea", short: "mantis", taxonId: 48112 }
+    { label: "Butterflies and moth", short: "leps", taxonId: 47157 },
+    { label: "Beetles", short: "beetles", taxonId: 47208 },
+    { label: "Flies", short: "flies", taxonId: 47822 },
+    { label: "Birds", short: "birds", taxonId: 3 }
 ];
 
 export const PLACES: Place[] = [
@@ -37,7 +37,9 @@ export const getDemoFile = (api: INatApi, taxonId: number, placeId: number): str
 
     let filename = "";
     if (api === INatApi.recentObservations) {
-        filename = `${taxonInfo.short}-${placeInfo.short}-recent.json`
+        filename = `${taxonInfo.short}-${placeInfo.short}-recent.json`;
+    } else if (api === INatApi.commonTaxa) {
+        filename = `${taxonInfo.short}-${placeInfo.short}-commonTaxa.json`;
     }
 
     return filename;
@@ -48,16 +50,26 @@ export const getDemoFileUrl = (api: INatApi, taxonId: number, placeId: number) =
 export const getDemoConfigurations = (): Configuration[] => {
     const configurations: Configuration[] = [];
 
-    // recent observations
     TAXA.forEach((taxonInfo) => {
         PLACES.forEach((placeInfo) => {
+
+            // recent observations
             configurations.push({
                 api: INatApi.recentObservations,
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
                 filename: getDemoFile(INatApi.recentObservations, taxonInfo.taxonId, placeInfo.placeId)
-            })
+            });
+
+            // common taxa
+            configurations.push({
+                api: INatApi.commonTaxa,
+                perPage: 100,
+                taxonId: taxonInfo.taxonId,
+                placeId: placeInfo.placeId,
+                filename: getDemoFile(INatApi.recentObservations, taxonInfo.taxonId, placeInfo.placeId)
+            });
         });
     });
 
