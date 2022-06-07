@@ -33,17 +33,7 @@ export const getCommonTaxa = async ({ year, taxonId, placeId, perPage }: CommonT
         }
     });
 
-    const sigh = await response.text();
-    console.log("__________________________", sigh, "_____________________________");
-    const resp = JSON.parse(sigh);
-
-    // let resp;
-    //     resp = await response.json();
-    // } catch (e) {
-    //     console.log("error", { e, url });
-    //     return;
-    // }
-
+    const resp = await response.json();
     const sortedTaxa = resp.results.sort((a: any, b: any) => {
         if (a.count > b.count) {
             return -1;

@@ -33,7 +33,7 @@ export const PLACES: Place[] = [
 export const DEMO_BASE_URL = "http://localhost:7777";
 
 // return the demo filename without the base URL
-export const getDemoFile = (api: INatApi, taxonId: number, placeId: number, year?: string): string => {
+export const getDemoFile = (api: INatApi, taxonId: number, placeId: number, year?: string | number): string => {
     const taxonInfo = TAXA.find((i) => i.taxonId === taxonId) as Taxa;
     const placeInfo = PLACES.find((i) => i.placeId === placeId) as Place;
 
@@ -72,7 +72,7 @@ export const getDemoConfigurations = (): Configuration[] => {
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: getDemoFile(INatApi.commonTaxa, taxonInfo.taxonId, placeInfo.placeId)
+                filename: getDemoFile(INatApi.commonTaxa, taxonInfo.taxonId, placeInfo.placeId, "all")
             };
 
             configurations.push({
@@ -83,6 +83,7 @@ export const getDemoConfigurations = (): Configuration[] => {
             for (let year=currentYear-10; year<=currentYear; year++) {
                 configurations.push({
                     ...baseData,
+                    filename: getDemoFile(INatApi.commonTaxa, taxonInfo.taxonId, placeInfo.placeId, year),
                     year
                 });
             }

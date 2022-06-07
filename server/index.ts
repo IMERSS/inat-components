@@ -1,9 +1,11 @@
 import fs from "fs";
+import sleep from "sleep-promise";
+// @ts-ignore-line
+import cliProgress from "cli-progress";
 import { getRecentObservations } from "../client/src/utils/recentObservations";
 import { getCommonTaxa } from "../client/src/utils/commonTaxa";
 import {INatApi, ConfigurationSet} from "../client/src/typings";
 import {getDemoConfigurations} from "../client/src/demo/demo.config";
-
 
 const configurationSets: ConfigurationSet[] = [
     {
@@ -13,37 +15,66 @@ const configurationSets: ConfigurationSet[] = [
     }
 ];
 
-// TODO add 1.5 second timeout on each request. iNat locks down 1 request per second.
-const process = () => {
-    configurationSets.map((set) => {
-        set.configurations.map(async (config) => {
-            let data;
-            if (config.api === INatApi.recentObservations) {
-                data = await getRecentObservations({
-                    taxonId: config.taxonId,
-                    placeId: config.placeId,
-                    perPage: config.perPage
-                });
-            } else if (config.api === INatApi.commonTaxa) {
-                data = await getCommonTaxa({
-                    taxonId: config.taxonId,
-                    placeId: config.placeId,
-                    perPage: config.perPage,
-                    year: config.year as string
-                });
-            }
-
-            const filename = `${set.filenamePrefix}${config.filename}`;
-            const filenameWithPath = `${__dirname}/public/${filename}`;
-            const content = config.minify ? JSON.stringify(data) : JSON.stringify(data, null, "\t");
-
-            if (fs.existsSync(filenameWithPath)) {
-                fs.unlinkSync(filenameWithPath);
-            }
-            fs.writeFileSync(filenameWithPath, content);
+const generateFile = async ({ config, set }: any) => {
+    let data;
+    if (config.api === INatApi.recentObservations) {
+        data = await getRecentObservations({
+            taxonId: config.taxonId,
+            placeId: config.placeId,
+            perPage: config.perPage
         });
+    } else if (config.api === INatApi.commonTaxa) {
+        data = await getCommonTaxa({
+            taxonId: config.taxonId,
+            placeId: config.placeId,
+            perPage: config.perPage,
+            year: config.year as string
+        });
+    }
+    const filename = `${set.filenamePrefix}${config.filename}`;
+    const filenameWithPath = `${__dirname}/public/${filename}`;
+    const content = config.minify ? JSON.stringify(data) : JSON.stringify(data, null, "\t");
+
+    if (fs.existsSync(filenameWithPath)) {
+        fs.unlinkSync(filenameWithPath);
+    }
+    fs.writeFileSync(filenameWithPath, content);
+};
+
+
+const process = async () => {
+    const queue: any = [];
+    let currentIndex = 0;
+
+    const loadingBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
+
+    const processQueue = async () => {
+        await generateFile(queue[currentIndex]);
+        loadingBar.update(currentIndex);
+        currentIndex++;
+        await sleep(1000);
+
+        if (currentIndex < queue.length) {
+            await processQueue();
+        } else {
+            loadingBar.stop();
+        }
+    };
+
+    configurationSets.map((set) => {
+        set.configurations.map((config) => {
+            queue.push({ set, config });
+        })
     });
+
+    loadingBar.start(queue.length, 0);
+
+    await processQueue();
 }
 
-process();
+(async () => {
+    await process();
+})();
+
+
 
