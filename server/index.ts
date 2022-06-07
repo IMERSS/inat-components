@@ -1,6 +1,5 @@
 import fs from "fs";
 import sleep from "sleep-promise";
-// @ts-ignore-line
 import cliProgress from "cli-progress";
 import { getRecentObservations } from "../client/src/utils/recentObservations";
 import { getCommonTaxa } from "../client/src/utils/commonTaxa";

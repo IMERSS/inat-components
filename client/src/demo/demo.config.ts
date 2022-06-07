@@ -20,7 +20,6 @@ export type Place = {
 export const TAXA: Taxa[] = [
     { label: "Butterflies and moth", short: "leps", taxonId: 47157 },
     { label: "Beetles", short: "beetles", taxonId: 47208 },
-    { label: "Flies", short: "flies", taxonId: 47822 },
     { label: "Birds", short: "birds", taxonId: 3 }
 ];
 
@@ -77,10 +76,10 @@ export const getDemoConfigurations = (): Configuration[] => {
 
             configurations.push({
                 ...baseData,
-                year: "all" // TODO
+                year: "all"
             })
 
-            for (let year=currentYear-10; year<=currentYear; year++) {
+            for (let year = currentYear - 10; year <= currentYear; year++) {
                 configurations.push({
                     ...baseData,
                     filename: getDemoFile(INatApi.commonTaxa, taxonInfo.taxonId, placeInfo.placeId, year),
