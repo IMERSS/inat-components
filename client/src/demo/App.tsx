@@ -20,7 +20,7 @@ function App() {
     const [year, setYear] = useState<string>("all");
     const [taxonId, setTaxonId] = useState(C.DEFAULT_TAXON_ID);
     const [placeId, setPlaceId] = useState(C.DEFAULT_PLACE_ID);
-    const [dataSource, setDataSource] = useState(DataSource.url);
+    const [dataSource, setDataSource] = useState(DataSource.autoLoad); // TODO
 
     const getTitle = () => {
         const map = {
@@ -56,7 +56,7 @@ function App() {
                     year
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = getDemoFileUrl(INatApi.commonTaxa, taxonId, placeId);
+                    props.dataUrl = getDemoFileUrl(INatApi.commonTaxa, taxonId, placeId, year);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
@@ -67,8 +67,23 @@ function App() {
                 );
             }
 
-            case Tab.favourites:
-                return <Favourites year={year} taxonId={taxonId} placeId={placeId} />;
+            case Tab.favourites: {
+                const props: any = {
+                    source: dataSource,
+                    year
+                };
+                if (dataSource === DataSource.url) {
+                    props.dataUrl = getDemoFileUrl(INatApi.favourites, taxonId, placeId, year);
+                } else {
+                    props.placeId = placeId;
+                    props.taxonId = taxonId;
+                }
+
+                return (
+                    <Favourites {...props} />
+                );
+            }
+
             case Tab.stats:
                 return <Summary taxonId={taxonId} placeId={placeId} />;
         }

@@ -3,6 +3,7 @@ import sleep from "sleep-promise";
 import cliProgress from "cli-progress";
 import { getRecentObservations } from "../client/src/utils/recentObservations";
 import { getCommonTaxa } from "../client/src/utils/commonTaxa";
+import { getFavourites } from "../client/src/utils/favourites";
 import {INatApi, ConfigurationSet} from "../client/src/typings";
 import {getDemoConfigurations} from "../client/src/demo/demo.config";
 
@@ -29,7 +30,15 @@ const generateFile = async ({ config, set }: any) => {
             perPage: config.perPage,
             year: config.year as string
         });
+    } else if (config.api === INatApi.favourites) {
+        data = await getFavourites({
+            taxonId: config.taxonId,
+            placeId: config.placeId,
+            perPage: config.perPage,
+            year: config.year as string
+        });
     }
+
     const filename = `${set.filenamePrefix}${config.filename}`;
     const filenameWithPath = `${__dirname}/public/${filename}`;
     const content = config.minify ? JSON.stringify(data) : JSON.stringify(data, null, "\t");
@@ -74,6 +83,4 @@ const process = async () => {
 (async () => {
     await process();
 })();
-
-
 

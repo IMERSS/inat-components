@@ -7,7 +7,6 @@ import {DataSource} from "../../typings";
 import {FavouritesRespData, FavouritesData} from "../../utils/favourites";
 import * as C from "../../constants";
 import styles from "../recentObservations/RecentObservations.module.scss";
-import {CommonTaxaLabel} from "../commonTaxa/Taxa";
 
 export type FavouritesProps = {
     year: string;
@@ -44,13 +43,16 @@ export const Favourites = ({
     components,
     className
 }: FavouritesProps) => {
-    const [observations, setObservations] = useState<any>([]);
+    const [observations, setObservations] = useState<any>(() => (source === DataSource.dataProp) ? data : []);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (source !== DataSource.autoLoad) {
             return;
         }
+
+        // console.log({ source, year, placeId, taxonId, perPage });
+
         if (!taxonId) {
             console.error("Please supply a `taxonId` prop for the `autoLoad` source prop option.");
             return;
@@ -88,7 +90,7 @@ export const Favourites = ({
     }, [source, dataUrl]);
 
     const Load = components?.loader ? components.loader as any : Loader;
-    const Label = components?.label ? components.label as any : CommonTaxaLabel;
+    const Label = components?.label ? components.label as any : FavouritesLabel;
 
     let classes = styles.panel;
     if (className) {
@@ -98,16 +100,14 @@ export const Favourites = ({
         <div className={classes}>
             <Load loading={loading} />
             <div className={generalStyles.grid}>
-                {observations.map((obs: any) => {
-                    return (
-                        <Observation
-                            key={obs.id}
-                            imageUrl={obs.observation_photos[0].photo.url.replace(/square/, "medium")}
-                            linkUrl={obs.uri}>
-                            <FavouritesLabel {...obs} />
-                        </Observation>
-                    );
-                })}
+                {observations.map((obs: any) => (
+                    <Observation
+                        key={obs.id}
+                        imageUrl={obs.imageUrl.replace(/square/, "medium")}
+                        linkUrl={obs.obsUrl}>
+                        <Label {...obs} />
+                    </Observation>
+                ))}
             </div>
         </div>
     );

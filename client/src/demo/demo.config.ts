@@ -28,7 +28,7 @@ export const PLACES: Place[] = [
     { label: "Alberta", short: "alberta", placeId: 6834 }
 ];
 
-// this ok?
+// TODO this ok?
 export const DEMO_BASE_URL = "http://localhost:7777";
 
 // return the demo filename without the base URL
@@ -42,12 +42,17 @@ export const getDemoFile = (api: INatApi, taxonId: number, placeId: number, year
     } else if (api === INatApi.commonTaxa) {
         let yearStr = year === "all" ? "allyears" : year;
         filename = `${taxonInfo.short}-${placeInfo.short}-${yearStr}-commonTaxa.json`;
+    } else if (api === INatApi.favourites) {
+        let yearStr = year === "all" ? "allyears" : year;
+        filename = `${taxonInfo.short}-${placeInfo.short}-${yearStr}-favourites.json`;
     }
 
     return filename;
 };
 
-export const getDemoFileUrl = (api: INatApi, taxonId: number, placeId: number) => `${DEMO_BASE_URL}/${getDemoFile(api, taxonId, placeId)}`;
+export const getDemoFileUrl = (api: INatApi, taxonId: number, placeId: number, year?: string | number) => (
+    `${DEMO_BASE_URL}/${getDemoFile(api, taxonId, placeId, year)}`
+);
 
 export const getDemoConfigurations = (): Configuration[] => {
     const configurations: Configuration[] = [];
@@ -65,8 +70,7 @@ export const getDemoConfigurations = (): Configuration[] => {
             });
 
             // common taxa. For this, generate the last 10 years of info plus one for all years
-            const currentYear = getCurrentYear();
-            const baseData = {
+            const baseCommonTaxaData = {
                 api: INatApi.commonTaxa,
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
@@ -75,19 +79,40 @@ export const getDemoConfigurations = (): Configuration[] => {
             };
 
             configurations.push({
-                ...baseData,
+                ...baseCommonTaxaData,
                 year: "all"
             })
 
+            const currentYear = getCurrentYear();
             for (let year = currentYear - 10; year <= currentYear; year++) {
                 configurations.push({
-                    ...baseData,
+                    ...baseCommonTaxaData,
                     filename: getDemoFile(INatApi.commonTaxa, taxonInfo.taxonId, placeInfo.placeId, year),
                     year
                 });
             }
 
-            configurations.push();
+            // Favourites. For this, generate the last 10 years of info plus one for all years
+            const baseFavouritesData = {
+                api: INatApi.favourites,
+                perPage: 100,
+                taxonId: taxonInfo.taxonId,
+                placeId: placeInfo.placeId,
+                filename: getDemoFile(INatApi.favourites, taxonInfo.taxonId, placeInfo.placeId, "all")
+            };
+
+            configurations.push({
+                ...baseFavouritesData,
+                year: "all"
+            })
+
+            for (let year = currentYear - 10; year <= currentYear; year++) {
+                configurations.push({
+                    ...baseFavouritesData,
+                    filename: getDemoFile(INatApi.favourites, taxonInfo.taxonId, placeInfo.placeId, year),
+                    year
+                });
+            }
         });
     });
 

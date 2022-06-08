@@ -37,10 +37,10 @@ export const getFavourites = async ({ year, taxonId, placeId, perPage }: Favouri
     });
 
     const resp = await response.json();
-    const sortedTaxa = resp.results.sort((a: any, b: any) => {
-        if (a.count > b.count) {
+    const sortedTaxa = resp.results.filter((i: any) => i.faves.length > 0).sort((a: any, b: any) => {
+        if (a.faves.length > b.faves.length) {
             return -1;
-        } else if (a.count < b.count) {
+        } else if (a.faves.length < b.faves.length) {
             return 1;
         }
         return 0;
@@ -49,13 +49,13 @@ export const getFavourites = async ({ year, taxonId, placeId, perPage }: Favouri
     return {
         totalResults: resp.total_results,
         results: sortedTaxa.map((row: any) => ({
-            id: row.taxon.id,
+            id: row.id,
             imageUrl: row.taxon?.default_photo?.square_url || "",
-            obsCount: row.count,
             obsDate: row.observed_on_string,
+            obsUrl: row.uri,
             taxonName: row.taxon.name || "",
             taxonCommonName: row.taxon.preferred_common_name,
-            numFaves: row.taxon.faves
+            numFaves: row.faves.length
         }))
     };
 };
