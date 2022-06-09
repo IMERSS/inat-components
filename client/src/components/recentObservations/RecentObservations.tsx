@@ -6,6 +6,7 @@ import * as C from "../../constants";
 import styles from "./RecentObservations.module.scss";
 import generalStyles from "../../css/general.module.scss";
 import {DataSource} from "../../typings";
+import {NoResults} from "../noResults/NoResults";
 
 export type RecentObservationsProps = {
     source?: DataSource;
@@ -93,6 +94,7 @@ export const RecentObservations = ({
         <div className={classes}>
             <Load loading={loading} />
             <div className={generalStyles.grid}>
+                {!loading && observations.length === 0 && <NoResults />}
                 {observations.map((obs: RecentObservationData) => (
                     <Observation
                         key={obs.id}

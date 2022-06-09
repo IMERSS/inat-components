@@ -7,6 +7,7 @@ import generalStyles from "../../css/general.module.scss";
 import {DataSource} from "../../typings";
 import * as C from "../../constants";
 import styles from "../recentObservations/RecentObservations.module.scss";
+import {NoResults} from "../noResults/NoResults";
 
 export type CommonTaxaProps = {
     year: string;
@@ -96,6 +97,7 @@ export const CommonTaxa = ({
     return (
         <div className={classes}>
             <Load loading={loading} />
+            {!loading && taxa.length === 0 && <NoResults />}
             <div className={generalStyles.grid}>
                 {taxa.map((data: CommonTaxData) => (
                     <Observation

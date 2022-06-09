@@ -7,6 +7,7 @@ import {DataSource} from "../../typings";
 import {FavouritesRespData, FavouritesData} from "../../utils/favourites";
 import * as C from "../../constants";
 import styles from "../recentObservations/RecentObservations.module.scss";
+import {NoResults} from "../noResults/NoResults";
 
 export type FavouritesProps = {
     year: string;
@@ -50,8 +51,6 @@ export const Favourites = ({
         if (source !== DataSource.autoLoad) {
             return;
         }
-
-        // console.log({ source, year, placeId, taxonId, perPage });
 
         if (!taxonId) {
             console.error("Please supply a `taxonId` prop for the `autoLoad` source prop option.");
@@ -99,6 +98,7 @@ export const Favourites = ({
     return (
         <div className={classes}>
             <Load loading={loading} />
+            {!loading && observations.length === 0 && <NoResults />}
             <div className={generalStyles.grid}>
                 {observations.map((obs: any) => (
                     <Observation
