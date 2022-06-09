@@ -22,20 +22,25 @@ export type RecentObservationsRespData = {
 }
 
 export const getRecentObservations = async ({ taxonId, placeId, perPage }: RecentObservationsCallProps): Promise<RecentObservationsRespData> => {
-    const url = `${C.BASE_URL}/v1/observations?photos=true&per_page=${perPage}&taxon_id=${taxonId}&place_id=${placeId}&order=desc&order_by=observed_on`;
+    const url = `${C.BASE_API_URL}/v1/observations?photos=true&per_page=${perPage}&taxon_id=${taxonId}&place_id=${placeId}&order=desc&order_by=observed_on`;
     const response = await fetch(url);
     const obs = await response.json();
 
+
     return {
         totalResults: obs.total_results,
-        results: obs.results.map((obs: any) => ({
-            id: obs.id,
-            imageUrl: obs.observation_photos[0].photo.url,
-            obsUrl: obs.uri,
-            obsDate: obs.observed_on_string,
-            taxonName: obs?.taxon?.name || "",
-            taxonCommonName: obs?.taxon.preferred_common_name,
-            observerUsername: obs.user.login
-        }))
+        results: obs.results.map((obs: any) => {
+            console.log("ro", obs.observed_on_string);
+
+            return {
+                id: obs.id,
+                imageUrl: obs.observation_photos[0].photo.url,
+                obsUrl: obs.uri,
+                obsDate: obs.observed_on_string,
+                taxonName: obs?.taxon?.name || "",
+                taxonCommonName: obs?.taxon.preferred_common_name,
+                observerUsername: obs.user.login
+            }
+        })
     };
 };

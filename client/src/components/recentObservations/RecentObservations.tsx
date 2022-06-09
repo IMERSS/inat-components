@@ -7,6 +7,7 @@ import styles from "./RecentObservations.module.scss";
 import generalStyles from "../../css/general.module.scss";
 import {DataSource} from "../../typings";
 import {NoResults} from "../noResults/NoResults";
+import {formatDate} from "../../utils/dateUtils";
 
 export type RecentObservationsProps = {
     source?: DataSource;
@@ -25,7 +26,7 @@ export type RecentObservationsProps = {
 export const RecentObservationLabel = (obs: RecentObservationData) => (
     <div className={generalStyles.obsLabel}>
         <h3>{obs.taxonCommonName || obs.taxonName}</h3>
-        <div>{obs.obsDate}</div>
+        <div>{formatDate(obs.obsDate)}</div>
         <div>{obs.observerUsername}</div>
     </div>
 );

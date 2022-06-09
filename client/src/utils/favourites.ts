@@ -24,7 +24,7 @@ export type FavouritesRespData = {
 }
 
 export const getFavourites = async ({ year, taxonId, placeId, perPage }: FavouritesCallProps): Promise<FavouritesRespData> => {
-    let url = `${C.BASE_URL}/v1/observations?verifiable=true&order_by=votes&order=desc&page=1&spam=false&place_id=${placeId}&taxon_id=${taxonId}&locale=en-US&per_page=${perPage}`;
+    let url = `${C.BASE_API_URL}/v1/observations?verifiable=true&order_by=votes&order=desc&page=1&spam=false&place_id=${placeId}&taxon_id=${taxonId}&locale=en-US&per_page=${perPage}`;
     if (year !== "all") {
         url += `&d1=${year}-01-01&d2=${year}-12-31`;
     }
@@ -48,14 +48,19 @@ export const getFavourites = async ({ year, taxonId, placeId, perPage }: Favouri
 
     return {
         totalResults: resp.total_results,
-        results: sortedTaxa.map((row: any) => ({
-            id: row.id,
-            imageUrl: row.taxon?.default_photo?.square_url || "",
-            obsDate: row.observed_on_string,
-            obsUrl: row.uri,
-            taxonName: row.taxon.name || "",
-            taxonCommonName: row.taxon.preferred_common_name,
-            numFaves: row.faves.length
-        }))
+        results: sortedTaxa.map((row: any) => {
+
+            console.log("ct", row.observed_on_string);
+
+            return {
+                id: row.id,
+                imageUrl: row.taxon?.default_photo?.square_url || "",
+                obsDate: row.observed_on_string,
+                obsUrl: row.uri,
+                taxonName: row.taxon.name || "",
+                taxonCommonName: row.taxon.preferred_common_name,
+                numFaves: row.faves.length
+            };
+        })
     };
 };

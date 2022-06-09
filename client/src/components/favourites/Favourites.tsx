@@ -8,6 +8,7 @@ import {FavouritesRespData, FavouritesData} from "../../utils/favourites";
 import * as C from "../../constants";
 import styles from "../recentObservations/RecentObservations.module.scss";
 import {NoResults} from "../noResults/NoResults";
+import {formatDate} from "../../utils/dateUtils";
 
 export type FavouritesProps = {
     year: string;
@@ -28,7 +29,7 @@ export const FavouritesLabel = (data: FavouritesData) => (
     <div className={generalStyles.obsLabel}>
         <h3>{data.taxonCommonName || data.taxonName}</h3>
         <div>{data.observerUsername}</div>
-        <div>{data.obsDate}</div>
+        <div>{formatDate(data.obsDate)}</div>
         <label className={generalStyles.count}>{data.numFaves}</label>
     </div>
 );
@@ -51,7 +52,6 @@ export const Favourites = ({
         if (source !== DataSource.autoLoad) {
             return;
         }
-
         if (!taxonId) {
             console.error("Please supply a `taxonId` prop for the `autoLoad` source prop option.");
             return;
