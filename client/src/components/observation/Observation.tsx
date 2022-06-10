@@ -20,7 +20,8 @@ export const Observation = ({ imageUrl, linkUrl, children }: ObservationProps) =
                 overflow: "hidden",
                 borderRadius: 5,
                 background: `url(${imageUrl}) 50% 50% no-repeat`,
-                margin: "0 auto"
+                margin: "0 auto",
+                backgroundSize: "cover"
             }} />
             {children}
         </article>

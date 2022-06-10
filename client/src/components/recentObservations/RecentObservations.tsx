@@ -27,7 +27,13 @@ export const RecentObservationLabel = (obs: RecentObservationData) => (
     <div className={generalStyles.obsLabel}>
         <h3>{obs.taxonCommonName || obs.taxonName}</h3>
         <div>{formatDate(obs.obsDate)}</div>
-        <div>{obs.observerUsername}</div>
+        <div>
+            <a href={`${C.BASE_URL}/people/${obs.observerUsername}`}
+                target="_blank"
+                onClick={(e) => e.stopPropagation()}>
+                {obs.observerUsername}
+            </a>
+        </div>
     </div>
 );
 

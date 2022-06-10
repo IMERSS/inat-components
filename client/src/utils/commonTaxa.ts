@@ -20,6 +20,7 @@ export type CommonTaxaRespData = {
     results: [CommonTaxData]
 }
 
+
 export const getCommonTaxa = async ({ year, taxonId, placeId, perPage }: CommonTaxaCallProps): Promise<CommonTaxaRespData> => {
     let url = `${C.BASE_API_URL}/v1/observations/species_counts?verifiable=true&spam=false&place_id=${placeId}&taxon_id=${taxonId}&locale=en-US&per_page=${perPage}`;
     if (year !== "all") {

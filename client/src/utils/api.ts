@@ -1,5 +1,7 @@
 import * as C from "../constants";
 
+console.log(C);
+
 export const getSummary = async (taxonId: number, placeId: number, onSuccess: any) => {
     const observers = await getObserverSummary(taxonId, placeId);
     onSuccess({

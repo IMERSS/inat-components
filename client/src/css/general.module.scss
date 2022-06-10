@@ -14,6 +14,14 @@
 
 .obsLabel {
     padding: 10px 20px;
+
+    a {
+        text-decoration: none;
+        color: #336699;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 .loader {
