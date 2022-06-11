@@ -1,9 +1,9 @@
 import fs from "fs";
 import sleep from "sleep-promise";
 import cliProgress from "cli-progress";
-import { getRecentObservations } from "../client/src/utils/recentObservations";
-import { getCommonTaxa } from "../client/src/utils/commonTaxa";
-import { getFavourites } from "../client/src/utils/favourites";
+import { getRecentObservations } from "../client/src/api/recentObservations";
+import { getCommonTaxa } from "../client/src/api/commonTaxa";
+import { getFavourites } from "../client/src/api/favourites";
 import {INatApi, ConfigurationSet} from "../client/src/typings";
 import {getDemoConfigurations} from "../client/src/demo/demo.config";
 

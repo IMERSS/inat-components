@@ -1,6 +1,6 @@
-## inat-components
+# inat-components
 
-> Currently in development. 
+> Currently in development! 
 
 This repo contains some prebuilt React components to display iNaturalist data. The goal was to provide some
 interactive info for the BC Lepidoptera website so visitors could see some interesting high-level information about 
@@ -46,7 +46,13 @@ yarn add inat-components
 
 ### Available components 
 
-We'll go into details about each of these components below, but here's what's available. 
+We'll go into details about each of these components below, but here's what's available.
+
+`<Panel />`
+
+This is a pre-built panel containing all visualization data available, grouped into tabs: recent observations, common
+taxa, favourites and a summary tab. You get less control using this component than all the others below, but it means 
+you don't have to write any code. 
 
 `<RecentObservations />`
 

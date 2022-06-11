@@ -26,12 +26,9 @@ export const getRecentObservations = async ({ taxonId, placeId, perPage }: Recen
     const response = await fetch(url);
     const obs = await response.json();
 
-
     return {
         totalResults: obs.total_results,
         results: obs.results.map((obs: any) => {
-            console.log("ro", obs.observed_on_string);
-
             return {
                 id: obs.id,
                 imageUrl: obs.observation_photos[0].photo.url,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Observation } from "../observation/Observation";
 import Loader from "../loader/Loader";
-import {getRecentObservations, RecentObservationData, RecentObservationsRespData} from "../../utils/recentObservations";
+import {getRecentObservations, RecentObservationData, RecentObservationsRespData} from "../../api/recentObservations";
 import * as C from "../../constants";
 import styles from "./RecentObservations.module.scss";
 import generalStyles from "../../css/general.module.scss";

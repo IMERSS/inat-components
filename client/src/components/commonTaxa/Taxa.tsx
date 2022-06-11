@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Observation} from "../observation/Observation";
 import Loader from "../loader/Loader";
-import {CommonTaxaRespData, CommonTaxData, getCommonTaxa} from "../../utils/commonTaxa";
+import {CommonTaxaRespData, CommonTaxData, getCommonTaxa} from "../../api/commonTaxa";
 import {numberWithCommas} from "../../utils/numberUtils";
 import generalStyles from "../../css/general.module.scss";
 import {DataSource} from "../../typings";
