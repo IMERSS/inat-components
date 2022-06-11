@@ -62,7 +62,7 @@ export const Summary = ({ source, data, dataUrl, taxonId, placeId, year }: Summa
     }, [source, dataUrl]);
 
     return (
-        <div style={{ position: 'relative' }}>
+        <div className={styles.summaryPage}>
             <Loader loading={loading} />
 
             <ul className={styles.countSummary}>
@@ -70,15 +70,17 @@ export const Summary = ({ source, data, dataUrl, taxonId, placeId, year }: Summa
                 <li>Total number of observations: <b>{summaryData.observations?.totalCount ? numberWithCommas(summaryData.observations.totalCount): ""}</b></li>
             </ul>
 
-            <div style={{ width: 600, height: 400, float: "right"}}>
-                <h1>Seasonality</h1>
-                {summaryData.seasonalityData && <Seasonality data={summaryData.seasonalityData.monthOfYear} />}
-            </div>
+            <section>
+                <div className={styles.seasonalityBlock}>
+                    <h1>Seasonality</h1>
+                    {summaryData.seasonalityData && <Seasonality data={summaryData.seasonalityData.monthOfYear} />}
+                </div>
 
-            <div style={{ width: 300 }}>
-                <h1>Top observers</h1>
-                {summaryData.observers?.top && <ObserverList observers={summaryData.observers.top} />}
-            </div>
+                <div className={styles.observersBlock}>
+                    <h1>Top observers</h1>
+                    {summaryData.observers?.top && <ObserverList observers={summaryData.observers.top} />}
+                </div>
+            </section>
         </div>
     );
 }

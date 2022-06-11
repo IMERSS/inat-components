@@ -135,7 +135,7 @@ export const getDemoConfigurations = (): Configuration[] => {
             for (let year = currentYear - 10; year <= currentYear; year++) {
                 configurations.push({
                     ...baseStatsData,
-                    filename: getDemoFile(INatApi.favourites, taxonInfo.taxonId, placeInfo.placeId, year),
+                    filename: getDemoFile(INatApi.stats, taxonInfo.taxonId, placeInfo.placeId, year),
                     year
                 });
             }
