@@ -1,10 +1,15 @@
 import * as C from "../constants";
 
+export type SummaryProps = {
+    taxonId: number;
+    placeId: number;
+    year: string | number;
+}
 
-export const getSummary = async (taxonId: number, placeId: number): Promise<any> => {
+export const getSummary = async ({ taxonId, placeId, year }: SummaryProps): Promise<any> => {
     const observers = await getObserverSummary(taxonId, placeId);
     const observations = await getObservationSummary(taxonId, placeId);
-    const seasonalityData = await getTaxonHistogramData(taxonId, placeId);
+    const seasonalityData = await getSeasonalityData(taxonId, placeId, year);
 
     return {
         observers,
@@ -50,8 +55,17 @@ export const getObservationSummary = async(taxonId: number, placeId: number) => 
     };
 }
 
-export const getTaxonHistogramData = async (taxonId: number, placeId: number): Promise<any> => {
+export type SeasonalityData = {
+    monthOfYear: {
+        [monthNum: string]: number
+    }
+}
+
+export const getSeasonalityData = async (taxonId: number, placeId: number, year: string | number): Promise<SeasonalityData> => {
     let url = `${C.BASE_API_URL}/v1/observations/histogram?verifiable=true&taxon_id=${taxonId}&place_id=${placeId}&locale=en-US&date_field=observed&interval=month_of_year`;
+    if (year !== "all") {
+        url += `&d1=${year}-01-01&d2=${year}-12-31`;
+    }
 
     const response = await fetch(url);
     const resp = await response.json();

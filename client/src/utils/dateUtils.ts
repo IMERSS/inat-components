@@ -8,7 +8,7 @@ export const formatDate = (date: string, dateFormat = "MMM do, h:mm b"): any => 
     try {
         formattedDate = format(Date.parse(date), dateFormat);
     } catch (e) {
-        console.log("in validate: ", date);
+        console.log("Failed to parse date: ", date);
     }
     return formattedDate;
 }

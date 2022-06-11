@@ -13,10 +13,10 @@ export enum INatApi {
 
 export type Configuration = {
     api: INatApi;
-    perPage: number;
     taxonId: number;
     placeId: number;
     filename: string;
+    perPage?: number;
     year?: string | number; // required for common taxa (separate type?)
     refreshTime?: number; // prob required
     minify?: boolean;

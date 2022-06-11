@@ -35,16 +35,17 @@ export const DEMO_BASE_URL = "http://localhost:7777";
 export const getDemoFile = (api: INatApi, taxonId: number, placeId: number, year?: string | number): string => {
     const taxonInfo = TAXA.find((i) => i.taxonId === taxonId) as Taxa;
     const placeInfo = PLACES.find((i) => i.placeId === placeId) as Place;
+    const yearStr = year === "all" ? "allyears" : year;
 
     let filename = "";
     if (api === INatApi.recentObservations) {
         filename = `${taxonInfo.short}-${placeInfo.short}-recent.json`;
     } else if (api === INatApi.commonTaxa) {
-        let yearStr = year === "all" ? "allyears" : year;
         filename = `${taxonInfo.short}-${placeInfo.short}-${yearStr}-commonTaxa.json`;
     } else if (api === INatApi.favourites) {
-        let yearStr = year === "all" ? "allyears" : year;
         filename = `${taxonInfo.short}-${placeInfo.short}-${yearStr}-favourites.json`;
+    } else if (api === INatApi.stats) {
+        filename = `${taxonInfo.short}-${placeInfo.short}-${yearStr}-stats.json`;
     }
 
     return filename;
@@ -59,8 +60,10 @@ export const getDemoConfigurations = (): Configuration[] => {
 
     TAXA.forEach((taxonInfo) => {
         PLACES.forEach((placeInfo) => {
+            const currentYear = getCurrentYear();
 
-            // recent observations
+            // ------------------------------------------------------------------------------------
+            // Recent observations
             configurations.push({
                 api: INatApi.recentObservations,
                 perPage: 100,
@@ -69,7 +72,8 @@ export const getDemoConfigurations = (): Configuration[] => {
                 filename: getDemoFile(INatApi.recentObservations, taxonInfo.taxonId, placeInfo.placeId)
             });
 
-            // common taxa. For this, generate the last 10 years of info plus one for all years
+            // ------------------------------------------------------------------------------------
+            // Common taxa. For this, generate the last 10 years of info plus one for all years
             const baseCommonTaxaData = {
                 api: INatApi.commonTaxa,
                 perPage: 100,
@@ -83,7 +87,6 @@ export const getDemoConfigurations = (): Configuration[] => {
                 year: "all"
             })
 
-            const currentYear = getCurrentYear();
             for (let year = currentYear - 10; year <= currentYear; year++) {
                 configurations.push({
                     ...baseCommonTaxaData,
@@ -92,6 +95,7 @@ export const getDemoConfigurations = (): Configuration[] => {
                 });
             }
 
+            // ------------------------------------------------------------------------------------
             // Favourites. For this, generate the last 10 years of info plus one for all years
             const baseFavouritesData = {
                 api: INatApi.favourites,
@@ -109,6 +113,28 @@ export const getDemoConfigurations = (): Configuration[] => {
             for (let year = currentYear - 10; year <= currentYear; year++) {
                 configurations.push({
                     ...baseFavouritesData,
+                    filename: getDemoFile(INatApi.favourites, taxonInfo.taxonId, placeInfo.placeId, year),
+                    year
+                });
+            }
+
+            // ------------------------------------------------------------------------------------
+            // Stats
+            const baseStatsData = {
+                api: INatApi.stats,
+                taxonId: taxonInfo.taxonId,
+                placeId: placeInfo.placeId,
+                filename: getDemoFile(INatApi.stats, taxonInfo.taxonId, placeInfo.placeId, "all")
+            };
+
+            configurations.push({
+                ...baseStatsData,
+                year: "all"
+            });
+
+            for (let year = currentYear - 10; year <= currentYear; year++) {
+                configurations.push({
+                    ...baseStatsData,
                     filename: getDemoFile(INatApi.favourites, taxonInfo.taxonId, placeInfo.placeId, year),
                     year
                 });

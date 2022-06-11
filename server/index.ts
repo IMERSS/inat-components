@@ -4,6 +4,7 @@ import cliProgress from "cli-progress";
 import { getRecentObservations } from "../client/src/api/recentObservations";
 import { getCommonTaxa } from "../client/src/api/commonTaxa";
 import { getFavourites } from "../client/src/api/favourites";
+import { getSummary } from "../client/src/api/summary";
 import {INatApi, ConfigurationSet} from "../client/src/typings";
 import {getDemoConfigurations} from "../client/src/demo/demo.config";
 
@@ -35,6 +36,12 @@ const generateFile = async ({ config, set }: any) => {
             taxonId: config.taxonId,
             placeId: config.placeId,
             perPage: config.perPage,
+            year: config.year as string
+        });
+    } else if (config.api === INatApi.stats) {
+        data = await getSummary({
+            taxonId: config.taxonId,
+            placeId: config.placeId,
             year: config.year as string
         });
     }
