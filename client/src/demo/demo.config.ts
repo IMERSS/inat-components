@@ -19,13 +19,13 @@ export type Place = {
 
 export const TAXA: Taxa[] = [
     { label: "Butterflies and moth", short: "leps", taxonId: 47157 },
-    // { label: "Beetles", short: "beetles", taxonId: 47208 },
-    // { label: "Birds", short: "birds", taxonId: 3 }
+    { label: "Beetles", short: "beetles", taxonId: 47208 },
+    { label: "Birds", short: "birds", taxonId: 3 }
 ];
 
 export const PLACES: Place[] = [
     { label: "BC", short: "bc", placeId: 7085 },
-    // { label: "Alberta", short: "alberta", placeId: 6834 }
+    { label: "Alberta", short: "alberta", placeId: 6834 }
 ];
 
 // TODO this ok?
