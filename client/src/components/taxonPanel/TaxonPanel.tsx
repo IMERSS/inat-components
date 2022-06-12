@@ -15,12 +15,13 @@ import {getDemoFileUrl} from "../../demo.config";
 import styles from '../../css/general.module.scss';
 import {DataSource, INatApi} from "../../typings";
 
-function App() {
+
+const TaxonPanel = () => {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState<string>("all");
     const [taxonId, setTaxonId] = useState(C.DEFAULT_TAXON_ID);
     const [placeId, setPlaceId] = useState(C.DEFAULT_PLACE_ID);
-    const [dataSource, setDataSource] = useState(DataSource.url);
+    const [dataSource, setDataSource] = useState(DataSource.autoLoad);
 
     const getTitle = () => {
         const map = {
@@ -111,7 +112,6 @@ function App() {
                 dataSource={dataSource}
                 onChangeDataSource={setDataSource}
             />
-
             <div className={styles.page}>
                 <Tabs selectedTab={tab} onChangeTab={setTab} />
                 <div>
@@ -128,4 +128,4 @@ function App() {
     );
 }
 
-export default App;
+export default TaxonPanel;

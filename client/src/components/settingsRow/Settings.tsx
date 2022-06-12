@@ -13,6 +13,17 @@ export type SettingsProp = {
 };
 
 const Settings = ({ taxonId, onChangeTaxon, placeId, onChangePlace, dataSource, onChangeDataSource }: SettingsProp) => {
+
+    /*
+            <div>
+                <h4>Data Source</h4>
+                <select defaultValue={dataSource} onChange={(e) => onChangeDataSource(e.target.value as DataSource)}>
+                    <option value={DataSource.autoLoad}>Auto-load</option>
+                    <option value={DataSource.url}>Static JSON files</option>
+                </select>
+            </div>
+     */
+
     return (
         <section className={styles.row}>
             <div>
@@ -25,13 +36,6 @@ const Settings = ({ taxonId, onChangeTaxon, placeId, onChangePlace, dataSource, 
                 <h4>Place</h4>
                 <select defaultValue={placeId} onChange={(e) => onChangePlace(parseInt(e.target.value, 10))}>
                     {PLACES.map(({ placeId, label }) => <option key={placeId} value={placeId}>{label}</option>)}
-                </select>
-            </div>
-            <div>
-                <h4>Data Source</h4>
-                <select defaultValue={dataSource} onChange={(e) => onChangeDataSource(e.target.value as DataSource)}>
-                    <option value={DataSource.autoLoad}>Auto-load</option>
-                    <option value={DataSource.url}>Static JSON files</option>
                 </select>
             </div>
         </section>

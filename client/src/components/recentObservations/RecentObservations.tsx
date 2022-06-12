@@ -30,6 +30,7 @@ export const RecentObservationLabel = (obs: RecentObservationData) => (
         <div>
             <a href={`${C.BASE_URL}/people/${obs.observerUsername}`}
                 target="_blank"
+                rel="noreferrer"
                 onClick={(e) => e.stopPropagation()}>
                 {obs.observerUsername}
             </a>
