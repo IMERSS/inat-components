@@ -1,5 +1,5 @@
 import React from "react";
-import { TAXA, PLACES } from "../demo.config";
+import { TAXA, PLACES } from "../../demo.config";
 import styles from "./Settings.module.css";
 import {DataSource} from "../../typings";
 

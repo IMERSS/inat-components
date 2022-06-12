@@ -6,7 +6,7 @@ import { getCommonTaxa } from "../client/src/api/commonTaxa";
 import { getFavourites } from "../client/src/api/favourites";
 import { getSummary } from "../client/src/api/summary";
 import {INatApi, ConfigurationSet} from "../client/src/typings";
-import {getDemoConfigurations} from "../client/src/demo/demo.config";
+import {getDemoConfigurations} from "../client/src/demo.config";
 
 const configurationSets: ConfigurationSet[] = [
     {

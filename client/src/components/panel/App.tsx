@@ -2,18 +2,18 @@ import React, {useState} from 'react';
 import {
     RecentObservations,
     RecentObservationsProps
-} from '../components/recentObservations/RecentObservations';
-import {CommonTaxa} from '../components/commonTaxa/Taxa';
-import {Favourites} from "../components/favourites/Favourites"
-import {Summary} from "../components/summary/Summary";
-import Years from "../components/yearDropdown/Years";
-import Settings from "./settingsRow/Settings";
-import * as C from "../constants";
-import {Tab} from "../general";
-import Tabs from "../components/tabs/Tabs";
-import {getDemoFileUrl} from "./demo.config";
-import styles from '../css/general.module.scss';
-import {DataSource, INatApi} from "../typings";
+} from '../recentObservations/RecentObservations';
+import {CommonTaxa} from '../commonTaxa/Taxa';
+import {Favourites} from "../favourites/Favourites"
+import {Summary} from "../summary/Summary";
+import Years from "../yearDropdown/Years";
+import Settings from "../settingsRow/Settings";
+import * as C from "../../constants";
+import {Tab} from "../../general";
+import Tabs from "../tabs/Tabs";
+import {getDemoFileUrl} from "../../demo.config";
+import styles from '../../css/general.module.scss';
+import {DataSource, INatApi} from "../../typings";
 
 function App() {
     const [tab, setTab] = useState(Tab.recent);

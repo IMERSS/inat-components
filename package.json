@@ -2,6 +2,7 @@
   "name": "inat-components",
   "version": "1.0.0",
   "private": true,
+  "module": "client/index.ts",
   "scripts": {
     "start": "cd client && yarn start",
     "clean": "rimraf server/public/*",

@@ -3,8 +3,8 @@
  * content needed for the various components. To change the demo content just alter the TAXA and PLACES content here
  * and re-run `yarn generate` in repo root to get the latest static JSON content.
  */
-import {Configuration, INatApi} from "../typings";
-import {getCurrentYear} from "../utils/dateUtils";
+import {Configuration, INatApi} from "./typings";
+import {getCurrentYear} from "./utils/dateUtils";
 
 export type Taxa = {
     label: string;
