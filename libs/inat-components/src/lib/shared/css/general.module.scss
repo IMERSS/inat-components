@@ -1,0 +1,65 @@
+.page {
+  padding: 80px 10px 10px;
+  margin: 0 auto;
+  max-width: 1100px;
+
+  h1 {
+    border-bottom: 1px solid #efefef;
+    padding-bottom: 2px;
+    margin-bottom: 25px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr) );
+  width: 100%;
+  grid-gap: 8px;
+  text-align: center;
+}
+
+.obsLabel {
+  padding: 10px 20px;
+
+  a {
+    text-decoration: none;
+    color: #336699;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.loader {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loaderBg {
+  position: absolute;
+  background-color: #cccccc;
+  padding: 20px;
+  width: 100px;
+  border-radius: 10px;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.count {
+  background-color: #efefef;
+  color: #666666;
+  padding: 2px 8px;
+  margin-top: 6px;
+  display: inline-block;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 18px;
+}

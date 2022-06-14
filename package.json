@@ -1,21 +1,52 @@
 {
-  "name": "inat-components",
-  "version": "1.0.0",
-  "private": true,
-  "module": "client/index.ts",
+  "name": "imerss",
+  "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
-    "start": "cd client && yarn start",
-    "clean": "rimraf server/public/*",
-    "server": "cd server && ts-node webserver.ts",
-    "bootstrap": "cd client && yarn install",
-    "generate": "cd server && ts-node index.ts"
+    "start": "nx serve",
+    "build": "nx build",
+    "test": "nx test"
   },
+  "private": true,
   "dependencies": {
+    "core-js": "^3.6.5",
     "date-fns": "^2.28.0",
-    "react-charts": "^3.0.0-beta.36",
-    "rimraf": "^3.0.2"
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "regenerator-runtime": "0.13.7",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "ts-node": "^10.8.1"
+    "@nrwl/cli": "14.3.1",
+    "@nrwl/cypress": "14.3.1",
+    "@nrwl/eslint-plugin-nx": "14.3.1",
+    "@nrwl/jest": "14.3.1",
+    "@nrwl/linter": "14.3.1",
+    "@nrwl/react": "14.3.1",
+    "@nrwl/web": "14.3.1",
+    "@nrwl/workspace": "14.3.1",
+    "@testing-library/react": "13.3.0",
+    "@types/jest": "27.4.1",
+    "@types/node": "16.11.7",
+    "@types/react": "18.0.12",
+    "@types/react-dom": "18.0.5",
+    "@typescript-eslint/eslint-plugin": "~5.24.0",
+    "@typescript-eslint/parser": "~5.24.0",
+    "babel-jest": "27.5.1",
+    "cypress": "^9.1.0",
+    "eslint": "~8.15.0",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-react": "7.30.0",
+    "eslint-plugin-react-hooks": "4.5.0",
+    "jest": "27.5.1",
+    "nx": "14.3.1",
+    "prettier": "^2.6.2",
+    "react-test-renderer": "18.1.0",
+    "ts-jest": "27.1.4",
+    "ts-node": "~10.8.0",
+    "typescript": "~4.7.2"
   }
 }
