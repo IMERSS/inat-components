@@ -27,3 +27,10 @@ export type ConfigurationSet = {
   filenamePrefix: string;
   configurations: Configuration[];
 }
+
+export enum Tab {
+  recent = "recent",
+  favourites = "favourites",
+  mostCommon = "mostCommon",
+  stats = "stats"
+}

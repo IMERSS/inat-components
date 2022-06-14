@@ -1,3 +1,5 @@
+
+export * from './lib/summary/summary';
 export * as api from './lib/api';
 export * from './lib/utils';
 export * from './lib/observation/observation';

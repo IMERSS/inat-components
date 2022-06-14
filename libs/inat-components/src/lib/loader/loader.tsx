@@ -1,14 +1,26 @@
-import styles from './loader.module.scss';
+import React from "react";
+import LoadingSpinner from "react-spinners/MoonLoader";
+import styles from "../shared/css/general.module.scss";
 
-/* eslint-disable-next-line */
-export interface LoaderProps {}
+export type LoaderProps = {
+    loading: boolean;
+};
 
-export function Loader(props: LoaderProps) {
-  return (
-    <div className={styles['container']}>
-      <h1>Welcome to Loader!</h1>
-    </div>
-  );
-}
+const Loader = ({ loading }: LoaderProps) => {
+    let loaderClasses = styles.loader;
+    // if (loading) {
+    //     loaderClasses += ` ${styles.loading}`;
+    // }
+    if (!loading) {
+        return null;
+    }
+
+    return (
+        <div className={loaderClasses}>
+            <div className={styles.loaderBg} />
+            <LoadingSpinner color="#000000" />
+        </div>
+    );
+};
 
 export default Loader;

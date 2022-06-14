@@ -1,14 +1,48 @@
-import styles from './seasonality-graph.module.scss';
+import React from "react";
+// import { AxisOptions, Chart } from "react-charts";
+import { format } from "date-fns";
 
-/* eslint-disable-next-line */
-export interface SeasonalityGraphProps {}
+export const SeasonalityGraph = (blah: any) => null;
 
-export function SeasonalityGraph(props: SeasonalityGraphProps) {
-  return (
-    <div className={styles['container']}>
-      <h1>Welcome to SeasonalityGraph!</h1>
-    </div>
-  );
-}
-
-export default SeasonalityGraph;
+// export const SeasonalityGraph = ({ data }: any) => {
+//     const primaryAxis = React.useMemo<
+//         AxisOptions<typeof data[number]["data"][number]>
+//         >(
+//         () => ({
+//             getValue: (datum: any) => datum.primary as any
+//         }),
+//         []
+//     );
+//
+//     const secondaryAxes = React.useMemo<
+//         AxisOptions<typeof data[number]["data"][number]>[]
+//         >(
+//         () => [
+//             {
+//                 getValue: (datum: any) => datum.secondary,
+//                 elementType: "area"
+//             }
+//         ],
+//         []
+//     );
+//
+//     const formattedData = [
+//         {
+//             "label": "Observations",
+//             "data": Object.keys(data).map((monthNum) => ({
+//                 primary: format(new Date(2000, parseInt(monthNum, 10)-1, 1), 'MMMM'),
+//                 secondary: data[monthNum]
+//             }))
+//         }
+//     ];
+//
+//     return (
+//         <Chart
+//             options={{
+//                 data: formattedData,
+//                 primaryAxis,
+//                 secondaryAxes
+//             }}
+//         />
+//     );
+// }
