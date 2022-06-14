@@ -4,7 +4,7 @@ import {numberWithCommas} from '../utils/numberUtils';
 import { ObserverList } from './ObserverList';
 import Loader from "../loader/loader";
 import {SeasonalityGraph} from "../seasonality-graph/seasonality-graph";
-import styles from "./Summary.module.scss";
+import styles from "./summary.module.scss";
 import {DataSource} from "../../typings";
 import {FavouritesRespData} from "../api/favourites";
 

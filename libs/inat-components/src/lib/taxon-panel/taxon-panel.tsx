@@ -5,7 +5,7 @@ import {Favourites} from "../favourites/favourites"
 import {Summary} from "../summary/summary";
 import Years from "../year-dropdown/year-dropdown";
 
-// import Settings from "../settingsRow/Settings";
+// import SettingsRow from "../settings-row/SettingsRow";
 
 import * as C from "../../constants";
 import {Tab} from "../../typings";
@@ -14,7 +14,7 @@ import Tabs from "../tabs/tabs";
 // TODO
 import {getDemoFileUrl} from "./demo.config";
 
-import styles from '../../css/general.module.scss';
+import styles from '../shared/css/general.module.scss';
 import {DataSource, INatApi} from "../../typings";
 
 
@@ -105,7 +105,7 @@ const TaxonPanel = () => {
     };
 
     /*
-        <Settings
+        <SettingsRow
             taxonId={taxonId}
             onChangeTaxon={setTaxonId}
             placeId={placeId}
