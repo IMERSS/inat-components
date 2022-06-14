@@ -9,7 +9,6 @@ export * from './lib/favourites/favourites';
 export * from './lib/taxon-panel/taxon-panel';
 export * from './lib/seasonality-graph/seasonality-graph';
 export * from './lib/summary/summary';
-// export * from './lib/inat-components';
 export * from './typings';
 
 export default TaxonPanel;

@@ -28,7 +28,7 @@ export const PLACES: Place[] = [
     { label: "Alberta", short: "alberta", placeId: 6834 }
 ];
 
-// TODO this ok?
+// TODO this ok? Nope, definitely not!
 export const DEMO_BASE_URL = "http://localhost:7777";
 
 // return the demo filename without the base URL

@@ -18,12 +18,9 @@ import styles from '../shared/css/general.module.scss';
 import {DataSource, INatApi} from "../../typings";
 
 
-const TaxonPanel = () => {
+const TaxonPanel = ({ taxonId, placeId, dataSource }: any) => {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState<string>("all");
-    const [taxonId, setTaxonId] = useState(C.DEFAULT_TAXON_ID);
-    const [placeId, setPlaceId] = useState(C.DEFAULT_PLACE_ID);
-    const [dataSource, setDataSource] = useState(DataSource.autoLoad);
 
     const getTitle = () => {
         const map = {
@@ -103,17 +100,6 @@ const TaxonPanel = () => {
             }
         }
     };
-
-    /*
-        <SettingsRow
-            taxonId={taxonId}
-            onChangeTaxon={setTaxonId}
-            placeId={placeId}
-            onChangePlace={setPlaceId}
-            dataSource={dataSource}
-            onChangeDataSource={setDataSource}
-        />
-     */
 
     return (
         <div className={styles.page}>
