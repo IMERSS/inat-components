@@ -1,12 +1,12 @@
 import {useState} from "react";
 import TaxonPanel, {DataSource} from "@imerss/inat-components";
 import SettingsRow from "./settings-row/settings-row";
-import * as C from "./constants";
+import config from "../../inat.config.json";
 import "./app.module.scss";
 
-export function App() {
-	const [taxonId, setTaxonId] = useState(C.DEFAULT_TAXON_ID);
-	const [placeId, setPlaceId] = useState(C.DEFAULT_PLACE_ID);
+const App = () => {
+	const [taxonId, setTaxonId] = useState(config.taxa[0].taxonId);
+	const [placeId, setPlaceId] = useState(config.places[0].placeId);
 	const [dataSource, setDataSource] = useState(DataSource.autoLoad);
 
 	return (
@@ -18,11 +18,13 @@ export function App() {
 				onChangePlace={setPlaceId}
 				dataSource={dataSource}
 				onChangeDataSource={setDataSource}
+				config={config}
 			/>
 			<TaxonPanel
 				taxonId={taxonId}
 				placeId={placeId}
 				dataSource={dataSource}
+				features={config.features}
 			/>
 		</>
 	);

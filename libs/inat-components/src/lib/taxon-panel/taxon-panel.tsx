@@ -18,7 +18,7 @@ import styles from '../shared/css/general.module.scss';
 import {DataSource, INatApi} from "../../typings";
 
 
-const TaxonPanel = ({ taxonId, placeId, dataSource }: any) => {
+const TaxonPanel = ({ taxonId, placeId, dataSource, features }: any) => {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState<string>("all");
 
@@ -103,7 +103,11 @@ const TaxonPanel = ({ taxonId, placeId, dataSource }: any) => {
 
     return (
         <div className={styles.page}>
-            <Tabs selectedTab={tab} onChangeTab={setTab} />
+            <Tabs
+                selectedTab={tab}
+                onChangeTab={setTab}
+                features={features}
+            />
             <div>
                 {tab !== Tab.recent && (
                     <div style={{ float: "right" }}>

@@ -28,24 +28,22 @@
       "placeId": 6834
     }
   ],
-  "features": [
+  "features":
     {
-      "type": "recentObservations",
-      "numResults": 100
-    },
-    {
-      "type": "commonTaxa",
-      "numResults": 100,
-      "numYears": 10
-    },
-    {
-      "type": "favourites",
-      "numResults": 100,
-      "numYears": 10
-    },
-    {
-      "type": "stats",
-      "numTopObservers": 10
+      "recentObservations": {
+        "numResults": 100
+      },
+      "commonTaxa": {
+        "numResults": 100,
+        "numYears": 10
+      },
+      "favourites": {
+        "numResults": 100,
+        "numYears": 10
+      },
+      "stats": {
+        "numTopObservers": 10
+      }
     }
   ]
 }
