@@ -1,7 +1,28 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.tabs {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  font-size: 18px;
+  padding: 0;
+  margin-bottom: 30px;
+
+  li {
+    margin: 0 20px;
+    padding: 4px 20px;
+    cursor: pointer;
+    color: #999999;
+    transition: all 0.2s ease-in-out;
+
+    &.selected, &:hover {
+      border-bottom: 5px solid #0099cc;
+      color: black;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .tabs li {
+    margin: 0 5px;
+    padding: 4px 6px;
+  }
+}
