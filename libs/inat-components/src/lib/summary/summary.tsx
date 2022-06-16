@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {getSummary} from "../api/summary";
-import {numberWithCommas} from '../utils/numberUtils';
+import {numberWithCommas} from '../utils/number-utils';
 import { ObserverList } from './ObserverList';
 import Loader from "../loader/loader";
 import {SeasonalityGraph} from "../seasonality-graph/seasonality-graph";

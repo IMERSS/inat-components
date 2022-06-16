@@ -25,6 +25,7 @@ const App = () => {
 				placeId={placeId}
 				dataSource={dataSource}
 				features={config.features}
+				sourceFolder="http://localhost:7777"
 			/>
 		</>
 	);

@@ -1,11 +1,5 @@
 /*
-import fs from "fs";
-import { getRecentObservations } from "../client/src/api/recentObservations";
-import { getCommonTaxa } from "../client/src/api/commonTaxa";
-import { getFavourites } from "../client/src/api/favourites";
-import { getSummary } from "../client/src/api/summary";
 import {INatApi, ConfigurationSet} from "../client/src/typings";
-import {getDemoConfigurations} from "../../libs/inat-components/src/lib/taxon-panel/demo.config";
 import {Configuration, INatApi} from "../../typings";
 import {getCurrentYear} from "../utils/dateUtils";
 */
@@ -13,49 +7,20 @@ import {getCurrentYear} from "../utils/dateUtils";
 import fs from "fs";
 import sleep from "sleep-promise";
 import cliProgress from "cli-progress";
-// import {Place, PLACES, Taxa, TAXA} from "../taxon-panel/demo.config";
+import { getRecentObservations } from "../api/recent-observations";
+import { getCommonTaxa } from "../api/common-taxa";
+import { getFavourites } from "../api/favourites";
+import { getSummary } from "../api/summary";
 import {Configuration, INatApi} from "../../typings";
-import {getCurrentYear} from "../utils/dateUtils";
+import {getCurrentYear} from "../utils/date-utils";
+import {getSourceFile} from "../utils/config-utils";
 
-const configurationSets: ConfigurationSet[] = [
-	{
-		name: "Demo files",
-		configurations: getDemoConfigurations()
-	}
-];
 
-// TODO this ok? Nope, definitely not!
-export const DEMO_BASE_URL = "http://localhost:7777";
-
-// return the demo filename without the base URL
-export const getDemoFile = (api: INatApi, taxonId: number, placeId: number, year?: string | number): string => {
-	const taxonInfo = TAXA.find((i) => i.taxonId === taxonId) as Taxa;
-	const placeInfo = PLACES.find((i) => i.placeId === placeId) as Place;
-	const yearStr = year === "all" ? "allyears" : year;
-
-	let filename = "";
-	if (api === INatApi.recentObservations) {
-		filename = `${taxonInfo.short}-${placeInfo.short}-recent.json`;
-	} else if (api === INatApi.commonTaxa) {
-		filename = `${taxonInfo.short}-${placeInfo.short}-${yearStr}-commonTaxa.json`;
-	} else if (api === INatApi.favourites) {
-		filename = `${taxonInfo.short}-${placeInfo.short}-${yearStr}-favourites.json`;
-	} else if (api === INatApi.stats) {
-		filename = `${taxonInfo.short}-${placeInfo.short}-${yearStr}-stats.json`;
-	}
-
-	return filename;
-};
-
-export const getDemoFileUrl = (api: INatApi, taxonId: number, placeId: number, year?: string | number) => (
-	`${DEMO_BASE_URL}/${getDemoFile(api, taxonId, placeId, year)}`
-);
-
-export const getDemoConfigurations = (): Configuration[] => {
+export const getConfigurations = (config: any): Configuration[] => {
 	const configurations: Configuration[] = [];
 
-	TAXA.forEach((taxonInfo) => {
-		PLACES.forEach((placeInfo) => {
+	config.taxa.forEach((taxonInfo: any) => {
+		config.places.forEach((placeInfo: any) => {
 			const currentYear = getCurrentYear();
 
 			// ------------------------------------------------------------------------------------
@@ -65,7 +30,7 @@ export const getDemoConfigurations = (): Configuration[] => {
 				perPage: 100,
 				taxonId: taxonInfo.taxonId,
 				placeId: placeInfo.placeId,
-				filename: getDemoFile(INatApi.recentObservations, taxonInfo.taxonId, placeInfo.placeId)
+				filename: getSourceFile(INatApi.recentObservations, taxonInfo.taxonId, placeInfo.placeId)
 			});
 
 			// ------------------------------------------------------------------------------------
@@ -75,7 +40,7 @@ export const getDemoConfigurations = (): Configuration[] => {
 				perPage: 100,
 				taxonId: taxonInfo.taxonId,
 				placeId: placeInfo.placeId,
-				filename: getDemoFile(INatApi.commonTaxa, taxonInfo.taxonId, placeInfo.placeId, "all")
+				filename: getSourceFile(INatApi.commonTaxa, taxonInfo.taxonId, placeInfo.placeId, "all")
 			};
 
 			configurations.push({
@@ -86,7 +51,7 @@ export const getDemoConfigurations = (): Configuration[] => {
 			for (let year = currentYear - 10; year <= currentYear; year++) {
 				configurations.push({
 					...baseCommonTaxaData,
-					filename: getDemoFile(INatApi.commonTaxa, taxonInfo.taxonId, placeInfo.placeId, year),
+					filename: getSourceFile(INatApi.commonTaxa, taxonInfo.taxonId, placeInfo.placeId, year),
 					year
 				});
 			}
@@ -98,7 +63,7 @@ export const getDemoConfigurations = (): Configuration[] => {
 				perPage: 100,
 				taxonId: taxonInfo.taxonId,
 				placeId: placeInfo.placeId,
-				filename: getDemoFile(INatApi.favourites, taxonInfo.taxonId, placeInfo.placeId, "all")
+				filename: getSourceFile(INatApi.favourites, taxonInfo.taxonId, placeInfo.placeId, "all")
 			};
 
 			configurations.push({
@@ -109,7 +74,7 @@ export const getDemoConfigurations = (): Configuration[] => {
 			for (let year = currentYear - 10; year <= currentYear; year++) {
 				configurations.push({
 					...baseFavouritesData,
-					filename: getDemoFile(INatApi.favourites, taxonInfo.taxonId, placeInfo.placeId, year),
+					filename: getSourceFile(INatApi.favourites, taxonInfo.taxonId, placeInfo.placeId, year),
 					year
 				});
 			}
@@ -120,7 +85,7 @@ export const getDemoConfigurations = (): Configuration[] => {
 				api: INatApi.stats,
 				taxonId: taxonInfo.taxonId,
 				placeId: placeInfo.placeId,
-				filename: getDemoFile(INatApi.stats, taxonInfo.taxonId, placeInfo.placeId, "all")
+				filename: getSourceFile(INatApi.stats, taxonInfo.taxonId, placeInfo.placeId, "all")
 			};
 
 			configurations.push({
@@ -131,7 +96,7 @@ export const getDemoConfigurations = (): Configuration[] => {
 			for (let year = currentYear - 10; year <= currentYear; year++) {
 				configurations.push({
 					...baseStatsData,
-					filename: getDemoFile(INatApi.stats, taxonInfo.taxonId, placeInfo.placeId, year),
+					filename: getSourceFile(INatApi.stats, taxonInfo.taxonId, placeInfo.placeId, year),
 					year
 				});
 			}
@@ -181,7 +146,7 @@ const generateFile = async ({ config, set }: any) => {
 	fs.writeFileSync(filenameWithPath, content);
 };
 
-const process = async (configurationSets) => {
+const process = async (config: any) => {
 	const queue: any = [];
 	let currentIndex = 0;
 
@@ -200,11 +165,16 @@ const process = async (configurationSets) => {
 		}
 	};
 
-	configurationSets.map((set) => {
-		set.configurations.map((config) => {
-			queue.push({ set, config });
-		})
-	});
+	const configurations = getConfigurations(config);
+
+	console.log(configurations);
+	return;
+
+	// configurations.map((set) => {
+	// 	set.configurations.map((config) => {
+	// 		queue.push({ set, config });
+	// 	})
+	// });
 
 	loadingBar.start(queue.length, 0);
 

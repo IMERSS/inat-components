@@ -2,7 +2,7 @@ import React from 'react';
 import {Observer} from '../api/summary';
 import styles from './summary.module.scss';
 import * as C from '../../constants';
-import {numberWithCommas} from '../utils/numberUtils';
+import {numberWithCommas} from '../utils/number-utils';
 
 export const ObserverList = ({observers}: { observers: Observer[] }) => (
 	<ul className={styles.top}>

@@ -7,7 +7,7 @@ import styles from "./recent-observations.module.scss";
 import generalStyles from "../shared/css/general.module.scss";
 import {DataSource} from "../../typings";
 import {NoResults} from "../no-results/no-results";
-import {formatDate} from "../utils/dateUtils";
+import {formatDate} from "../utils/date-utils";
 
 export type RecentObservationsProps = {
     source?: DataSource;

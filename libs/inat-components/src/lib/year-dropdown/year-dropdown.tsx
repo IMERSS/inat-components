@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getCurrentYear } from '../utils/dateUtils';
+import { getCurrentYear } from '../utils/date-utils';
 import styles from "./year-dropdown.module.scss";
 
 interface YearsProps {

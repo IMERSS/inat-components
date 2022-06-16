@@ -1,2 +1,2 @@
-export * as dateUtils from './dateUtils';
-export * as numberUtils from './numberUtils';
+export * as dateUtils from './date-utils';
+export * as numberUtils from './number-utils';

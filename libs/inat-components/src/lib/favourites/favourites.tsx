@@ -6,7 +6,7 @@ import {getFavourites, FavouritesRespData, FavouritesData} from "../api/favourit
 import * as C from "../../constants";
 import styles from "../shared/css/general.module.scss";
 import {NoResults} from "../no-results/no-results";
-import {formatDate} from "../utils/dateUtils";
+import {formatDate} from "../utils/date-utils";
 import {DataSource} from "../../typings";
 
 export type FavouritesProps = {
