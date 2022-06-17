@@ -1,7 +1,6 @@
 import TaxonPanel from './lib/taxon-panel/taxon-panel';
 export * as api from './lib/api';
 export * from './lib/utils';
-export * from './lib/generator/generator';
 export * from './lib/observation/observation';
 export * from './lib/common-taxa/common-taxa';
 export * from './lib/recent-observations/recent-observations';

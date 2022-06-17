@@ -4,6 +4,7 @@
   "projects": {
     "demo": "apps/demo",
     "demo-e2e": "apps/demo-e2e",
+    "generator": "libs/generator",
     "inat-components": "libs/inat-components"
   }
 }

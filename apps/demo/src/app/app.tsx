@@ -4,6 +4,8 @@ import SettingsRow from "./settings-row/settings-row";
 import config from "../../inat.config.json";
 import "./app.module.scss";
 
+console.log({ config });
+
 const App = () => {
 	const [taxonId, setTaxonId] = useState(config.taxa[0].taxonId);
 	const [placeId, setPlaceId] = useState(config.places[0].placeId);
