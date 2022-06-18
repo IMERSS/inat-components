@@ -7,7 +7,7 @@ import Years from "../year-dropdown/year-dropdown";
 import {Tab} from "../../typings";
 import Tabs from "../tabs/tabs";
 import styles from '../shared/css/general.module.scss';
-import {DataSource, INatApi} from "../../typings";
+import {DataSource, Feature} from "../../typings";
 import {getSourceFile} from "../utils/config-utils";
 
 const defaultTitles = {
@@ -41,7 +41,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: an
                     source: dataSource
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = sourceFolder + '/' + getSourceFile(INatApi.recentObservations, taxonId, placeId);
+                    props.dataUrl = sourceFolder + '/' + getSourceFile(Feature.recentObservations, taxonId, placeId);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
@@ -58,7 +58,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: an
                     year
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = sourceFolder + '/' + getSourceFile(INatApi.commonTaxa, taxonId, placeId, year);
+                    props.dataUrl = sourceFolder + '/' + getSourceFile(Feature.commonTaxa, taxonId, placeId, year);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
@@ -75,7 +75,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: an
                     year
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = sourceFolder + '/' + getSourceFile(INatApi.favourites, taxonId, placeId, year);
+                    props.dataUrl = sourceFolder + '/' + getSourceFile(Feature.favourites, taxonId, placeId, year);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
@@ -92,7 +92,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: an
                     year
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = sourceFolder + '/' + getSourceFile(INatApi.stats, taxonId, placeId, year);
+                    props.dataUrl = sourceFolder + '/' + getSourceFile(Feature.stats, taxonId, placeId, year);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;

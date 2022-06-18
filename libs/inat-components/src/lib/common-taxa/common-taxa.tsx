@@ -4,23 +4,12 @@ import Loader from "../loader/loader";
 import {CommonTaxaRespData, CommonTaxData, getCommonTaxa} from "../api/common-taxa";
 import {numberWithCommas} from "../utils/number-utils";
 import styles from "../shared/css/general.module.scss";
-import {DataSource} from "../../typings";
+import {BaseComponentProps, DataSource} from "../../typings";
 import * as C from "../../constants";
 import {NoResults} from "../no-results/no-results";
 
-export type CommonTaxaProps = {
+export type CommonTaxaProps = BaseComponentProps & {
 	year: string;
-	source?: DataSource;
-	taxonId?: number;
-	placeId?: number;
-	perPage?: number;
-	data?: CommonTaxaRespData;
-	dataUrl?: string;
-	components?: {
-		loader?: JSX.Element;
-		label?: JSX.Element;
-	};
-	className?: string;
 }
 
 export const CommonTaxaLabel = (data: CommonTaxData) => (
