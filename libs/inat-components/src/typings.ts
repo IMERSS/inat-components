@@ -30,8 +30,8 @@ export type Configuration = {
 
 export enum Tab {
 	recent = "recent",
+	commonTaxa = "commonTaxa",
 	favourites = "favourites",
-	mostCommon = "mostCommon",
 	stats = "stats"
 }
 

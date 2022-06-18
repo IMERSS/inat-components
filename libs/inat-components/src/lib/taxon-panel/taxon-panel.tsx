@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { RecentObservations, RecentObservationsProps } from '../recent-observations/recent-observations';
 import {CommonTaxa} from '../common-taxa/common-taxa';
 import {Favourites} from "../favourites/favourites"
@@ -10,20 +10,29 @@ import styles from '../shared/css/general.module.scss';
 import {DataSource, INatApi} from "../../typings";
 import {getSourceFile} from "../utils/config-utils";
 
+const defaultTitles = {
+    [Tab.recent]: "Recent observations",
+    [Tab.commonTaxa]: "Most common",
+    [Tab.favourites]: "Most favourited",
+    [Tab.stats]: "General stats"
+};
 
 const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: any) => {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState<string>("all");
 
-    const getTitle = () => {
-        const map = {
-            [Tab.recent]: "Recent observations",
-            [Tab.mostCommon]: "Most common",
-            [Tab.favourites]: "Most favourited",
-            [Tab.stats]: "General stats",
-        };
-        return map[tab];
-    }
+    const [titles, setTitles] = useState(defaultTitles);
+
+    useEffect(() => {
+        setTitles({
+            [Tab.recent]: features.recentObservations?.label || defaultTitles[Tab.recent],
+            [Tab.commonTaxa]: features.commonTaxa?.label || defaultTitles[Tab.commonTaxa],
+            [Tab.favourites]: features.favourites?.label || defaultTitles[Tab.favourites],
+            [Tab.stats]: features.stats?.label || defaultTitles[Tab.stats]
+        });
+    }, [features]);
+
+    const title = titles[tab];
 
     const getCurrentTab = () => {
         switch (tab) {
@@ -43,7 +52,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: an
                 );
             }
 
-            case Tab.mostCommon: {
+            case Tab.commonTaxa: {
                 const props: any = {
                     source: dataSource,
                     year
@@ -107,7 +116,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: an
                         <Years value={year} onChange={setYear} />
                     </div>
                 )}
-                <h1>{getTitle()}</h1>
+                <h1>{title}</h1>
             </div>
             {getCurrentTab()}
         </div>

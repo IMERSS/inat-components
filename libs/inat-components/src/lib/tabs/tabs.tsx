@@ -15,8 +15,8 @@ const Tabs = ({ selectedTab, onChangeTab, features }: TabsProps) => (
                 Recent
             </li>
         )}
-        {features.mostCommon && (
-            <li onClick={() => onChangeTab(Tab.mostCommon)} className={selectedTab === Tab.mostCommon ? styles.selected : ""}>
+        {features.commonTaxa && (
+            <li onClick={() => onChangeTab(Tab.commonTaxa)} className={selectedTab === Tab.commonTaxa ? styles.selected : ""}>
                 Most Common
             </li>
         )}

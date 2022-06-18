@@ -19,11 +19,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@imerss/generator": [
-        "libs/generator/src/index.ts"
-      ],
       "@imerss/inat-components": [
         "libs/inat-components/src/index.ts"
+      ],
+      "@imerss/inat-components-utils": [
+        "libs/inat-components-utils/src/index.ts"
       ]
     }
   },
