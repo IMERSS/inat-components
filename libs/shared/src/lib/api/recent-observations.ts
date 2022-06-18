@@ -1,4 +1,4 @@
-import * as C from '../../constants';
+import { C } from "@imerss/shared";
 
 export type RecentObservationsCallProps = {
     taxonId: string | number;

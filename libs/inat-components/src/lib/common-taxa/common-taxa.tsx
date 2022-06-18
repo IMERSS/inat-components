@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import {C, BaseComponentProps, DataSource} from "@imerss/shared";
+import {CommonTaxData, getCommonTaxa} from "@imerss/shared/api";
+import {numberWithCommas} from "@imerss/shared/utils";
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
-import {CommonTaxaRespData, CommonTaxData, getCommonTaxa} from "../api/common-taxa";
-import {numberWithCommas} from "../utils/number-utils";
-import styles from "../shared/css/general.module.scss";
-import {BaseComponentProps, DataSource} from "../../typings";
-import * as C from "../../constants";
 import {NoResults} from "../no-results/no-results";
+import styles from "../shared/css/general.module.scss";
 
 export type CommonTaxaProps = BaseComponentProps & {
 	year: string;

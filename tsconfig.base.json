@@ -24,6 +24,15 @@
       ],
       "@imerss/inat-components-utils": [
         "libs/inat-components-utils/src/index.ts"
+      ],
+      "@imerss/shared": [
+        "libs/shared/src/index.ts"
+      ],
+      "@imerss/shared/api": [
+        "libs/shared/src/lib/api/index.ts"
+      ],
+      "@imerss/shared/utils": [
+        "libs/shared/src/lib/utils/index.ts"
       ]
     }
   },

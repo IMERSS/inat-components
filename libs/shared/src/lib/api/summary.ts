@@ -1,12 +1,12 @@
 import * as C from '../../constants';
 
-export type SummaryProps = {
+export type SummaryApiProps = {
     taxonId: number;
     placeId: number;
     year: string | number;
 }
 
-export const getSummary = async ({ taxonId, placeId, year }: SummaryProps): Promise<any> => {
+export const getSummary = async ({ taxonId, placeId, year }: SummaryApiProps): Promise<any> => {
     const observers = await getObserverSummary(taxonId, placeId, year);
     const observations = await getObservationSummary(taxonId, placeId, year);
     const seasonalityData = await getSeasonalityData(taxonId, placeId, year);

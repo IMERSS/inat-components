@@ -1,5 +1,3 @@
-import {CommonTaxaRespData} from "./lib/api/common-taxa";
-
 export enum DataSource {
 	autoLoad = "autoLoad",
 	dataProp = "dataProp",
@@ -28,11 +26,12 @@ export type BaseComponentProps = {
 	filename?: string;
 	perPage?: number;
 	source?: DataSource;
-	data?: CommonTaxaRespData;
+	data?: any; // TODO - varies. e.g. CommonTaxaRespData;
 	dataUrl?: string;
 	components?: {
-		loader?: JSX.Element;
 		label?: JSX.Element;
+		error?: JSX.Element;
+		loader?: JSX.Element;
 	};
 	className?: string;
 };

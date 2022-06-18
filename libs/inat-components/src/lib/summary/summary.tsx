@@ -1,19 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {getSummary} from "../api/summary";
-import {numberWithCommas} from '../utils/number-utils';
+import {DataSource} from "@imerss/shared";
+import {getSummary, FavouritesRespData} from "@imerss/shared/api";
+import {numberWithCommas} from "@imerss/shared/utils";
 import { ObserverList } from './ObserverList';
 import Loader from "../loader/loader";
 import {SeasonalityGraph} from "../seasonality-graph/seasonality-graph";
 import styles from "./summary.module.scss";
-import {DataSource} from "../../typings";
-import {FavouritesRespData} from "../api/favourites";
 
 export type SummaryProps = {
     source: DataSource;
     taxonId: number;
     placeId: number;
     year: string | number;
-    data?: FavouritesRespData;
+    data?: FavouritesRespData; /// TODO this right? Sure looks wrong
     dataUrl?: string;
 };
 

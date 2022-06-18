@@ -30,8 +30,7 @@
   ],
   "features": {
     "recentObservations": {
-      "numResults": 100,
-      "label": "Blah!"
+      "numResults": 100
     },
     "commonTaxa": {
       "numResults": 100,

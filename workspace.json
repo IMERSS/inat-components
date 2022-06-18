@@ -5,6 +5,7 @@
     "demo": "apps/demo",
     "demo-e2e": "apps/demo-e2e",
     "inat-components": "libs/inat-components",
-    "inat-components-utils": "libs/inat-components-utils"
+    "inat-components-utils": "libs/inat-components-utils",
+    "shared": "libs/shared"
   }
 }

@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from "react";
+import {C, BaseComponentProps, DataSource} from "@imerss/shared";
+import {getFavourites, FavouritesData} from "@imerss/shared/api";
+import { formatDate } from "@imerss/shared/utils";
 import {Observation} from "../observation/observation";
-import generalStyles from "../shared/css/general.module.scss";
 import Loader from "../loader/loader";
-import {getFavourites, FavouritesData} from "../api/favourites";
-import * as C from "../../constants";
 import styles from "../shared/css/general.module.scss";
 import {NoResults} from "../no-results/no-results";
-import {formatDate} from "../utils/date-utils";
-import {BaseComponentProps, DataSource} from "../../typings";
+import generalStyles from "../shared/css/general.module.scss";
 
 export type FavouritesProps = BaseComponentProps & {
 	year: string;

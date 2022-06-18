@@ -1,14 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState} from "react";
+import {C, BaseComponentProps, DataSource} from "@imerss/shared";
+import {getRecentObservations, RecentObservationData} from "@imerss/shared/api";
+import {formatDate} from "@imerss/shared/utils";
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
-import {getRecentObservations, RecentObservationData} from "../api/recent-observations";
-import * as C from "../../constants";
 import styles from "./recent-observations.module.scss";
-import generalStyles from "../shared/css/general.module.scss";
-import {BaseComponentProps, DataSource} from "../../typings";
 import {NoResults} from "../no-results/no-results";
-import {formatDate} from "../utils/date-utils";
-
+import generalStyles from "../shared/css/general.module.scss";
 
 export type RecentObservationsProps = BaseComponentProps;
 

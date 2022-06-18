@@ -1,8 +1,8 @@
 import React from 'react';
-import {Observer} from '../api/summary';
+import {Observer} from '../../../../shared/src/lib/api/summary';
 import styles from './summary.module.scss';
-import * as C from '../../constants';
-import {numberWithCommas} from '../utils/number-utils';
+import * as C from '../../../../shared/src/constants';
+import {numberWithCommas} from '../../../../shared/src/lib/utils/number-utils';
 
 export const ObserverList = ({observers}: { observers: Observer[] }) => (
 	<ul className={styles.top}>

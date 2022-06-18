@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { getCurrentYear } from '../utils/date-utils';
+import React, {useState} from "react";
+import {getCurrentYear} from "@imerss/shared/utils";
 import styles from "./year-dropdown.module.scss";
 
 interface YearsProps {
