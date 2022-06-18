@@ -3,31 +3,36 @@
 > Currently in development!
 
 This repo contains some prebuilt React components to display iNaturalist data. The goal was to provide some
-interactive info for the BC Lepidoptera website so visitors could see some interesting high-level information about
-lepidoptera (butterflies and moths) in British Columbia, but it was written in a generic way to allow it being used by
-any website and for any taxon or place.
+interactive info for the [BC Lepidoptera](https://bcleps.weebly.com/) website so visitors could see some 
+high-level information about lepidoptera (butterflies and moths) in British Columbia. But it was written in a generic
+way to allow it being used by any website and for any taxon or place.
 
 The purpose of these components is _not_ to be exhaustive. iNat contains a _huge_ amount of inforamtion about taxa,
 observations, users and so forth. We're not trying to re-invent the wheel - just to provide a high-level view of the
 data. For digging into the data, it's designed to link back to iNaturalist itself. As such, the data fed into the
 front-end component listed below is quite limited.
 
-This repo stores both the components themselves (to be published to npm) and the backend scripts to scrape iNat
-data and store it in JSON files for use by the front-end components. Typically you don't want to ping iNat on every
-request to display the data: it's slow and would hammer their servers unnecessarily. But that option _is_ available
-with these components.
+This repo stores both the components themselves (published to npm under `@imerss/inat-components`) and the backend
+scripts to scrape iNat data and store it in JSON files for use by the front-end components (`@imerss/inat-components-utils`).
+Typically you don't want to ping iNat on every request to display the data: it's slow and would hammer their servers
+unnecessarily. They also cap the number of times you can make requests to their server per second, so realistically
+you'll have to set up the data scraping step for any non-trivial usage. The option to ping iNat directly from the
+front-end components is really just supplied for developers so they can cut out the middle step during dev.
 
 ### Demo
 
-> Coming soon.
+> In development, but here's a sneak peak.
+ 
+https://imerss.github.io/inat-components/
+
 
 ### Installation
 
-Depends on what you're doing! To use the components, just use npm, pnpm or yarn - whatever you happen to be using.
+To use the components, just use npm, pnpm or yarn - whatever you happen to be using.
 
 ```
 npm install inat-components
-pnpm ... (Ben: check this!)
+pnpm install inat-components
 yarn add inat-components
 ```
 
@@ -48,7 +53,7 @@ yarn add inat-components
 
 We'll go into details about each of these components below, but here's what's available.
 
-`<Panel />`
+`<TaxonPanel />`
 
 This is a pre-built panel containing all visualization data available, grouped into tabs: recent observations, common
 taxa, favourites and a summary tab. You get less control using this component than all the others below, but it means

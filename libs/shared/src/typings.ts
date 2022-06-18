@@ -28,12 +28,12 @@ export type BaseComponentProps = {
 	source?: DataSource;
 	data?: any; // TODO - varies. e.g. CommonTaxaRespData;
 	dataUrl?: string;
+	className?: string;
 	components?: {
 		label?: JSX.Element;
 		error?: JSX.Element;
 		loader?: JSX.Element;
 	};
-	className?: string;
 };
 
 export type TaxaConfig = {

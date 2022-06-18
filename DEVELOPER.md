@@ -1,3 +1,3 @@
 ## Developer notes
 
-TODO: rewrite this for Nx 
+TODO: rewrite this for Nx! 
