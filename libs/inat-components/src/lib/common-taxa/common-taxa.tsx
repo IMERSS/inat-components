@@ -4,11 +4,12 @@ import {CommonTaxData, getCommonTaxa} from "@imerss/shared/api";
 import {numberWithCommas} from "@imerss/shared/utils";
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
+import Error from "../error/error";
 import {NoResults} from "../no-results/no-results";
 import styles from "../shared/css/general.module.scss";
 
 export type CommonTaxaProps = BaseComponentProps & {
-	year: string;
+	year: string | number;
 }
 
 export const CommonTaxaLabel = (data: CommonTaxData) => (
@@ -74,13 +75,13 @@ export const CommonTaxa = ({
 
 	const Load = components?.loader ? components.loader as any : Loader;
 	const Label = components?.label ? components.label as any : CommonTaxaLabel;
+	const ErrorMsg = components?.error ? components.error as any : Error;
 
 	let classes = styles.panel;
 	if (className) {
 		classes += ` ${className}`;
 	}
 
-	// TODO move base URL to constant (people may want inaturalist.ca etc.)
 	return (
 		<div className={classes}>
 			<Load loading={loading}/>
@@ -90,7 +91,7 @@ export const CommonTaxa = ({
 					<Observation
 						key={data.id}
 						imageUrl={data.imageUrl.replace(/square/, "medium")}
-						linkUrl={`https://www.inaturalist.org/taxa/${data.id}`}>
+						linkUrl={`${C.BASE_URL}/${data.id}`}>
 						<Label {...data} />
 					</Observation>
 				))}

@@ -9,7 +9,7 @@ import {NoResults} from "../no-results/no-results";
 import generalStyles from "../shared/css/general.module.scss";
 
 export type FavouritesProps = BaseComponentProps & {
-	year: string;
+	year: string | number;
 }
 
 export const FavouritesLabel = (data: FavouritesData) => (

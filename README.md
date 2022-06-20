@@ -19,6 +19,7 @@ unnecessarily. They also cap the number of times you can make requests to their 
 you'll have to set up the data scraping step for any non-trivial usage. The option to ping iNat directly from the
 front-end components is really just supplied for developers so they can cut out the middle step during dev.
 
+
 ### Demo
 
 > In development, but here's a sneak peak.
