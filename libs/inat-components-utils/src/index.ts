@@ -1,1 +1,3 @@
-export * from './lib/inat-components-utils';
+import process from './lib/inat-components-utils';
+
+export default process;

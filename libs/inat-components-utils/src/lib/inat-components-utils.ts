@@ -6,9 +6,8 @@ import {BaseComponentProps, ConfigFile, Feature, PlaceConfig, TaxaConfig} from "
 import { getRecentObservations, getCommonTaxa, getFavourites, getSummary } from "@imerss/shared/api";
 import { getCurrentYear, getSourceFile } from "@imerss/shared/utils";
 
-
 export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
-    const configurations: BaseComponentProps[] = [];
+    const configurations: any = [];
 
     config.taxa.forEach((taxonInfo: TaxaConfig) => {
         config.places.forEach((placeInfo: PlaceConfig) => {
@@ -21,7 +20,7 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: getSourceFile(Feature.recentObservations, taxonInfo.taxonId, placeInfo.placeId)
+                filename: getSourceFile(Feature.recentObservations, taxonInfo, placeInfo)
             });
 
             // ------------------------------------------------------------------------------------
@@ -31,7 +30,7 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: getSourceFile(Feature.commonTaxa, taxonInfo.taxonId, placeInfo.placeId, "all")
+                filename: getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, "all")
             };
 
             configurations.push({
@@ -42,7 +41,7 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
             for (let year = currentYear - 10; year <= currentYear; year++) {
                 configurations.push({
                     ...baseCommonTaxaData,
-                    filename: getSourceFile(Feature.commonTaxa, taxonInfo.taxonId, placeInfo.placeId, year),
+                    filename: getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, year),
                     year
                 });
             }
@@ -54,7 +53,7 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: getSourceFile(Feature.favourites, taxonInfo.taxonId, placeInfo.placeId, "all")
+                filename: getSourceFile(Feature.favourites, taxonInfo, placeInfo, "all")
             };
 
             configurations.push({
@@ -65,7 +64,7 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
             for (let year = currentYear - 10; year <= currentYear; year++) {
                 configurations.push({
                     ...baseFavouritesData,
-                    filename: getSourceFile(Feature.favourites, taxonInfo.taxonId, placeInfo.placeId, year),
+                    filename: getSourceFile(Feature.favourites, taxonInfo, placeInfo, year),
                     year
                 });
             }
@@ -76,7 +75,7 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
                 api: Feature.stats,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: getSourceFile(Feature.stats, taxonInfo.taxonId, placeInfo.placeId, "all")
+                filename: getSourceFile(Feature.stats, taxonInfo, placeInfo, "all")
             };
 
             configurations.push({
@@ -87,7 +86,7 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
             for (let year = currentYear - 10; year <= currentYear; year++) {
                 configurations.push({
                     ...baseStatsData,
-                    filename: getSourceFile(Feature.stats, taxonInfo.taxonId, placeInfo.placeId, year),
+                    filename: getSourceFile(Feature.stats, taxonInfo, placeInfo, year),
                     year
                 });
             }
@@ -137,7 +136,7 @@ const generateFile = async ({ config, set }: any) => {
     fs.writeFileSync(filenameWithPath, content);
 };
 
-const process = async (config: any) => {
+const process = async (config: ConfigFile) => {
     const queue: any = [];
     let currentIndex = 0;
 
@@ -171,9 +170,5 @@ const process = async (config: any) => {
 
     await processQueue();
 }
-
-// (async () => {
-// 	await process();
-// })();
 
 export default process;
