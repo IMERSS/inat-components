@@ -1,28 +1,17 @@
-/*
-import {INatApi, ConfigurationSet} from "../client/src/typings";
-import {Configuration, INatApi} from "../../typings";
-import {getCurrentYear} from "../utils/dateUtils";
-*/
-
 import fs from "fs";
 import sleep from "sleep-promise";
 import cliProgress from "cli-progress";
 
-// all these are shared between F & BE code. Shared libs?
-import { getRecentObservations } from "../api/recent-observations";
-import { getCommonTaxa } from "../api/common-taxa";
-import { getFavourites } from "../api/favourites";
-import { getSummary } from "../api/summary";
-import {BaseComponentProps, Feature} from "../../typings";
-import {getCurrentYear} from "../utils/date-utils";
-import {getSourceFile} from "../utils/config-utils";
+import {BaseComponentProps, ConfigFile, Feature, PlaceConfig, TaxaConfig} from "@imerss/shared";
+import { getRecentObservations, getCommonTaxa, getFavourites, getSummary } from "@imerss/shared/api";
+import { getCurrentYear, getSourceFile } from "@imerss/shared/utils";
 
 
-export const getConfigurations = (config: any): BaseComponentProps[] => {
+export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
     const configurations: BaseComponentProps[] = [];
 
-    config.taxa.forEach((taxonInfo: any) => {
-        config.places.forEach((placeInfo: any) => {
+    config.taxa.forEach((taxonInfo: TaxaConfig) => {
+        config.places.forEach((placeInfo: PlaceConfig) => {
             const currentYear = getCurrentYear();
 
             // ------------------------------------------------------------------------------------

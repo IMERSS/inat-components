@@ -1,3 +1,24 @@
+export type ConfigFile = {
+	taxa: TaxaConfig[];
+	places: PlaceConfig[];
+	features: {
+		[Feature.commonTaxa]: {
+			numResults?: number;
+		};
+		[Feature.favourites]: {
+			numResults?: number;
+			numYears?: number;
+		};
+		[Feature.recentObservations]: {
+			numResults?: number;
+			numYears?: number;
+		};
+		[Feature.stats]: {
+			numTopObservers?: number;
+		};
+	}
+}
+
 export enum DataSource {
 	autoLoad = "autoLoad",
 	dataProp = "dataProp",
@@ -5,9 +26,9 @@ export enum DataSource {
 }
 
 export enum Feature {
-	recentObservations = "recentObservations",
 	commonTaxa = "commonTaxa",
 	favourites = "favourites",
+	recentObservations = "recentObservations",
 	stats = "stats"
 }
 
@@ -26,13 +47,13 @@ export type BaseComponentProps = {
 	filename?: string;
 	perPage?: number;
 	source?: DataSource;
-	data?: any; // TODO - varies. e.g. CommonTaxaRespData;
+	data?: any;
 	dataUrl?: string;
 	className?: string;
 	components?: {
-		label?: JSX.Element;
-		error?: JSX.Element;
-		loader?: JSX.Element;
+		label?: any;
+		error?: any;
+		loader?: any;
 	};
 };
 
