@@ -1,7 +1,7 @@
 import {useState} from "react";
 import TaxonPanel, {DataSource} from "@imerss/inat-components";
 import SettingsRow from "./settings-row/settings-row";
-import config from "../../inat.config.json";
+import config from "../../../inat.config.json";
 import "./app.module.scss";
 
 const App = () => {

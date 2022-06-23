@@ -96,7 +96,7 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
     return configurations;
 };
 
-const generateFile = async ({ config, set }: any) => {
+const generateFile = async (config, folder) => {
     let data;
     if (config.api === Feature.recentObservations) {
         data = await getRecentObservations({
@@ -126,8 +126,8 @@ const generateFile = async ({ config, set }: any) => {
         });
     }
 
-    const filename = `${set.filenamePrefix}${config.filename}`;
-    const filenameWithPath = `${__dirname}/public/${filename}`;
+    const filename = config.filename;
+    const filenameWithPath = `${folder}/${filename}`;
     const content = config.minify ? JSON.stringify(data) : JSON.stringify(data, null, "\t");
 
     if (fs.existsSync(filenameWithPath)) {
@@ -136,14 +136,12 @@ const generateFile = async ({ config, set }: any) => {
     fs.writeFileSync(filenameWithPath, content);
 };
 
-const process = async (config: ConfigFile) => {
-    const queue: any = [];
+const process = async (config: ConfigFile, folder: string) => {
     let currentIndex = 0;
-
     const loadingBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 
     const processQueue = async () => {
-        await generateFile(queue[currentIndex]);
+        await generateFile(queue[currentIndex], folder);
         loadingBar.update(currentIndex);
         currentIndex++;
         await sleep(1000);
@@ -155,17 +153,7 @@ const process = async (config: ConfigFile) => {
         }
     };
 
-    const configurations = getConfigurations(config);
-
-    console.log(configurations);
-    return;
-
-    // configurations.map((set) => {
-    // 	set.configurations.map((config) => {
-    // 		queue.push({ set, config });
-    // 	})
-    // });
-
+    const queue = getConfigurations(config);
     loadingBar.start(queue.length, 0);
 
     await processQueue();
