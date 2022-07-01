@@ -1,0 +1,53 @@
+{
+  "name": "@imerss/inat-components",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -cw"
+  },
+  "dependencies": {
+    "cli-progress": "^3.11.2",
+    "date-fns": "^2.28.0",
+    "react-spinners": "^0.13.2",
+    "sleep-promise": "^9.1.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@modular-css/rollup": "^28.2.2",
+    "@rollup/plugin-typescript": "^8.3.3",
+    "@testing-library/react": "^13.3.0",
+    "@types/cli-progress": "^3.11.0",
+    "@types/jest": "^28.1.4",
+    "jest": "^28.1.2",
+    "node-sass": "^7.0.1",
+    "postcss": "^8.4.14",
+    "rollup": "^2.75.7",
+    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

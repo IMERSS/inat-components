@@ -22,7 +22,7 @@ front-end components is really just supplied for developers so they can cut out 
 
 ### Demo
 
-> In development, but here's a sneak peak.
+> Still in development, but here's a sneak peak.
  
 https://imerss.github.io/inat-components/
 
