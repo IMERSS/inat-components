@@ -1,5 +1,70 @@
 declare const TaxonPanel: ({ taxonId, placeId, dataSource, features, sourceFolder }: any) => JSX.Element;
 
+declare type ConfigFile = {
+    taxa: TaxaConfig[];
+    places: PlaceConfig[];
+    features: {
+        [Feature.commonTaxa]?: {
+            numResults?: number;
+        };
+        [Feature.favourites]?: {
+            numResults?: number;
+            numYears?: number;
+        };
+        [Feature.recentObservations]?: {
+            numResults?: number;
+            numYears?: number;
+        };
+        [Feature.stats]?: {
+            numTopObservers?: number;
+        };
+    };
+};
+declare enum DataSource {
+    autoLoad = "autoLoad",
+    dataProp = "dataProp",
+    url = "url"
+}
+declare enum Feature {
+    commonTaxa = "commonTaxa",
+    favourites = "favourites",
+    recentObservations = "recentObservations",
+    stats = "stats"
+}
+declare enum Tab {
+    recent = "recent",
+    commonTaxa = "commonTaxa",
+    favourites = "favourites",
+    stats = "stats"
+}
+declare type BaseComponentProps = {
+    taxonId?: number;
+    placeId?: number;
+    filename?: string;
+    perPage?: number;
+    source?: DataSource;
+    data?: any;
+    dataUrl?: string;
+    className?: string;
+    components?: {
+        label?: any;
+        error?: any;
+        loader?: any;
+    };
+};
+declare type TaxaConfig = {
+    label: string;
+    short: string;
+    taxonId: number;
+};
+declare type PlaceConfig = {
+    label: string;
+    short: string;
+    placeId: number;
+};
+
+declare const process: (config: ConfigFile, folder: string) => Promise<void>;
+
 declare type ObservationProps = {
     imageUrl: string;
     linkUrl: string;
@@ -68,67 +133,4 @@ declare type SummaryProps = {
 };
 declare const Summary: ({ source, data, dataUrl, taxonId, placeId, year }: SummaryProps) => JSX.Element;
 
-declare type ConfigFile = {
-    taxa: TaxaConfig[];
-    places: PlaceConfig[];
-    features: {
-        [Feature.commonTaxa]?: {
-            numResults?: number;
-        };
-        [Feature.favourites]?: {
-            numResults?: number;
-            numYears?: number;
-        };
-        [Feature.recentObservations]?: {
-            numResults?: number;
-            numYears?: number;
-        };
-        [Feature.stats]?: {
-            numTopObservers?: number;
-        };
-    };
-};
-declare enum DataSource {
-    autoLoad = "autoLoad",
-    dataProp = "dataProp",
-    url = "url"
-}
-declare enum Feature {
-    commonTaxa = "commonTaxa",
-    favourites = "favourites",
-    recentObservations = "recentObservations",
-    stats = "stats"
-}
-declare enum Tab {
-    recent = "recent",
-    commonTaxa = "commonTaxa",
-    favourites = "favourites",
-    stats = "stats"
-}
-declare type BaseComponentProps = {
-    taxonId?: number;
-    placeId?: number;
-    filename?: string;
-    perPage?: number;
-    source?: DataSource;
-    data?: any;
-    dataUrl?: string;
-    className?: string;
-    components?: {
-        label?: any;
-        error?: any;
-        loader?: any;
-    };
-};
-declare type TaxaConfig = {
-    label: string;
-    short: string;
-    taxonId: number;
-};
-declare type PlaceConfig = {
-    label: string;
-    short: string;
-    placeId: number;
-};
-
-export { BaseComponentProps, CommonTaxa, CommonTaxaLabel, CommonTaxaProps, ConfigFile, DataSource, Favourites, FavouritesLabel, FavouritesProps, Feature, Observation, ObservationProps, PlaceConfig, RecentObservationLabel, RecentObservations, RecentObservationsProps, SeasonalityGraph, Summary, SummaryProps, Tab, TaxaConfig, TaxonPanel as default };
+export { BaseComponentProps, CommonTaxa, CommonTaxaLabel, CommonTaxaProps, ConfigFile, DataSource, Favourites, FavouritesLabel, FavouritesProps, Feature, Observation, ObservationProps, PlaceConfig, RecentObservationLabel, RecentObservations, RecentObservationsProps, SeasonalityGraph, Summary, SummaryProps, Tab, TaxaConfig, TaxonPanel as default, process as generate };

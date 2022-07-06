@@ -3,6 +3,7 @@
   "scripts": {
     "boot": "lerna bootstrap",
     "build": "lerna run build",
+    "generateCacheFiles": "lerna run generateCacheFiles",
     "demo": "lerna run start --scope demo"
   },
   "devDependencies": {
