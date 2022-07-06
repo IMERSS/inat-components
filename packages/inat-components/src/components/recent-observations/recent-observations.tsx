@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {BaseComponentProps, DataSource} from "../../";
-import * as C from "../../constants";
-import {getRecentObservations, RecentObservationData} from "../../api";
-import {formatDate} from "../../utils";
+import * as C from "../../../../shared/src/constants";
+import {getRecentObservations, RecentObservationData} from "../../../../shared/src/api";
+import {formatDate} from "../../../../shared/src/utils";
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
 import {NoResults} from "../no-results/no-results";

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {DataSource} from "../../";
-import {getSummary, FavouritesRespData} from "../../api";
-import {numberWithCommas} from "../../utils";
+import {getSummary, FavouritesRespData} from "../../../../shared/src/api";
+import {numberWithCommas} from "../../../../shared/src/utils";
 import { ObserverList } from './ObserverList';
 import Loader from "../loader/loader";
 import {SeasonalityGraph} from "../seasonality-graph/seasonality-graph";

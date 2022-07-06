@@ -1,4 +1,4 @@
-import {Feature, PlaceConfig, TaxaConfig} from "../typings";
+import {Feature, PlaceConfig, TaxaConfig} from "../../../inat-components/src/typings";
 
 /*
  * Right now the generated source filenames aren't configurable.

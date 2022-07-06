@@ -1,8 +1,5 @@
 import TaxonPanel from "./components/taxon-panel/taxon-panel";
 
-// server-side cache file generator method
-export { default as generate } from "./scripts/scripts";
-
 // front-end components
 export * from "./components/observation/observation";
 export * from "./components/common-taxa/common-taxa";

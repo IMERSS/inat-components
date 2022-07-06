@@ -1,0 +1,5 @@
+{
+  "name": "@imerss/inat-components-utils",
+  "version": "1.0.0",
+  "module": "dist/bundle.js"
+}

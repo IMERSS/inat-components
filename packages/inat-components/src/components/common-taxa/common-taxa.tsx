@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {BaseComponentProps, DataSource} from "../../";
-import * as C from "../../constants";
-import {CommonTaxData, getCommonTaxa} from "../../api";
-import {numberWithCommas} from "../../utils";
+import * as C from "../../../../shared/src/constants";
+import {CommonTaxData, getCommonTaxa} from "../../../../shared/src/api";
+import {numberWithCommas} from "../../../../shared/src/utils";
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
 import Error from "../error/error";
