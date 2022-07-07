@@ -1,5 +1,6 @@
 {
   "name": "inat-components",
+  "license": "MIT",
   "scripts": {
     "boot": "lerna bootstrap",
     "build": "lerna run build",

@@ -12,6 +12,7 @@
     "inat-components-shared": "1.0.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.1",
     "@rollup/plugin-typescript": "^8.3.3",
     "@testing-library/react": "^13.3.0",
     "@types/cli-progress": "^3.11.0",

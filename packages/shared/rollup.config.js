@@ -5,8 +5,9 @@ export default [
     {
         input: "src/index.ts",
         output: {
+            name: "@imerss/inat-components-shared",
             dir: "dist",
-            format: "es"
+            format: "umd"
         },
         external: [
             "react"

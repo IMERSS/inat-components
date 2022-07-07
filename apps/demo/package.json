@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
-    "generate": "node scripts/generate.js",
+    "generate": "node --no-warnings scripts/generate.js",
     "test": "react-scripts test"
   },
   "dependencies": {

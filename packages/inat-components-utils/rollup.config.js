@@ -1,4 +1,5 @@
 import typescript from "@rollup/plugin-typescript";
+import commonjs from "@rollup/plugin-commonjs";
 
 export default [
     {
@@ -11,7 +12,10 @@ export default [
             "react"
         ],
         plugins: [
-            typescript()
+            typescript(),
+            commonjs({
+                include: ["node_modules/inat-components-shared"]
+            })
         ]
     }
 ];

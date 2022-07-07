@@ -2,3 +2,4 @@
 node_modules
 .idea
 dist
+apps/demo/public/source/**
