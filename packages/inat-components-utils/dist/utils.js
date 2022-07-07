@@ -130,52 +130,43 @@ var getConfigurations = function (config) {
     return configurations;
 };
 var generateFile = function (config, folder) { return __awaiter(void 0, void 0, void 0, function () {
-    var data, filename, filenameWithPath, content;
+    var data, taxonId, placeId, perPage, year, e_1, filename, filenameWithPath, content;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                if (!(config.api === inatComponentsShared.Feature.recentObservations)) return [3 /*break*/, 2];
-                return [4 /*yield*/, inatComponentsShared.getRecentObservations({
-                        taxonId: config.taxonId,
-                        placeId: config.placeId,
-                        perPage: config.perPage
-                    })];
+                taxonId = config.taxonId, placeId = config.placeId, perPage = config.perPage, year = config.year;
+                _a.label = 1;
             case 1:
-                data = _a.sent();
-                return [3 /*break*/, 8];
+                _a.trys.push([1, 10, , 11]);
+                if (!(config.api === inatComponentsShared.Feature.recentObservations)) return [3 /*break*/, 3];
+                return [4 /*yield*/, inatComponentsShared.getRecentObservations({ taxonId: taxonId, placeId: placeId, perPage: perPage })];
             case 2:
-                if (!(config.api === inatComponentsShared.Feature.commonTaxa)) return [3 /*break*/, 4];
-                return [4 /*yield*/, inatComponentsShared.getCommonTaxa({
-                        taxonId: config.taxonId,
-                        placeId: config.placeId,
-                        perPage: config.perPage,
-                        year: config.year
-                    })];
+                data = _a.sent();
+                return [3 /*break*/, 9];
             case 3:
-                data = _a.sent();
-                return [3 /*break*/, 8];
+                if (!(config.api === inatComponentsShared.Feature.commonTaxa)) return [3 /*break*/, 5];
+                return [4 /*yield*/, inatComponentsShared.getCommonTaxa({ taxonId: taxonId, placeId: placeId, perPage: perPage, year: year })];
             case 4:
-                if (!(config.api === inatComponentsShared.Feature.favourites)) return [3 /*break*/, 6];
-                return [4 /*yield*/, inatComponentsShared.getFavourites({
-                        taxonId: config.taxonId,
-                        placeId: config.placeId,
-                        perPage: config.perPage,
-                        year: config.year
-                    })];
+                data = _a.sent();
+                return [3 /*break*/, 9];
             case 5:
-                data = _a.sent();
-                return [3 /*break*/, 8];
+                if (!(config.api === inatComponentsShared.Feature.favourites)) return [3 /*break*/, 7];
+                return [4 /*yield*/, inatComponentsShared.getFavourites({ taxonId: taxonId, placeId: placeId, perPage: perPage, year: year })];
             case 6:
-                if (!(config.api === inatComponentsShared.Feature.stats)) return [3 /*break*/, 8];
-                return [4 /*yield*/, inatComponentsShared.getSummary({
-                        taxonId: config.taxonId,
-                        placeId: config.placeId,
-                        year: config.year
-                    })];
-            case 7:
                 data = _a.sent();
-                _a.label = 8;
+                return [3 /*break*/, 9];
+            case 7:
+                if (!(config.api === inatComponentsShared.Feature.stats)) return [3 /*break*/, 9];
+                return [4 /*yield*/, inatComponentsShared.getSummary({ taxonId: taxonId, placeId: placeId, year: year })];
             case 8:
+                data = _a.sent();
+                _a.label = 9;
+            case 9: return [3 /*break*/, 11];
+            case 10:
+                e_1 = _a.sent();
+                console.log("ERROR!!!!", e_1);
+                return [2 /*return*/];
+            case 11:
                 filename = config.filename;
                 filenameWithPath = "".concat(folder, "/").concat(filename);
                 content = config.minify ? JSON.stringify(data) : JSON.stringify(data, null, "\t");

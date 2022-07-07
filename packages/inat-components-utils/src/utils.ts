@@ -103,32 +103,21 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 
 const generateFile = async (config, folder) => {
 	let data;
-	if (config.api === Feature.recentObservations) {
-		data = await getRecentObservations({
-			taxonId: config.taxonId,
-			placeId: config.placeId,
-			perPage: config.perPage
-		});
-	} else if (config.api === Feature.commonTaxa) {
-		data = await getCommonTaxa({
-			taxonId: config.taxonId,
-			placeId: config.placeId,
-			perPage: config.perPage,
-			year: config.year as string
-		});
-	} else if (config.api === Feature.favourites) {
-		data = await getFavourites({
-			taxonId: config.taxonId,
-			placeId: config.placeId,
-			perPage: config.perPage,
-			year: config.year as string
-		});
-	} else if (config.api === Feature.stats) {
-		data = await getSummary({
-			taxonId: config.taxonId,
-			placeId: config.placeId,
-			year: config.year as string
-		});
+	const { taxonId, placeId, perPage, year } = config;
+
+	try {
+		if (config.api === Feature.recentObservations) {
+			data = await getRecentObservations({taxonId, placeId, perPage});
+		} else if (config.api === Feature.commonTaxa) {
+			data = await getCommonTaxa({taxonId, placeId, perPage, year});
+		} else if (config.api === Feature.favourites) {
+			data = await getFavourites({taxonId, placeId, perPage, year});
+		} else if (config.api === Feature.stats) {
+			data = await getSummary({taxonId, placeId, year});
+		}
+	} catch (e) {
+		console.log("ERROR!!!!", e);
+		return;
 	}
 
 	const filename = config.filename;
