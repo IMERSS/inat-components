@@ -2,14 +2,12 @@
   "name": "@imerss/inat-components",
   "version": "1.0.0",
   "main": "dist/index.js",
-  "type": "module",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -cw"
   },
   "dependencies": {
-    "cli-progress": "^3.11.2",
     "date-fns": "^2.28.0",
     "react-spinners": "^0.13.2",
     "sleep-promise": "^9.1.0",

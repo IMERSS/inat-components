@@ -2,7 +2,7 @@
   "name": "inat-components-shared",
   "version": "1.0.0",
   "private": true,
-  "module": "dist/bundle.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "",
   "scripts": {

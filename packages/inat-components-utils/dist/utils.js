@@ -1,7 +1,17 @@
-import fs from 'fs';
-import sleep from 'sleep-promise';
-import cliProgress from 'cli-progress';
-import { getCurrentYear, Feature, getSourceFile, getSummary, getFavourites, getCommonTaxa, getRecentObservations } from 'inat-components-shared';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var fs = require('fs');
+var sleep = require('sleep-promise');
+var cliProgress = require('cli-progress');
+var inatComponentsShared = require('inat-components-shared');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var fs__default = /*#__PURE__*/_interopDefaultLegacy(fs);
+var sleep__default = /*#__PURE__*/_interopDefaultLegacy(sleep);
+var cliProgress__default = /*#__PURE__*/_interopDefaultLegacy(cliProgress);
 
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -71,53 +81,53 @@ var getConfigurations = function (config) {
     var configurations = [];
     config.taxa.forEach(function (taxonInfo) {
         config.places.forEach(function (placeInfo) {
-            var currentYear = getCurrentYear();
+            var currentYear = inatComponentsShared.getCurrentYear();
             // ------------------------------------------------------------------------------------
             // Recent observations
             configurations.push({
-                api: Feature.recentObservations,
+                api: inatComponentsShared.Feature.recentObservations,
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: getSourceFile(Feature.recentObservations, taxonInfo, placeInfo)
+                filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.recentObservations, taxonInfo, placeInfo)
             });
             // ------------------------------------------------------------------------------------
             // Common taxa. For this, generate the last 10 years of info plus one for all years
             var baseCommonTaxaData = {
-                api: Feature.commonTaxa,
+                api: inatComponentsShared.Feature.commonTaxa,
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, "all")
+                filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.commonTaxa, taxonInfo, placeInfo, "all")
             };
             configurations.push(__assign(__assign({}, baseCommonTaxaData), { year: "all" }));
             for (var year = currentYear - 10; year <= currentYear; year++) {
-                configurations.push(__assign(__assign({}, baseCommonTaxaData), { filename: getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, year), year: year }));
+                configurations.push(__assign(__assign({}, baseCommonTaxaData), { filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.commonTaxa, taxonInfo, placeInfo, year), year: year }));
             }
             // ------------------------------------------------------------------------------------
             // Favourites. For this, generate the last 10 years of info plus one for all years
             var baseFavouritesData = {
-                api: Feature.favourites,
+                api: inatComponentsShared.Feature.favourites,
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: getSourceFile(Feature.favourites, taxonInfo, placeInfo, "all")
+                filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.favourites, taxonInfo, placeInfo, "all")
             };
             configurations.push(__assign(__assign({}, baseFavouritesData), { year: "all" }));
             for (var year = currentYear - 10; year <= currentYear; year++) {
-                configurations.push(__assign(__assign({}, baseFavouritesData), { filename: getSourceFile(Feature.favourites, taxonInfo, placeInfo, year), year: year }));
+                configurations.push(__assign(__assign({}, baseFavouritesData), { filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.favourites, taxonInfo, placeInfo, year), year: year }));
             }
             // ------------------------------------------------------------------------------------
             // Stats
             var baseStatsData = {
-                api: Feature.stats,
+                api: inatComponentsShared.Feature.stats,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: getSourceFile(Feature.stats, taxonInfo, placeInfo, "all")
+                filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.stats, taxonInfo, placeInfo, "all")
             };
             configurations.push(__assign(__assign({}, baseStatsData), { year: "all" }));
             for (var year = currentYear - 10; year <= currentYear; year++) {
-                configurations.push(__assign(__assign({}, baseStatsData), { filename: getSourceFile(Feature.stats, taxonInfo, placeInfo, year), year: year }));
+                configurations.push(__assign(__assign({}, baseStatsData), { filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.stats, taxonInfo, placeInfo, year), year: year }));
             }
         });
     });
@@ -128,8 +138,8 @@ var generateFile = function (config, folder) { return __awaiter(void 0, void 0, 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                if (!(config.api === Feature.recentObservations)) return [3 /*break*/, 2];
-                return [4 /*yield*/, getRecentObservations({
+                if (!(config.api === inatComponentsShared.Feature.recentObservations)) return [3 /*break*/, 2];
+                return [4 /*yield*/, inatComponentsShared.getRecentObservations({
                         taxonId: config.taxonId,
                         placeId: config.placeId,
                         perPage: config.perPage
@@ -138,8 +148,8 @@ var generateFile = function (config, folder) { return __awaiter(void 0, void 0, 
                 data = _a.sent();
                 return [3 /*break*/, 8];
             case 2:
-                if (!(config.api === Feature.commonTaxa)) return [3 /*break*/, 4];
-                return [4 /*yield*/, getCommonTaxa({
+                if (!(config.api === inatComponentsShared.Feature.commonTaxa)) return [3 /*break*/, 4];
+                return [4 /*yield*/, inatComponentsShared.getCommonTaxa({
                         taxonId: config.taxonId,
                         placeId: config.placeId,
                         perPage: config.perPage,
@@ -149,8 +159,8 @@ var generateFile = function (config, folder) { return __awaiter(void 0, void 0, 
                 data = _a.sent();
                 return [3 /*break*/, 8];
             case 4:
-                if (!(config.api === Feature.favourites)) return [3 /*break*/, 6];
-                return [4 /*yield*/, getFavourites({
+                if (!(config.api === inatComponentsShared.Feature.favourites)) return [3 /*break*/, 6];
+                return [4 /*yield*/, inatComponentsShared.getFavourites({
                         taxonId: config.taxonId,
                         placeId: config.placeId,
                         perPage: config.perPage,
@@ -160,8 +170,8 @@ var generateFile = function (config, folder) { return __awaiter(void 0, void 0, 
                 data = _a.sent();
                 return [3 /*break*/, 8];
             case 6:
-                if (!(config.api === Feature.stats)) return [3 /*break*/, 8];
-                return [4 /*yield*/, getSummary({
+                if (!(config.api === inatComponentsShared.Feature.stats)) return [3 /*break*/, 8];
+                return [4 /*yield*/, inatComponentsShared.getSummary({
                         taxonId: config.taxonId,
                         placeId: config.placeId,
                         year: config.year
@@ -173,10 +183,10 @@ var generateFile = function (config, folder) { return __awaiter(void 0, void 0, 
                 filename = config.filename;
                 filenameWithPath = "".concat(folder, "/").concat(filename);
                 content = config.minify ? JSON.stringify(data) : JSON.stringify(data, null, "\t");
-                if (fs.existsSync(filenameWithPath)) {
-                    fs.unlinkSync(filenameWithPath);
+                if (fs__default["default"].existsSync(filenameWithPath)) {
+                    fs__default["default"].unlinkSync(filenameWithPath);
                 }
-                fs.writeFileSync(filenameWithPath, content);
+                fs__default["default"].writeFileSync(filenameWithPath, content);
                 return [2 /*return*/];
         }
     });
@@ -187,7 +197,7 @@ var process = function (config, folder) { return __awaiter(void 0, void 0, void 
         switch (_a.label) {
             case 0:
                 currentIndex = 0;
-                loadingBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
+                loadingBar = new cliProgress__default["default"].SingleBar({}, cliProgress__default["default"].Presets.shades_classic);
                 processQueue = function () { return __awaiter(void 0, void 0, void 0, function () {
                     return __generator(this, function (_a) {
                         switch (_a.label) {
@@ -196,7 +206,7 @@ var process = function (config, folder) { return __awaiter(void 0, void 0, void 
                                 _a.sent();
                                 loadingBar.update(currentIndex);
                                 currentIndex++;
-                                return [4 /*yield*/, sleep(1000)];
+                                return [4 /*yield*/, sleep__default["default"](1000)];
                             case 2:
                                 _a.sent();
                                 if (!(currentIndex < queue.length)) return [3 /*break*/, 4];
@@ -221,4 +231,5 @@ var process = function (config, folder) { return __awaiter(void 0, void 0, void 
     });
 }); };
 
-export { process as default, getConfigurations };
+exports["default"] = process;
+exports.getConfigurations = getConfigurations;

@@ -1,8 +1,8 @@
-import path from "path";
-import { generate } from "@imerss/inat-components-utils";
-import config from "../src/inat.config.json" assert { type: "json" };
+const path = require("path");
+const utils = require("@imerss/inat-components-utils");
+const config = require("../src/inat.config.json");
 
 (async () => {
 	const folder = path.resolve(__dirname, "../public/source");
-	await generate(config, folder);
+	await utils.generate(config, folder);
 })();

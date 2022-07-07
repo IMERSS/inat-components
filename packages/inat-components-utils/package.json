@@ -1,12 +1,13 @@
 {
   "name": "@imerss/inat-components-utils",
   "version": "1.0.0",
-  "type": "module",
+  "main": "dist/utils.js",
   "module": "dist/utils.js",
   "scripts": {
     "build": "rollup -c"
   },
   "dependencies": {
+    "cli-progress": "^3.11.2",
     "date-fns": "^2.28.0",
     "inat-components-shared": "1.0.0"
   },

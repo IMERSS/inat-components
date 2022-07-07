@@ -2,10 +2,10 @@
   "name": "demo",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
+  "license": "MIT",
   "scripts": {
     "start": "react-scripts start",
-    "generateCacheFiles": "npx ts-node scripts/generate.js",
+    "generate": "node scripts/generate.js",
     "test": "react-scripts test"
   },
   "dependencies": {

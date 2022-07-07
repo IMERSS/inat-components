@@ -5,7 +5,7 @@ export default [
         input: "src/utils.ts",
         output: {
             dir: "dist",
-            format: "es"
+            format: "cjs"
         },
         external: [
             "react"
