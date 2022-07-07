@@ -12,6 +12,6 @@ export * from "./components/summary/summary";
 // all typings
 export {
 	DataSource
-} from "inat-components-shared";
+} from "@imerss/inat-components-shared";
 
 export default TaxonPanel;

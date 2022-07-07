@@ -4,7 +4,7 @@
   "scripts": {
     "boot": "lerna bootstrap",
     "build": "lerna run build",
-    "generate": "lerna run generate",
+    "generate": "cd apps/demo && yarn generate",
     "demo": "lerna run start --scope demo"
   },
   "devDependencies": {

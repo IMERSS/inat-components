@@ -11,7 +11,7 @@
     "date-fns": "^2.28.0",
     "react-spinners": "^0.13.2",
     "sleep-promise": "^9.1.0",
-    "inat-components-shared": "1.0.0"
+    "@imerss/inat-components-shared": "1.0.0"
   },
   "peerDependencies": {
     "react": ">=16.8.0",

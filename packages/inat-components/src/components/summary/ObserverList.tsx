@@ -1,5 +1,5 @@
 import React from "react";
-import {numberWithCommas, Observer, C} from "inat-components-shared";
+import {numberWithCommas, Observer, C} from "@imerss/inat-components-shared";
 import styles from "./summary.module.scss";
 
 export const ObserverList = ({observers}: { observers: Observer[] }) => (

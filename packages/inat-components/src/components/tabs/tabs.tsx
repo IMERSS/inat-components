@@ -1,5 +1,5 @@
 import React from "react";
-import {Tab} from "inat-components-shared";
+import {Tab} from "@imerss/inat-components-shared";
 import styles from "./tabs.module.scss";
 import {useFeatureTitles} from "../hooks/hooks";
 

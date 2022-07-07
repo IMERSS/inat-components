@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Tab} from "inat-components-shared";
+import {Tab} from "@imerss/inat-components-shared";
 
 const defaultTitles = {
     [Tab.recent]: "Recent",

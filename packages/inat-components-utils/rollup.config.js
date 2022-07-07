@@ -14,7 +14,7 @@ export default [
         plugins: [
             typescript(),
             commonjs({
-                include: ["node_modules/inat-components-shared"]
+                include: ["node_modules/@imerss/inat-components-shared"]
             })
         ]
     }
