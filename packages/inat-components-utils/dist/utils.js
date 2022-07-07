@@ -82,7 +82,6 @@ var getConfigurations = function (config) {
     config.taxa.forEach(function (taxonInfo) {
         config.places.forEach(function (placeInfo) {
             var currentYear = inatComponentsShared.getCurrentYear();
-            // ------------------------------------------------------------------------------------
             // Recent observations
             configurations.push({
                 api: inatComponentsShared.Feature.recentObservations,
@@ -91,8 +90,7 @@ var getConfigurations = function (config) {
                 placeId: placeInfo.placeId,
                 filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.recentObservations, taxonInfo, placeInfo)
             });
-            // ------------------------------------------------------------------------------------
-            // Common taxa. For this, generate the last 10 years of info plus one for all years
+            // Common taxa
             var baseCommonTaxaData = {
                 api: inatComponentsShared.Feature.commonTaxa,
                 perPage: 100,
@@ -104,7 +102,6 @@ var getConfigurations = function (config) {
             for (var year = currentYear - 10; year <= currentYear; year++) {
                 configurations.push(__assign(__assign({}, baseCommonTaxaData), { filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.commonTaxa, taxonInfo, placeInfo, year), year: year }));
             }
-            // ------------------------------------------------------------------------------------
             // Favourites. For this, generate the last 10 years of info plus one for all years
             var baseFavouritesData = {
                 api: inatComponentsShared.Feature.favourites,
@@ -117,7 +114,6 @@ var getConfigurations = function (config) {
             for (var year = currentYear - 10; year <= currentYear; year++) {
                 configurations.push(__assign(__assign({}, baseFavouritesData), { filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.favourites, taxonInfo, placeInfo, year), year: year }));
             }
-            // ------------------------------------------------------------------------------------
             // Stats
             var baseStatsData = {
                 api: inatComponentsShared.Feature.stats,

@@ -5,7 +5,7 @@
     "boot": "lerna bootstrap",
     "build": "lerna run build",
     "generate": "cd apps/demo && yarn generate",
-    "demo": "lerna run start --scope demo"
+    "dev": "lerna exec --parallel -- yarn watch"
   },
   "devDependencies": {
     "lerna": "^5.1.6"

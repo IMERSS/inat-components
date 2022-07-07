@@ -1,0 +1,21 @@
+{
+  "taxa": [
+    {
+      "label": "Butterflies and moth",
+      "short": "leps",
+      "taxonId": 47157
+    }
+  ],
+  "places": [
+    {
+      "label": "BC",
+      "short": "bc",
+      "placeId": 7085
+    }
+  ],
+  "features": {
+    "recentObservations": {
+      "numResults": 100
+    }
+  }
+}

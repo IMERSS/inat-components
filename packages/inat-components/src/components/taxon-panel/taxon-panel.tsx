@@ -14,6 +14,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: an
     const [year, setYear] = useState<string>("all");
     const titles = useFeatureTitles(features);
 
+
     const getCurrentTab = () => {
         switch (tab) {
             case Tab.recent: {

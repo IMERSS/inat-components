@@ -22,7 +22,6 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 		config.places.forEach((placeInfo: PlaceConfig) => {
 			const currentYear = getCurrentYear();
 
-			// ------------------------------------------------------------------------------------
 			// Recent observations
 			configurations.push({
 				api: Feature.recentObservations,
@@ -32,8 +31,7 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 				filename: getSourceFile(Feature.recentObservations, taxonInfo, placeInfo)
 			});
 
-			// ------------------------------------------------------------------------------------
-			// Common taxa. For this, generate the last 10 years of info plus one for all years
+			// Common taxa
 			const baseCommonTaxaData = {
 				api: Feature.commonTaxa,
 				perPage: 100,
@@ -55,7 +53,6 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 				});
 			}
 
-			// ------------------------------------------------------------------------------------
 			// Favourites. For this, generate the last 10 years of info plus one for all years
 			const baseFavouritesData = {
 				api: Feature.favourites,
@@ -78,7 +75,6 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 				});
 			}
 
-			// ------------------------------------------------------------------------------------
 			// Stats
 			const baseStatsData = {
 				api: Feature.stats,

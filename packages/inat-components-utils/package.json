@@ -4,7 +4,8 @@
   "main": "dist/utils.js",
   "module": "dist/utils.js",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "watch": "rollup -cw"
   },
   "dependencies": {
     "cli-progress": "^3.11.2",
