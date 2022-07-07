@@ -1,12 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {BaseComponentProps, DataSource} from "../../";
-import * as C from "../../../../shared/src/constants";
-import {getFavourites, FavouritesData} from "../../../../shared/src/api";
-import { formatDate } from "../../../../shared/src/utils";
+import {formatDate, C, getFavourites, FavouritesData, BaseComponentProps, DataSource} from "inat-components-shared";
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
 import {NoResults} from "../no-results/no-results";
-import styles from "../shared/css/general.module.scss";
 import generalStyles from "../shared/css/general.module.scss";
 
 export type FavouritesProps = BaseComponentProps & {
@@ -79,7 +75,7 @@ export const Favourites = ({
 	const Load = components?.loader ? components.loader as any : Loader;
 	const Label = components?.label ? components.label as any : FavouritesLabel;
 
-	let classes = styles.panel;
+	let classes = generalStyles.panel;
 	if (className) {
 		classes += ` ${className}`;
 	}

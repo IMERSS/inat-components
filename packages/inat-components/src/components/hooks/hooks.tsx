@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Tab} from "../../";
+import {Tab} from "inat-components-shared";
 
 const defaultTitles = {
     [Tab.recent]: "Recent",

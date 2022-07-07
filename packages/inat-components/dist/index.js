@@ -1,10 +1,8 @@
 import { jsxs, jsx } from 'react/jsx-runtime';
 import { useCallback, useState, useEffect } from 'react';
-import { format } from 'date-fns';
+import { formatDate, C, DataSource, getRecentObservations, numberWithCommas, getCommonTaxa, getFavourites, getSummary, getCurrentYear, Tab, getSourceFile, Feature } from 'inat-components-shared';
+export * from 'inat-components-shared';
 import LoadingSpinner from 'react-spinners/MoonLoader';
-import fs from 'fs';
-import sleep from 'sleep-promise';
-import cliProgress from 'cli-progress';
 
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -69,297 +67,6 @@ function __generator(thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 }
-
-var DataSource;
-(function (DataSource) {
-    DataSource["autoLoad"] = "autoLoad";
-    DataSource["dataProp"] = "dataProp";
-    DataSource["url"] = "url";
-})(DataSource || (DataSource = {}));
-var Feature;
-(function (Feature) {
-    Feature["commonTaxa"] = "commonTaxa";
-    Feature["favourites"] = "favourites";
-    Feature["recentObservations"] = "recentObservations";
-    Feature["stats"] = "stats";
-})(Feature || (Feature = {}));
-// I know this is duplicated, but it's very possible they could be different in future
-var Tab;
-(function (Tab) {
-    Tab["recent"] = "recent";
-    Tab["commonTaxa"] = "commonTaxa";
-    Tab["favourites"] = "favourites";
-    Tab["stats"] = "stats";
-})(Tab || (Tab = {}));
-
-/*
- * Right now the generated source filenames aren't configurable.
- */
-var getSourceFile = function (api, taxonInfo, placeInfo, year) {
-    var yearStr = year === "all" ? "allyears" : year;
-    var filename = "";
-    if (api === Feature.recentObservations) {
-        filename = "".concat(taxonInfo.short, "-").concat(placeInfo.short, "-recent.json");
-    }
-    else if (api === Feature.commonTaxa) {
-        filename = "".concat(taxonInfo.short, "-").concat(placeInfo.short, "-").concat(yearStr, "-commonTaxa.json");
-    }
-    else if (api === Feature.favourites) {
-        filename = "".concat(taxonInfo.short, "-").concat(placeInfo.short, "-").concat(yearStr, "-favourites.json");
-    }
-    else if (api === Feature.stats) {
-        filename = "".concat(taxonInfo.short, "-").concat(placeInfo.short, "-").concat(yearStr, "-stats.json");
-    }
-    return filename;
-};
-
-var getCurrentYear = function () { return new Date().getFullYear(); };
-// not 100% this shows the date in the right timezone, but it's fine for BC
-var formatDate = function (date, dateFormat) {
-    if (dateFormat === void 0) { dateFormat = "MMM do, h:mm b"; }
-    var formattedDate = "";
-    try {
-        formattedDate = format(Date.parse(date), dateFormat);
-    }
-    catch (e) {
-        console.log("Failed to parse date: ", date);
-    }
-    return formattedDate;
-};
-
-var numberWithCommas = function (x) { return (x || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); };
-
-var BASE_API_URL = 'https://api.inaturalist.org';
-var PER_PAGE = 100;
-var BASE_URL = "https://www.inaturalist.org"; // /people/name_here
-
-var getCommonTaxa = function (_a) {
-    var year = _a.year, taxonId = _a.taxonId, placeId = _a.placeId, perPage = _a.perPage;
-    return __awaiter(void 0, void 0, void 0, function () {
-        var url, response, resp, sortedTaxa;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    url = "".concat(BASE_API_URL, "/v1/observations/species_counts?verifiable=true&spam=false&place_id=").concat(placeId, "&taxon_id=").concat(taxonId, "&locale=en-US&per_page=").concat(perPage);
-                    if (year !== "all") {
-                        url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
-                    }
-                    return [4 /*yield*/, fetch(url, {
-                            method: 'GET',
-                            headers: {
-                                Accept: 'application/json'
-                            }
-                        })];
-                case 1:
-                    response = _b.sent();
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    resp = _b.sent();
-                    sortedTaxa = resp.results.sort(function (a, b) {
-                        if (a.count > b.count) {
-                            return -1;
-                        }
-                        else if (a.count < b.count) {
-                            return 1;
-                        }
-                        return 0;
-                    });
-                    return [2 /*return*/, {
-                            totalResults: resp.total_results,
-                            results: sortedTaxa.map(function (row) {
-                                var _a, _b;
-                                return ({
-                                    id: row.taxon.id,
-                                    imageUrl: ((_b = (_a = row.taxon) === null || _a === void 0 ? void 0 : _a.default_photo) === null || _b === void 0 ? void 0 : _b.square_url) || "",
-                                    obsCount: row.count,
-                                    taxonName: row.taxon.name || "",
-                                    taxonCommonName: row.taxon.preferred_common_name
-                                });
-                            })
-                        }];
-            }
-        });
-    });
-};
-
-var getFavourites = function (_a) {
-    var year = _a.year, taxonId = _a.taxonId, placeId = _a.placeId, perPage = _a.perPage;
-    return __awaiter(void 0, void 0, void 0, function () {
-        var url, response, resp, sortedTaxa;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    url = "".concat(BASE_API_URL, "/v1/observations?verifiable=true&order_by=votes&order=desc&page=1&spam=false&place_id=").concat(placeId, "&taxon_id=").concat(taxonId, "&locale=en-US&per_page=").concat(perPage);
-                    if (year !== "all") {
-                        url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
-                    }
-                    return [4 /*yield*/, fetch(url, {
-                        // method: 'GET',
-                        // headers: {
-                        //     Accept: 'application/json'
-                        // }
-                        })];
-                case 1:
-                    response = _b.sent();
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    resp = _b.sent();
-                    sortedTaxa = resp.results.filter(function (i) { return i.faves.length > 0; }).sort(function (a, b) {
-                        if (a.faves.length > b.faves.length) {
-                            return -1;
-                        }
-                        else if (a.faves.length < b.faves.length) {
-                            return 1;
-                        }
-                        return 0;
-                    });
-                    return [2 /*return*/, {
-                            totalResults: resp.total_results,
-                            results: sortedTaxa.map(function (row) {
-                                var _a, _b;
-                                return ({
-                                    id: row.id,
-                                    imageUrl: ((_b = (_a = row.taxon) === null || _a === void 0 ? void 0 : _a.default_photo) === null || _b === void 0 ? void 0 : _b.square_url) || "",
-                                    obsDate: row.observed_on_string,
-                                    obsUrl: row.uri,
-                                    taxonName: row.taxon.name || "",
-                                    taxonCommonName: row.taxon.preferred_common_name,
-                                    numFaves: row.faves.length
-                                });
-                            })
-                        }];
-            }
-        });
-    });
-};
-
-var getRecentObservations = function (_a) {
-    var taxonId = _a.taxonId, placeId = _a.placeId, perPage = _a.perPage;
-    return __awaiter(void 0, void 0, void 0, function () {
-        var url, response, obs;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    url = "".concat(BASE_API_URL, "/v1/observations?photos=true&per_page=").concat(perPage, "&taxon_id=").concat(taxonId, "&place_id=").concat(placeId, "&order=desc&order_by=observed_on");
-                    return [4 /*yield*/, fetch(url)];
-                case 1:
-                    response = _b.sent();
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    obs = _b.sent();
-                    return [2 /*return*/, {
-                            totalResults: obs.total_results,
-                            results: obs.results.map(function (obs) {
-                                var _a;
-                                return {
-                                    id: obs.id,
-                                    imageUrl: obs.observation_photos[0].photo.url,
-                                    obsUrl: obs.uri,
-                                    obsDate: obs.observed_on_string,
-                                    taxonName: ((_a = obs === null || obs === void 0 ? void 0 : obs.taxon) === null || _a === void 0 ? void 0 : _a.name) || "",
-                                    taxonCommonName: obs === null || obs === void 0 ? void 0 : obs.taxon.preferred_common_name,
-                                    observerUsername: obs.user.login
-                                };
-                            })
-                        }];
-            }
-        });
-    });
-};
-
-var getSummary = function (_a) {
-    var taxonId = _a.taxonId, placeId = _a.placeId, year = _a.year;
-    return __awaiter(void 0, void 0, void 0, function () {
-        var observers, observations, seasonalityData;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0: return [4 /*yield*/, getObserverSummary(taxonId, placeId, year)];
-                case 1:
-                    observers = _b.sent();
-                    return [4 /*yield*/, getObservationSummary(taxonId, placeId, year)];
-                case 2:
-                    observations = _b.sent();
-                    return [4 /*yield*/, getSeasonalityData(taxonId, placeId, year)];
-                case 3:
-                    seasonalityData = _b.sent();
-                    return [2 /*return*/, {
-                            observers: observers,
-                            observations: observations,
-                            seasonalityData: seasonalityData
-                        }];
-            }
-        });
-    });
-};
-var getObserverSummary = function (taxonId, placeId, year) { return __awaiter(void 0, void 0, void 0, function () {
-    var url, response, data;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                url = "".concat(BASE_API_URL, "/v1/observations/observers?verifiable=true&order_by=votes&order=desc&page=1&spam=false&place_id=").concat(placeId, "&taxon_id=").concat(taxonId, "&locale=en-US&per_page=10");
-                if (year !== "all") {
-                    url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
-                }
-                return [4 /*yield*/, fetch(url)];
-            case 1:
-                response = _a.sent();
-                return [4 /*yield*/, response.json()];
-            case 2:
-                data = _a.sent();
-                return [2 /*return*/, {
-                        totalCount: data.total_results,
-                        top: data.results.map(function (result) { return ({
-                            id: result.user.id,
-                            userName: result.user.login,
-                            numObservations: result.observation_count,
-                            iconUrl: result.user.icon_url
-                        }); })
-                    }];
-        }
-    });
-}); };
-var getObservationSummary = function (taxonId, placeId, year) { return __awaiter(void 0, void 0, void 0, function () {
-    var url, response, data;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                url = "".concat(BASE_API_URL, "/v1/observations?photos=true&per_page=1&taxon_id=").concat(taxonId, "&place_id=").concat(placeId, "&order=desc&order_by=observed_on");
-                if (year !== "all") {
-                    url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
-                }
-                return [4 /*yield*/, fetch(url)];
-            case 1:
-                response = _a.sent();
-                return [4 /*yield*/, response.json()];
-            case 2:
-                data = _a.sent();
-                return [2 /*return*/, {
-                        totalCount: data.total_results
-                    }];
-        }
-    });
-}); };
-var getSeasonalityData = function (taxonId, placeId, year) { return __awaiter(void 0, void 0, void 0, function () {
-    var url, response, resp;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                url = "".concat(BASE_API_URL, "/v1/observations/histogram?verifiable=true&taxon_id=").concat(taxonId, "&place_id=").concat(placeId, "&locale=en-US&date_field=observed&interval=month_of_year");
-                if (year !== "all") {
-                    url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
-                }
-                return [4 /*yield*/, fetch(url)];
-            case 1:
-                response = _a.sent();
-                return [4 /*yield*/, response.json()];
-            case 2:
-                resp = _a.sent();
-                return [2 /*return*/, {
-                        monthOfYear: resp.results.month_of_year
-                    }];
-        }
-    });
-}); };
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -432,9 +139,9 @@ var css_248z$4 = ".recent-observations-module_panel__6XEDa {\n  position: relati
 var styles$4 = {"panel":"recent-observations-module_panel__6XEDa"};
 styleInject(css_248z$4);
 
-var RecentObservationLabel = function (obs) { return (jsxs("div", __assign({ className: styles$5.obsLabel }, { children: [jsx("h3", { children: obs.taxonCommonName || obs.taxonName }), jsx("div", { children: formatDate(obs.obsDate) }), jsx("div", { children: jsx("a", __assign({ href: "".concat(BASE_URL, "/people/").concat(obs.observerUsername), target: "_blank", rel: "noreferrer", onClick: function (e) { return e.stopPropagation(); } }, { children: obs.observerUsername })) })] }))); };
+var RecentObservationLabel = function (obs) { return (jsxs("div", __assign({ className: styles$5.obsLabel }, { children: [jsx("h3", { children: obs.taxonCommonName || obs.taxonName }), jsx("div", { children: formatDate(obs.obsDate) }), jsx("div", { children: jsx("a", __assign({ href: "".concat(C.BASE_URL, "/people/").concat(obs.observerUsername), target: "_blank", rel: "noreferrer", onClick: function (e) { return e.stopPropagation(); } }, { children: obs.observerUsername })) })] }))); };
 var RecentObservations = function (_a) {
-    var taxonId = _a.taxonId, placeId = _a.placeId, data = _a.data, dataUrl = _a.dataUrl, _b = _a.source, source = _b === void 0 ? DataSource.autoLoad : _b, _c = _a.perPage, perPage = _c === void 0 ? PER_PAGE : _c, components = _a.components, className = _a.className;
+    var taxonId = _a.taxonId, placeId = _a.placeId, data = _a.data, dataUrl = _a.dataUrl, _b = _a.source, source = _b === void 0 ? DataSource.autoLoad : _b, _c = _a.perPage, perPage = _c === void 0 ? C.PER_PAGE : _c, components = _a.components, className = _a.className;
     var _d = useState(false), loading = _d[0], setLoading = _d[1];
     var _e = useState(function () { return (source === DataSource.dataProp) ? data : []; }), observations = _e[0], setObservations = _e[1];
     useEffect(function () {
@@ -511,7 +218,7 @@ var Error = function (props) {
 
 var CommonTaxaLabel = function (data) { return (jsxs("div", __assign({ className: styles$5.obsLabel }, { children: [jsx("h3", { children: data.taxonCommonName || data.taxonName }), jsx("label", __assign({ className: styles$5.count }, { children: numberWithCommas(data.obsCount) }))] }))); };
 var CommonTaxa = function (_a) {
-    var year = _a.year, source = _a.source, taxonId = _a.taxonId, placeId = _a.placeId, _b = _a.perPage, perPage = _b === void 0 ? PER_PAGE : _b, data = _a.data, dataUrl = _a.dataUrl, components = _a.components, className = _a.className;
+    var year = _a.year, source = _a.source, taxonId = _a.taxonId, placeId = _a.placeId, _b = _a.perPage, perPage = _b === void 0 ? C.PER_PAGE : _b, data = _a.data, dataUrl = _a.dataUrl, components = _a.components, className = _a.className;
     var _c = useState(function () { return (source === DataSource.dataProp) ? data : []; }), taxa = _c[0], setTaxa = _c[1];
     var _d = useState(false), loading = _d[0], setLoading = _d[1];
     useEffect(function () {
@@ -576,12 +283,12 @@ var CommonTaxa = function (_a) {
     if (className) {
         classes += " ".concat(className);
     }
-    return (jsxs("div", __assign({ className: classes }, { children: [jsx(Load, { loading: loading }), !loading && taxa.length === 0 && jsx(NoResults, {}), jsx("div", __assign({ className: styles$5.grid }, { children: taxa.map(function (data) { return (jsx(Observation, __assign({ imageUrl: data.imageUrl.replace(/square/, "medium"), linkUrl: "".concat(BASE_URL, "/").concat(data.id) }, { children: jsx(Label, __assign({}, data)) }), data.id)); }) }))] })));
+    return (jsxs("div", __assign({ className: classes }, { children: [jsx(Load, { loading: loading }), !loading && taxa.length === 0 && jsx(NoResults, {}), jsx("div", __assign({ className: styles$5.grid }, { children: taxa.map(function (data) { return (jsx(Observation, __assign({ imageUrl: data.imageUrl.replace(/square/, "medium"), linkUrl: "".concat(C.BASE_URL, "/").concat(data.id) }, { children: jsx(Label, __assign({}, data)) }), data.id)); }) }))] })));
 };
 
 var FavouritesLabel = function (data) { return (jsxs("div", __assign({ className: styles$5.obsLabel }, { children: [jsx("h3", { children: data.taxonCommonName || data.taxonName }), jsx("div", { children: data.observerUsername }), jsx("div", { children: formatDate(data.obsDate) }), jsx("label", __assign({ className: styles$5.count }, { children: data.numFaves }))] }))); };
 var Favourites = function (_a) {
-    var year = _a.year, source = _a.source, taxonId = _a.taxonId, placeId = _a.placeId, data = _a.data, dataUrl = _a.dataUrl, components = _a.components, className = _a.className, _b = _a.perPage, perPage = _b === void 0 ? PER_PAGE : _b;
+    var year = _a.year, source = _a.source, taxonId = _a.taxonId, placeId = _a.placeId, data = _a.data, dataUrl = _a.dataUrl, components = _a.components, className = _a.className, _b = _a.perPage, perPage = _b === void 0 ? C.PER_PAGE : _b;
     var _c = useState(function () { return (source === DataSource.dataProp) ? data : []; }), observations = _c[0], setObservations = _c[1];
     var _d = useState(false), loading = _d[0], setLoading = _d[1];
     useEffect(function () {
@@ -654,7 +361,7 @@ styleInject(css_248z$2);
 
 var ObserverList = function (_a) {
     var observers = _a.observers;
-    return (jsx("ul", __assign({ className: styles$2.top }, { children: observers.map(function (obs) { return (jsx("li", { children: jsxs("a", __assign({ href: "".concat(BASE_URL, "/people/").concat(obs.userName), target: "_blank", rel: "noreferrer" }, { children: [obs.iconUrl ? jsx("img", { src: obs.iconUrl || "", className: styles$2.avatar, alt: "User icon" }) :
+    return (jsx("ul", __assign({ className: styles$2.top }, { children: observers.map(function (obs) { return (jsx("li", { children: jsxs("a", __assign({ href: "".concat(C.BASE_URL, "/people/").concat(obs.userName), target: "_blank", rel: "noreferrer" }, { children: [obs.iconUrl ? jsx("img", { src: obs.iconUrl || "", className: styles$2.avatar, alt: "User icon" }) :
                         jsx("div", { className: styles$2.noAvatar }), jsx("h3", { children: obs.userName }), jsx("label", { children: numberWithCommas(obs.numObservations) })] })) }, obs.id)); }) })));
 };
 
@@ -885,158 +592,4 @@ var TaxonPanel = function (_a) {
     return (jsxs("div", __assign({ className: styles$5.page }, { children: [jsx(Tabs, { selectedTab: tab, onChangeTab: setTab, features: features }), jsxs("div", { children: [tab !== Tab.recent && (jsx("div", __assign({ style: { float: "right" } }, { children: jsx(Years, { value: year, onChange: setYear }) }))), jsx("h1", { children: titles[tab] })] }), getCurrentTab()] })));
 };
 
-var getConfigurations = function (config) {
-    var configurations = [];
-    config.taxa.forEach(function (taxonInfo) {
-        config.places.forEach(function (placeInfo) {
-            var currentYear = getCurrentYear();
-            // ------------------------------------------------------------------------------------
-            // Recent observations
-            configurations.push({
-                api: Feature.recentObservations,
-                perPage: 100,
-                taxonId: taxonInfo.taxonId,
-                placeId: placeInfo.placeId,
-                filename: getSourceFile(Feature.recentObservations, taxonInfo, placeInfo)
-            });
-            // ------------------------------------------------------------------------------------
-            // Common taxa. For this, generate the last 10 years of info plus one for all years
-            var baseCommonTaxaData = {
-                api: Feature.commonTaxa,
-                perPage: 100,
-                taxonId: taxonInfo.taxonId,
-                placeId: placeInfo.placeId,
-                filename: getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, "all")
-            };
-            configurations.push(__assign(__assign({}, baseCommonTaxaData), { year: "all" }));
-            for (var year = currentYear - 10; year <= currentYear; year++) {
-                configurations.push(__assign(__assign({}, baseCommonTaxaData), { filename: getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, year), year: year }));
-            }
-            // ------------------------------------------------------------------------------------
-            // Favourites. For this, generate the last 10 years of info plus one for all years
-            var baseFavouritesData = {
-                api: Feature.favourites,
-                perPage: 100,
-                taxonId: taxonInfo.taxonId,
-                placeId: placeInfo.placeId,
-                filename: getSourceFile(Feature.favourites, taxonInfo, placeInfo, "all")
-            };
-            configurations.push(__assign(__assign({}, baseFavouritesData), { year: "all" }));
-            for (var year = currentYear - 10; year <= currentYear; year++) {
-                configurations.push(__assign(__assign({}, baseFavouritesData), { filename: getSourceFile(Feature.favourites, taxonInfo, placeInfo, year), year: year }));
-            }
-            // ------------------------------------------------------------------------------------
-            // Stats
-            var baseStatsData = {
-                api: Feature.stats,
-                taxonId: taxonInfo.taxonId,
-                placeId: placeInfo.placeId,
-                filename: getSourceFile(Feature.stats, taxonInfo, placeInfo, "all")
-            };
-            configurations.push(__assign(__assign({}, baseStatsData), { year: "all" }));
-            for (var year = currentYear - 10; year <= currentYear; year++) {
-                configurations.push(__assign(__assign({}, baseStatsData), { filename: getSourceFile(Feature.stats, taxonInfo, placeInfo, year), year: year }));
-            }
-        });
-    });
-    return configurations;
-};
-var generateFile = function (config, folder) { return __awaiter(void 0, void 0, void 0, function () {
-    var data, filename, filenameWithPath, content;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                if (!(config.api === Feature.recentObservations)) return [3 /*break*/, 2];
-                return [4 /*yield*/, getRecentObservations({
-                        taxonId: config.taxonId,
-                        placeId: config.placeId,
-                        perPage: config.perPage
-                    })];
-            case 1:
-                data = _a.sent();
-                return [3 /*break*/, 8];
-            case 2:
-                if (!(config.api === Feature.commonTaxa)) return [3 /*break*/, 4];
-                return [4 /*yield*/, getCommonTaxa({
-                        taxonId: config.taxonId,
-                        placeId: config.placeId,
-                        perPage: config.perPage,
-                        year: config.year
-                    })];
-            case 3:
-                data = _a.sent();
-                return [3 /*break*/, 8];
-            case 4:
-                if (!(config.api === Feature.favourites)) return [3 /*break*/, 6];
-                return [4 /*yield*/, getFavourites({
-                        taxonId: config.taxonId,
-                        placeId: config.placeId,
-                        perPage: config.perPage,
-                        year: config.year
-                    })];
-            case 5:
-                data = _a.sent();
-                return [3 /*break*/, 8];
-            case 6:
-                if (!(config.api === Feature.stats)) return [3 /*break*/, 8];
-                return [4 /*yield*/, getSummary({
-                        taxonId: config.taxonId,
-                        placeId: config.placeId,
-                        year: config.year
-                    })];
-            case 7:
-                data = _a.sent();
-                _a.label = 8;
-            case 8:
-                filename = config.filename;
-                filenameWithPath = "".concat(folder, "/").concat(filename);
-                content = config.minify ? JSON.stringify(data) : JSON.stringify(data, null, "\t");
-                if (fs.existsSync(filenameWithPath)) {
-                    fs.unlinkSync(filenameWithPath);
-                }
-                fs.writeFileSync(filenameWithPath, content);
-                return [2 /*return*/];
-        }
-    });
-}); };
-var process = function (config, folder) { return __awaiter(void 0, void 0, void 0, function () {
-    var currentIndex, loadingBar, processQueue, queue;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                currentIndex = 0;
-                loadingBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
-                processQueue = function () { return __awaiter(void 0, void 0, void 0, function () {
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, generateFile(queue[currentIndex], folder)];
-                            case 1:
-                                _a.sent();
-                                loadingBar.update(currentIndex);
-                                currentIndex++;
-                                return [4 /*yield*/, sleep(1000)];
-                            case 2:
-                                _a.sent();
-                                if (!(currentIndex < queue.length)) return [3 /*break*/, 4];
-                                return [4 /*yield*/, processQueue()];
-                            case 3:
-                                _a.sent();
-                                return [3 /*break*/, 5];
-                            case 4:
-                                loadingBar.stop();
-                                _a.label = 5;
-                            case 5: return [2 /*return*/];
-                        }
-                    });
-                }); };
-                queue = getConfigurations(config);
-                loadingBar.start(queue.length, 0);
-                return [4 /*yield*/, processQueue()];
-            case 1:
-                _a.sent();
-                return [2 /*return*/];
-        }
-    });
-}); };
-
-export { CommonTaxa, CommonTaxaLabel, DataSource, Favourites, FavouritesLabel, Feature, Observation, RecentObservationLabel, RecentObservations, SeasonalityGraph, Summary, Tab, TaxonPanel as default, process as generate };
+export { CommonTaxa, CommonTaxaLabel, Favourites, FavouritesLabel, Observation, RecentObservationLabel, RecentObservations, SeasonalityGraph, Summary, TaxonPanel as default };

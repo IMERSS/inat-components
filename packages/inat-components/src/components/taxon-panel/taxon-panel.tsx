@@ -1,6 +1,5 @@
-import React, {useState} from 'react';
-import {Tab, DataSource, Feature} from "../../";
-import {getSourceFile} from "../../../../shared/src/utils";
+import React, {useState} from "react";
+import {getSourceFile, Tab, DataSource, Feature} from "inat-components-shared";
 import { RecentObservations, RecentObservationsProps } from '../recent-observations/recent-observations';
 import {CommonTaxa} from '../common-taxa/common-taxa';
 import {Favourites} from "../favourites/favourites"

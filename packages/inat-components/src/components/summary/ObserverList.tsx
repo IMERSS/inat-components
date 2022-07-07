@@ -1,8 +1,6 @@
-import React from 'react';
-import {Observer} from '../../../../shared/src/api/summary';
-import styles from './summary.module.scss';
-import * as C from '../../../../shared/src/constants';
-import {numberWithCommas} from '../../../../shared/src/utils/numberUtils';
+import React from "react";
+import {numberWithCommas, Observer, C} from "inat-components-shared";
+import styles from "./summary.module.scss";
 
 export const ObserverList = ({observers}: { observers: Observer[] }) => (
 	<ul className={styles.top}>

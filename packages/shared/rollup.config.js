@@ -1,5 +1,4 @@
 import typescript from "@rollup/plugin-typescript";
-import postcss from "rollup-plugin-postcss";
 import dts from "rollup-plugin-dts";
 
 export default [
@@ -13,10 +12,6 @@ export default [
             "react"
         ],
         plugins: [
-            postcss({
-                modules: true,
-                plugins: []
-            }),
             typescript()
         ]
     },

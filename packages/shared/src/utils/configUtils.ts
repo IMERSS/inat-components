@@ -1,7 +1,7 @@
-import {Feature, PlaceConfig, TaxaConfig} from "../../../inat-components/src/typings";
+import {Feature, PlaceConfig, TaxaConfig} from "../typings";
 
 /*
- * Right now the generated source filenames aren't configurable.
+ * Note that right now the source filenames aren't configurable.
  */
 export const getSourceFile = (api: Feature, taxonInfo: TaxaConfig, placeInfo: PlaceConfig, year?: string | number): string => {
 	const yearStr = year === "all" ? "allyears" : year;

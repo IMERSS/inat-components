@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {BaseComponentProps, DataSource} from "../../";
-import * as C from "../../../../shared/src/constants";
-import {CommonTaxData, getCommonTaxa} from "../../../../shared/src/api";
-import {numberWithCommas} from "../../../../shared/src/utils";
+import {numberWithCommas, C, CommonTaxData, getCommonTaxa, BaseComponentProps, DataSource} from "inat-components-shared";
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
 import Error from "../error/error";

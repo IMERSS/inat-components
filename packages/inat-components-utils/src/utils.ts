@@ -1,9 +1,9 @@
 import fs from "fs";
 import sleep from "sleep-promise";
 import cliProgress from "cli-progress";
-import {BaseComponentProps, ConfigFile, Feature, PlaceConfig, TaxaConfig} from "../../inat-components/src/typings";
-import { getRecentObservations, getCommonTaxa, getFavourites, getSummary } from "../../shared/src/api";
-import { getCurrentYear, getSourceFile } from "../../shared/src/utils";
+import {BaseComponentProps, ConfigFile, Feature, PlaceConfig, TaxaConfig} from "inat-components-shared";
+import { getRecentObservations, getCommonTaxa, getFavourites, getSummary } from "inat-components-shared";
+import { getCurrentYear, getSourceFile } from "inat-components-shared";
 
 export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
     const configurations: any = [];
