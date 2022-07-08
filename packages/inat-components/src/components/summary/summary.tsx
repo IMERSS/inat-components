@@ -10,7 +10,7 @@ export type SummaryProps = {
     taxonId: number;
     placeId: number;
     year: string | number;
-    data?: FavouritesRespData; /// TODO this right? Sure looks wrong
+    data?: FavouritesRespData; /// TODO
     dataUrl?: string;
 };
 

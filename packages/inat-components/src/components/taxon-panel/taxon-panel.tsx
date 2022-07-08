@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {getSourceFile, Tab, DataSource, Feature} from "@imerss/inat-components-shared";
-import { RecentObservations, RecentObservationsProps } from '../recent-observations/recent-observations';
+import {RecentObservations, RecentObservationsProps} from '../recent-observations/recent-observations';
 import {CommonTaxa} from '../common-taxa/common-taxa';
 import {Favourites} from "../favourites/favourites"
 import {Summary} from "../summary/summary";
@@ -9,11 +9,12 @@ import Tabs from "../tabs/tabs";
 import {useFeatureTitles} from "../hooks/hooks";
 import styles from '../shared/css/general.module.scss';
 
-const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: any) => {
+const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseURL }: any) => {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState<string>("all");
-    const titles = useFeatureTitles(features);
-
+    const titles = useFeatureTitles(config.features);
+    const [taxonInfo, setTaxonInfo] = useState(() => config.taxa.find((i) => i.taxonId === taxonId));
+    const [placeInfo, setPlaceInfo] = useState(() => config.places.find((i) => i.placeId === placeId));
 
     const getCurrentTab = () => {
         switch (tab) {
@@ -22,12 +23,11 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: an
                     source: dataSource
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = sourceFolder + '/' + getSourceFile(Feature.recentObservations, taxonId, placeId);
+                    props.dataUrl = baseURL + '/' + getSourceFile(Feature.recentObservations, taxonInfo, placeInfo);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
                 }
-
                 return (
                     <RecentObservations {...props} />
                 );
@@ -39,12 +39,11 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: an
                     year
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = sourceFolder + '/' + getSourceFile(Feature.commonTaxa, taxonId, placeId, year);
+                    props.dataUrl = baseURL + '/' + getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, year);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
                 }
-
                 return (
                     <CommonTaxa {...props} />
                 );
@@ -56,12 +55,11 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: an
                     year
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = sourceFolder + '/' + getSourceFile(Feature.favourites, taxonId, placeId, year);
+                    props.dataUrl = baseURL + '/' + getSourceFile(Feature.favourites, taxonInfo, placeInfo, year);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
                 }
-
                 return (
                     <Favourites {...props} />
                 );
@@ -73,12 +71,11 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: an
                     year
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = sourceFolder + '/' + getSourceFile(Feature.stats, taxonId, placeId, year);
+                    props.dataUrl = baseURL + '/' + getSourceFile(Feature.stats, taxonInfo, placeInfo, year);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
                 }
-
                 return <Summary {...props} />;
             }
         }
@@ -89,7 +86,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, features, sourceFolder }: an
             <Tabs
                 selectedTab={tab}
                 onChangeTab={setTab}
-                features={features}
+                features={config.features}
             />
             <div>
                 {tab !== Tab.recent && (

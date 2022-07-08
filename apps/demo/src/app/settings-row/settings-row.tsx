@@ -13,8 +13,8 @@ export type SettingsProp = {
 };
 
 const SettingsRow = ({ config, taxonId, onChangeTaxon, placeId, onChangePlace, dataSource, onChangeDataSource }: SettingsProp) => {
-
-    /*
+    return (
+        <section className={styles.row}>
             <div>
                 <h4>Data Source</h4>
                 <select defaultValue={dataSource} onChange={(e) => onChangeDataSource(e.target.value as DataSource)}>
@@ -22,10 +22,6 @@ const SettingsRow = ({ config, taxonId, onChangeTaxon, placeId, onChangePlace, d
                     <option value={DataSource.url}>Static JSON files</option>
                 </select>
             </div>
-     */
-
-    return (
-        <section className={styles.row}>
             <div>
                 <h4>Taxon</h4>
                 <select defaultValue={taxonId} onChange={(e) => onChangeTaxon(parseInt(e.target.value, 10))}>

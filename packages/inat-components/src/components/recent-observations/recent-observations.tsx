@@ -3,13 +3,12 @@ import {formatDate, C, getRecentObservations, RecentObservationData, BaseCompone
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
 import {NoResults} from "../no-results/no-results";
-import styles from "./recent-observations.module.scss";
-import generalStyles from "../shared/css/general.module.scss";
+import styles from "../shared/css/general.module.scss";
 
 export type RecentObservationsProps = BaseComponentProps;
 
 export const RecentObservationLabel = (obs: RecentObservationData) => (
-	<div className={generalStyles.obsLabel}>
+	<div className={styles.obsLabel}>
 		<h3>{obs.taxonCommonName || obs.taxonName}</h3>
 		<div>{formatDate(obs.obsDate)}</div>
 		<div>
@@ -86,7 +85,7 @@ export const RecentObservations = ({
 	return (
 		<div className={classes}>
 			<Load loading={loading}/>
-			<div className={generalStyles.grid}>
+			<div className={styles.grid}>
 				{!loading && observations.length === 0 && <NoResults/>}
 				{observations.map((obs: RecentObservationData) => (
 					<Observation

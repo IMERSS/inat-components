@@ -10,8 +10,6 @@ export * from "./components/seasonality-graph/seasonality-graph";
 export * from "./components/summary/summary";
 
 // all typings
-export {
-	DataSource
-} from "@imerss/inat-components-shared";
+export * from "@imerss/inat-components-shared";
 
 export default TaxonPanel;

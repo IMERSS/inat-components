@@ -24,8 +24,8 @@ const App = () => {
 				taxonId={taxonId}
 				placeId={placeId}
 				dataSource={dataSource}
-				features={config.features}
-				sourceFolder="http://localhost:7777"
+				config={config}
+				baseURL="http://localhost:3000/source"
 			/>
 		</>
 	);
