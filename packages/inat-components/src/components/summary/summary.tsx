@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {numberWithCommas, DataSource, getSummary, FavouritesRespData} from "@imerss/inat-components-shared";
+import {numberWithCommas, DataSource, getSummary, FavouritesRespData} from "../../__shared";
 import { ObserverList } from './ObserverList';
 import Loader from "../loader/loader";
 import {SeasonalityGraph} from "../seasonality-graph/seasonality-graph";

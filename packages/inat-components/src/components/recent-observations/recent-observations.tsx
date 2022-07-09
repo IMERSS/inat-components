@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {formatDate, C, getRecentObservations, RecentObservationData, BaseComponentProps, DataSource} from "@imerss/inat-components-shared";
+import {formatDate, C, getRecentObservations, RecentObservationData, BaseComponentProps, DataSource} from "../../__shared";
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
 import {NoResults} from "../no-results/no-results";

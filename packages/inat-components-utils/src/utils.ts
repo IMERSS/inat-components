@@ -13,7 +13,7 @@ import {
 	getSummary,
 	getCurrentYear,
 	getSourceFile
-} from "@imerss/inat-components-shared";
+} from "./__shared";
 
 export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 	const configurations: any = [];

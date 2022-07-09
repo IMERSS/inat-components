@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {getSourceFile, Tab, DataSource, Feature} from "@imerss/inat-components-shared";
+import {getSourceFile, Tab, DataSource, Feature} from "../../__shared";
 import {RecentObservations, RecentObservationsProps} from '../recent-observations/recent-observations';
 import {CommonTaxa} from '../common-taxa/common-taxa';
 import {Favourites} from "../favourites/favourites"

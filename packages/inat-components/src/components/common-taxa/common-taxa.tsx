@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {numberWithCommas, C, CommonTaxData, getCommonTaxa, BaseComponentProps, DataSource} from "@imerss/inat-components-shared";
+import {numberWithCommas, C, CommonTaxData, getCommonTaxa, BaseComponentProps, DataSource} from "../../__shared";
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
 import Error from "../error/error";

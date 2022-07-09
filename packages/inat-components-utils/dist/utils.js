@@ -5,7 +5,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var fs = require('fs');
 var sleep = require('sleep-promise');
 var cliProgress = require('cli-progress');
-var inatComponentsShared = require('@imerss/inat-components-shared');
+require('date-fns');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -77,53 +77,328 @@ function __generator(thisArg, body) {
     }
 }
 
+var BASE_API_URL = 'https://api.inaturalist.org';
+
+var getCommonTaxa = function (_a) {
+    var year = _a.year, taxonId = _a.taxonId, placeId = _a.placeId, perPage = _a.perPage;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var url, response, resp, sortedTaxa;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    url = "".concat(BASE_API_URL, "/v1/observations/species_counts?verifiable=true&spam=false&place_id=").concat(placeId, "&taxon_id=").concat(taxonId, "&locale=en-US&per_page=").concat(perPage);
+                    if (year !== "all") {
+                        url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
+                    }
+                    return [4 /*yield*/, fetch(url, {
+                            method: 'GET',
+                            headers: {
+                                Accept: 'application/json'
+                            }
+                        })];
+                case 1:
+                    response = _b.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    resp = _b.sent();
+                    sortedTaxa = resp.results.sort(function (a, b) {
+                        if (a.count > b.count) {
+                            return -1;
+                        }
+                        else if (a.count < b.count) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                    return [2 /*return*/, {
+                            totalResults: resp.total_results,
+                            results: sortedTaxa.map(function (row) {
+                                var _a, _b;
+                                return ({
+                                    id: row.taxon.id,
+                                    imageUrl: ((_b = (_a = row.taxon) === null || _a === void 0 ? void 0 : _a.default_photo) === null || _b === void 0 ? void 0 : _b.square_url) || "",
+                                    obsCount: row.count,
+                                    taxonName: row.taxon.name || "",
+                                    taxonCommonName: row.taxon.preferred_common_name
+                                });
+                            })
+                        }];
+            }
+        });
+    });
+};
+
+var getFavourites = function (_a) {
+    var year = _a.year, taxonId = _a.taxonId, placeId = _a.placeId, perPage = _a.perPage;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var url, response, resp, sortedTaxa;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    url = "".concat(BASE_API_URL, "/v1/observations?verifiable=true&order_by=votes&order=desc&page=1&spam=false&place_id=").concat(placeId, "&taxon_id=").concat(taxonId, "&locale=en-US&per_page=").concat(perPage);
+                    if (year !== "all") {
+                        url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
+                    }
+                    return [4 /*yield*/, fetch(url, {
+                        // method: 'GET',
+                        // headers: {
+                        //     Accept: 'application/json'
+                        // }
+                        })];
+                case 1:
+                    response = _b.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    resp = _b.sent();
+                    sortedTaxa = resp.results.filter(function (i) { return i.faves.length > 0; }).sort(function (a, b) {
+                        if (a.faves.length > b.faves.length) {
+                            return -1;
+                        }
+                        else if (a.faves.length < b.faves.length) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                    return [2 /*return*/, {
+                            totalResults: resp.total_results,
+                            results: sortedTaxa.map(function (row) {
+                                var _a, _b;
+                                return ({
+                                    id: row.id,
+                                    imageUrl: ((_b = (_a = row.taxon) === null || _a === void 0 ? void 0 : _a.default_photo) === null || _b === void 0 ? void 0 : _b.square_url) || "",
+                                    obsDate: row.observed_on_string,
+                                    obsUrl: row.uri,
+                                    taxonName: row.taxon.name || "",
+                                    taxonCommonName: row.taxon.preferred_common_name,
+                                    numFaves: row.faves.length
+                                });
+                            })
+                        }];
+            }
+        });
+    });
+};
+
+var getRecentObservations = function (_a) {
+    var taxonId = _a.taxonId, placeId = _a.placeId, perPage = _a.perPage;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var url, response, obs;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    url = "".concat(BASE_API_URL, "/v1/observations?photos=true&per_page=").concat(perPage, "&taxon_id=").concat(taxonId, "&place_id=").concat(placeId, "&order=desc&order_by=observed_on");
+                    return [4 /*yield*/, fetch(url)];
+                case 1:
+                    response = _b.sent();
+                    return [4 /*yield*/, response.json()];
+                case 2:
+                    obs = _b.sent();
+                    return [2 /*return*/, {
+                            totalResults: obs.total_results,
+                            results: obs.results.map(function (obs) {
+                                var _a;
+                                return {
+                                    id: obs.id,
+                                    imageUrl: obs.observation_photos[0].photo.url,
+                                    obsUrl: obs.uri,
+                                    obsDate: obs.observed_on_string,
+                                    taxonName: ((_a = obs === null || obs === void 0 ? void 0 : obs.taxon) === null || _a === void 0 ? void 0 : _a.name) || "",
+                                    taxonCommonName: obs === null || obs === void 0 ? void 0 : obs.taxon.preferred_common_name,
+                                    observerUsername: obs.user.login
+                                };
+                            })
+                        }];
+            }
+        });
+    });
+};
+
+var getSummary = function (_a) {
+    var taxonId = _a.taxonId, placeId = _a.placeId, year = _a.year;
+    return __awaiter(void 0, void 0, void 0, function () {
+        var observers, observations, seasonalityData;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0: return [4 /*yield*/, getObserverSummary(taxonId, placeId, year)];
+                case 1:
+                    observers = _b.sent();
+                    return [4 /*yield*/, getObservationSummary(taxonId, placeId, year)];
+                case 2:
+                    observations = _b.sent();
+                    return [4 /*yield*/, getSeasonalityData(taxonId, placeId, year)];
+                case 3:
+                    seasonalityData = _b.sent();
+                    return [2 /*return*/, {
+                            observers: observers,
+                            observations: observations,
+                            seasonalityData: seasonalityData
+                        }];
+            }
+        });
+    });
+};
+var getObserverSummary = function (taxonId, placeId, year) { return __awaiter(void 0, void 0, void 0, function () {
+    var url, response, data;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                url = "".concat(BASE_API_URL, "/v1/observations/observers?verifiable=true&order_by=votes&order=desc&page=1&spam=false&place_id=").concat(placeId, "&taxon_id=").concat(taxonId, "&locale=en-US&per_page=10");
+                if (year !== "all") {
+                    url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
+                }
+                return [4 /*yield*/, fetch(url)];
+            case 1:
+                response = _a.sent();
+                return [4 /*yield*/, response.json()];
+            case 2:
+                data = _a.sent();
+                return [2 /*return*/, {
+                        totalCount: data.total_results,
+                        top: data.results.map(function (result) { return ({
+                            id: result.user.id,
+                            userName: result.user.login,
+                            numObservations: result.observation_count,
+                            iconUrl: result.user.icon_url
+                        }); })
+                    }];
+        }
+    });
+}); };
+var getObservationSummary = function (taxonId, placeId, year) { return __awaiter(void 0, void 0, void 0, function () {
+    var url, response, data;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                url = "".concat(BASE_API_URL, "/v1/observations?photos=true&per_page=1&taxon_id=").concat(taxonId, "&place_id=").concat(placeId, "&order=desc&order_by=observed_on");
+                if (year !== "all") {
+                    url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
+                }
+                return [4 /*yield*/, fetch(url)];
+            case 1:
+                response = _a.sent();
+                return [4 /*yield*/, response.json()];
+            case 2:
+                data = _a.sent();
+                return [2 /*return*/, {
+                        totalCount: data.total_results
+                    }];
+        }
+    });
+}); };
+var getSeasonalityData = function (taxonId, placeId, year) { return __awaiter(void 0, void 0, void 0, function () {
+    var url, response, resp;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                url = "".concat(BASE_API_URL, "/v1/observations/histogram?verifiable=true&taxon_id=").concat(taxonId, "&place_id=").concat(placeId, "&locale=en-US&date_field=observed&interval=month_of_year");
+                if (year !== "all") {
+                    url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
+                }
+                return [4 /*yield*/, fetch(url)];
+            case 1:
+                response = _a.sent();
+                return [4 /*yield*/, response.json()];
+            case 2:
+                resp = _a.sent();
+                return [2 /*return*/, {
+                        monthOfYear: resp.results.month_of_year
+                    }];
+        }
+    });
+}); };
+
+var DataSource;
+(function (DataSource) {
+    DataSource["autoLoad"] = "autoLoad";
+    DataSource["dataProp"] = "dataProp";
+    DataSource["url"] = "url";
+})(DataSource || (DataSource = {}));
+var Feature;
+(function (Feature) {
+    Feature["commonTaxa"] = "commonTaxa";
+    Feature["favourites"] = "favourites";
+    Feature["recentObservations"] = "recentObservations";
+    Feature["stats"] = "stats";
+})(Feature || (Feature = {}));
+// I know this is duplicated, but it's very possible they could be different in future
+var Tab;
+(function (Tab) {
+    Tab["recent"] = "recent";
+    Tab["commonTaxa"] = "commonTaxa";
+    Tab["favourites"] = "favourites";
+    Tab["stats"] = "stats";
+})(Tab || (Tab = {}));
+
+/*
+ * Note that right now the source filenames aren't configurable.
+ */
+var getSourceFile = function (api, taxonInfo, placeInfo, year) {
+    var yearStr = year === "all" ? "allyears" : year;
+    var filename = "";
+    if (api === Feature.recentObservations) {
+        filename = "".concat(taxonInfo.short, "-").concat(placeInfo.short, "-recent.json");
+    }
+    else if (api === Feature.commonTaxa) {
+        filename = "".concat(taxonInfo.short, "-").concat(placeInfo.short, "-").concat(yearStr, "-commonTaxa.json");
+    }
+    else if (api === Feature.favourites) {
+        filename = "".concat(taxonInfo.short, "-").concat(placeInfo.short, "-").concat(yearStr, "-favourites.json");
+    }
+    else if (api === Feature.stats) {
+        filename = "".concat(taxonInfo.short, "-").concat(placeInfo.short, "-").concat(yearStr, "-stats.json");
+    }
+    return filename;
+};
+
+var getCurrentYear = function () { return new Date().getFullYear(); };
+
 var getConfigurations = function (config) {
     var configurations = [];
     config.taxa.forEach(function (taxonInfo) {
         config.places.forEach(function (placeInfo) {
-            var currentYear = inatComponentsShared.getCurrentYear();
+            var currentYear = getCurrentYear();
             // Recent observations
             configurations.push({
-                api: inatComponentsShared.Feature.recentObservations,
+                api: Feature.recentObservations,
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.recentObservations, taxonInfo, placeInfo)
+                filename: getSourceFile(Feature.recentObservations, taxonInfo, placeInfo)
             });
             // Common taxa
             var baseCommonTaxaData = {
-                api: inatComponentsShared.Feature.commonTaxa,
+                api: Feature.commonTaxa,
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.commonTaxa, taxonInfo, placeInfo, "all")
+                filename: getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, "all")
             };
             configurations.push(__assign(__assign({}, baseCommonTaxaData), { year: "all" }));
             for (var year = currentYear - 10; year <= currentYear; year++) {
-                configurations.push(__assign(__assign({}, baseCommonTaxaData), { filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.commonTaxa, taxonInfo, placeInfo, year), year: year }));
+                configurations.push(__assign(__assign({}, baseCommonTaxaData), { filename: getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, year), year: year }));
             }
             // Favourites. For this, generate the last 10 years of info plus one for all years
             var baseFavouritesData = {
-                api: inatComponentsShared.Feature.favourites,
+                api: Feature.favourites,
                 perPage: 100,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.favourites, taxonInfo, placeInfo, "all")
+                filename: getSourceFile(Feature.favourites, taxonInfo, placeInfo, "all")
             };
             configurations.push(__assign(__assign({}, baseFavouritesData), { year: "all" }));
             for (var year = currentYear - 10; year <= currentYear; year++) {
-                configurations.push(__assign(__assign({}, baseFavouritesData), { filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.favourites, taxonInfo, placeInfo, year), year: year }));
+                configurations.push(__assign(__assign({}, baseFavouritesData), { filename: getSourceFile(Feature.favourites, taxonInfo, placeInfo, year), year: year }));
             }
             // Stats
             var baseStatsData = {
-                api: inatComponentsShared.Feature.stats,
+                api: Feature.stats,
                 taxonId: taxonInfo.taxonId,
                 placeId: placeInfo.placeId,
-                filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.stats, taxonInfo, placeInfo, "all")
+                filename: getSourceFile(Feature.stats, taxonInfo, placeInfo, "all")
             };
             configurations.push(__assign(__assign({}, baseStatsData), { year: "all" }));
             for (var year = currentYear - 10; year <= currentYear; year++) {
-                configurations.push(__assign(__assign({}, baseStatsData), { filename: inatComponentsShared.getSourceFile(inatComponentsShared.Feature.stats, taxonInfo, placeInfo, year), year: year }));
+                configurations.push(__assign(__assign({}, baseStatsData), { filename: getSourceFile(Feature.stats, taxonInfo, placeInfo, year), year: year }));
             }
         });
     });
@@ -138,26 +413,26 @@ var generateFile = function (config, folder) { return __awaiter(void 0, void 0, 
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 10, , 11]);
-                if (!(config.api === inatComponentsShared.Feature.recentObservations)) return [3 /*break*/, 3];
-                return [4 /*yield*/, inatComponentsShared.getRecentObservations({ taxonId: taxonId, placeId: placeId, perPage: perPage })];
+                if (!(config.api === Feature.recentObservations)) return [3 /*break*/, 3];
+                return [4 /*yield*/, getRecentObservations({ taxonId: taxonId, placeId: placeId, perPage: perPage })];
             case 2:
                 data = _a.sent();
                 return [3 /*break*/, 9];
             case 3:
-                if (!(config.api === inatComponentsShared.Feature.commonTaxa)) return [3 /*break*/, 5];
-                return [4 /*yield*/, inatComponentsShared.getCommonTaxa({ taxonId: taxonId, placeId: placeId, perPage: perPage, year: year })];
+                if (!(config.api === Feature.commonTaxa)) return [3 /*break*/, 5];
+                return [4 /*yield*/, getCommonTaxa({ taxonId: taxonId, placeId: placeId, perPage: perPage, year: year })];
             case 4:
                 data = _a.sent();
                 return [3 /*break*/, 9];
             case 5:
-                if (!(config.api === inatComponentsShared.Feature.favourites)) return [3 /*break*/, 7];
-                return [4 /*yield*/, inatComponentsShared.getFavourites({ taxonId: taxonId, placeId: placeId, perPage: perPage, year: year })];
+                if (!(config.api === Feature.favourites)) return [3 /*break*/, 7];
+                return [4 /*yield*/, getFavourites({ taxonId: taxonId, placeId: placeId, perPage: perPage, year: year })];
             case 6:
                 data = _a.sent();
                 return [3 /*break*/, 9];
             case 7:
-                if (!(config.api === inatComponentsShared.Feature.stats)) return [3 /*break*/, 9];
-                return [4 /*yield*/, inatComponentsShared.getSummary({ taxonId: taxonId, placeId: placeId, year: year })];
+                if (!(config.api === Feature.stats)) return [3 /*break*/, 9];
+                return [4 /*yield*/, getSummary({ taxonId: taxonId, placeId: placeId, year: year })];
             case 8:
                 data = _a.sent();
                 _a.label = 9;
