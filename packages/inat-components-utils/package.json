@@ -1,6 +1,6 @@
 {
   "name": "@imerss/inat-components-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/utils.js",
   "module": "dist/utils.js",
   "scripts": {
@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "cli-progress": "^3.11.2",
-    "date-fns": "^2.28.0"
+    "date-fns": "^2.28.0",
+    "sleep-promise": "^9.1.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.1",
@@ -19,7 +20,6 @@
     "@types/jest": "^28.1.4",
     "jest": "^28.1.2",
     "rollup": "^2.75.7",
-    "sleep-promise": "^9.1.0",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"
   },
