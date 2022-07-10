@@ -5,6 +5,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var fs = require('fs');
 var sleep = require('sleep-promise');
 var cliProgress = require('cli-progress');
+var fetch = require('isomorphic-unfetch');
 require('date-fns');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -12,6 +13,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var fs__default = /*#__PURE__*/_interopDefaultLegacy(fs);
 var sleep__default = /*#__PURE__*/_interopDefaultLegacy(sleep);
 var cliProgress__default = /*#__PURE__*/_interopDefaultLegacy(cliProgress);
+var fetch__default = /*#__PURE__*/_interopDefaultLegacy(fetch);
 
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -90,7 +92,7 @@ var getCommonTaxa = function (_a) {
                     if (year !== "all") {
                         url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
                     }
-                    return [4 /*yield*/, fetch(url, {
+                    return [4 /*yield*/, fetch__default["default"](url, {
                             method: 'GET',
                             headers: {
                                 Accept: 'application/json'
@@ -139,7 +141,7 @@ var getFavourites = function (_a) {
                     if (year !== "all") {
                         url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
                     }
-                    return [4 /*yield*/, fetch(url, {
+                    return [4 /*yield*/, fetch__default["default"](url, {
                         // method: 'GET',
                         // headers: {
                         //     Accept: 'application/json'
@@ -187,7 +189,7 @@ var getRecentObservations = function (_a) {
             switch (_b.label) {
                 case 0:
                     url = "".concat(BASE_API_URL, "/v1/observations?photos=true&per_page=").concat(perPage, "&taxon_id=").concat(taxonId, "&place_id=").concat(placeId, "&order=desc&order_by=observed_on");
-                    return [4 /*yield*/, fetch(url)];
+                    return [4 /*yield*/, fetch__default["default"](url)];
                 case 1:
                     response = _b.sent();
                     return [4 /*yield*/, response.json()];
@@ -246,7 +248,7 @@ var getObserverSummary = function (taxonId, placeId, year) { return __awaiter(vo
                 if (year !== "all") {
                     url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
                 }
-                return [4 /*yield*/, fetch(url)];
+                return [4 /*yield*/, fetch__default["default"](url)];
             case 1:
                 response = _a.sent();
                 return [4 /*yield*/, response.json()];
@@ -273,7 +275,7 @@ var getObservationSummary = function (taxonId, placeId, year) { return __awaiter
                 if (year !== "all") {
                     url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
                 }
-                return [4 /*yield*/, fetch(url)];
+                return [4 /*yield*/, fetch__default["default"](url)];
             case 1:
                 response = _a.sent();
                 return [4 /*yield*/, response.json()];
@@ -294,7 +296,7 @@ var getSeasonalityData = function (taxonId, placeId, year) { return __awaiter(vo
                 if (year !== "all") {
                     url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
                 }
-                return [4 /*yield*/, fetch(url)];
+                return [4 /*yield*/, fetch__default["default"](url)];
             case 1:
                 response = _a.sent();
                 return [4 /*yield*/, response.json()];

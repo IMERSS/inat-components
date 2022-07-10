@@ -5,9 +5,10 @@
     "boot": "lerna bootstrap",
     "build": "lerna run build",
     "generate": "cd apps/demo && yarn generate",
+    "copyShared": "npx grunt",
     "watchPackages": "lerna exec --parallel -- yarn watch",
     "watchShared": "npx grunt watch",
-    "dev": "npm-run-all --parallel watchPackages watchShared"
+    "dev": "npm-run-all --parallel copyShared watchPackages watchShared"
   },
   "devDependencies": {
     "grunt": "^1.5.3",
