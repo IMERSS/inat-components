@@ -1,3 +1,4 @@
+import fetch from "isomorphic-unfetch";
 import * as C from '../constants';
 
 export type SummaryApiProps = {

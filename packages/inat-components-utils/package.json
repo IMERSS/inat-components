@@ -1,6 +1,6 @@
 {
   "name": "@imerss/inat-components-utils",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "main": "dist/utils.js",
   "module": "dist/utils.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "dependencies": {
     "cli-progress": "^3.11.2",
     "date-fns": "^2.28.0",
+    "isomorphic-unfetch": "^3.1.0",
     "sleep-promise": "^9.1.0"
   },
   "devDependencies": {

@@ -1,4 +1,5 @@
 import * as C from "../constants";
+import fetch from "isomorphic-unfetch";
 
 export type CommonTaxaCallProps = {
     year: string | number;
