@@ -441,7 +441,7 @@ var generateFile = function (config, folder) { return __awaiter(void 0, void 0, 
             case 9: return [3 /*break*/, 11];
             case 10:
                 e_1 = _a.sent();
-                console.log("ERROR!!!!", e_1);
+                console.log("ERROR -- [", config.api, "]", e_1);
                 return [2 /*return*/];
             case 11:
                 filename = config.filename;

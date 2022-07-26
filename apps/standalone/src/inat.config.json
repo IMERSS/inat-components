@@ -16,6 +16,17 @@
   "features": {
     "recentObservations": {
       "numResults": 100
+    },
+    "commonTaxa": {
+      "numResults": 100,
+      "numYears": 10
+    },
+    "favourites": {
+      "numResults": 100,
+      "numYears": 10
+    },
+    "stats": {
+      "numTopObservers": 10
     }
   }
 }

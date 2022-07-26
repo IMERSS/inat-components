@@ -25,7 +25,7 @@ const App = () => {
 				placeId={placeId}
 				dataSource={dataSource}
 				config={config}
-				baseURL="http://localhost:3000/source"
+				baseURL="http://sisyphean.ca/inat"
 			/>
 		</>
 	);

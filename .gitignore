@@ -6,3 +6,4 @@ apps/demo/public/source/**
 packages/inat-components/src/__shared
 packages/inat-components-utils/src/__shared
 packages/inat-components-utils/dist/
+build

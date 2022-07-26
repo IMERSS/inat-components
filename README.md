@@ -81,4 +81,3 @@ This shows a high-level summary of the selected taxon and place. It shows inform
 observations, total number of observers, a histogram of data observations per month, top observers, total number of
 species and observation/species counts of the next taxonomical sub-level, e.g. if you specified an Order as the primary
 taxon ID, it would provide family-level stats (Kingdom -> Phylum -> Class -> Order -> Family -> Genus -> Species).
-

@@ -4,6 +4,16 @@
       "label": "Butterflies and moth",
       "short": "leps",
       "taxonId": 47157
+    },
+    {
+      "label": "Beetles",
+      "short": "beetles",
+      "taxonId": 47208
+    },
+    {
+      "label": "Birds",
+      "short": "birds",
+      "taxonId": 3
     }
   ],
   "places": [
@@ -11,6 +21,11 @@
       "label": "BC",
       "short": "bc",
       "placeId": 7085
+    },
+    {
+      "label": "Alberta",
+      "short": "alberta",
+      "placeId": 6834
     }
   ],
   "features": {

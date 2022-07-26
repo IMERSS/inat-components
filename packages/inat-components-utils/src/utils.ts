@@ -116,7 +116,7 @@ const generateFile = async (config, folder) => {
 			data = await getSummary({taxonId, placeId, year});
 		}
 	} catch (e) {
-		console.log("ERROR!!!!", e);
+		console.log("ERROR -- [", config.api, "]", e);
 		return;
 	}
 
