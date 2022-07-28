@@ -1,5 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {formatDate, C, getRecentObservations, RecentObservationData, BaseComponentProps, DataSource} from "../../__shared";
+import {
+	formatDate,
+	C,
+	getRecentObservations,
+	RecentObservationData,
+	BaseComponentProps,
+	DataSource,
+	BaseClasses
+} from "../../__shared";
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
 import {NoResults} from "../no-results/no-results";
@@ -7,11 +15,11 @@ import styles from "../shared/css/general.module.scss";
 
 export type RecentObservationsProps = BaseComponentProps;
 
-export const RecentObservationLabel = (obs: RecentObservationData) => (
+export const RecentObservationLabel = (obs: RecentObservationData & { classes: BaseClasses }) => (
 	<div className={styles.obsLabel}>
-		<h3>{obs.taxonCommonName || obs.taxonName}</h3>
-		<div>{formatDate(obs.obsDate)}</div>
-		<div>
+		<h3 className={obs.classes?.observationLabelTitle}>{obs.taxonCommonName || obs.taxonName}</h3>
+		<div className={obs.classes?.observationLabelDate}>{formatDate(obs.obsDate)}</div>
+		<div className={obs.classes?.observationLabelName}>
 			<a href={`${C.BASE_URL}/people/${obs.observerUsername}`}
 			   target="_blank"
 			   rel="noreferrer"
@@ -30,7 +38,8 @@ export const RecentObservations = ({
 	source = DataSource.autoLoad,
 	perPage = C.PER_PAGE,
 	components,
-	className
+	className,
+	classes
 }: RecentObservationsProps) => {
 	const [loading, setLoading] = useState(false);
 	const [observations, setObservations] = useState<any>(() => (source === DataSource.dataProp) ? data : []);
@@ -78,12 +87,13 @@ export const RecentObservations = ({
 	const Load = components?.loader ? components.loader as any : Loader;
 	const Label = components?.label ? components.label as any : RecentObservationLabel;
 
-	let classes = styles.panel;
+	let componentClasses = styles.panel;
 	if (className) {
-		classes += ` ${className}`;
+		componentClasses += ` ${className}`;
 	}
+
 	return (
-		<div className={classes}>
+		<div className={componentClasses}>
 			<Load loading={loading}/>
 			<div className={styles.grid}>
 				{!loading && observations.length === 0 && <NoResults/>}
@@ -92,7 +102,7 @@ export const RecentObservations = ({
 						key={obs.id}
 						imageUrl={obs.imageUrl.replace(/square/, "medium")}
 						linkUrl={obs.obsUrl}>
-						<Label {...obs} />
+						<Label {...obs} classes={classes} />
 					</Observation>
 				))}
 			</div>

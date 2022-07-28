@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {getSourceFile, Tab, DataSource, Feature} from "../../__shared";
+import {getSourceFile, Tab, DataSource, Feature, ConfigFile, BaseClasses} from "../../__shared";
 import {RecentObservations, RecentObservationsProps} from '../recent-observations/recent-observations';
 import {CommonTaxa} from '../common-taxa/common-taxa';
 import {Favourites} from "../favourites/favourites"
@@ -9,7 +9,16 @@ import Tabs from "../tabs/tabs";
 import {useFeatureTitles} from "../hooks/hooks";
 import styles from '../shared/css/general.module.scss';
 
-const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseURL }: any) => {
+export type TaxonPanelProps = {
+    taxonId: number;
+    placeId: number;
+    dataSource: DataSource;
+    config: ConfigFile;
+    baseUrl: string;
+    classes?: BaseClasses;
+}
+
+const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, classes }: TaxonPanelProps) => {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState<string>("all");
     const titles = useFeatureTitles(config.features);
@@ -20,10 +29,11 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseURL }: any) => {
         switch (tab) {
             case Tab.recent: {
                 const props: Partial<RecentObservationsProps> = {
-                    source: dataSource
+                    source: dataSource,
+                    classes
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = baseURL + '/' + getSourceFile(Feature.recentObservations, taxonInfo, placeInfo);
+                    props.dataUrl = baseUrl + '/' + getSourceFile(Feature.recentObservations, taxonInfo, placeInfo);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
@@ -35,11 +45,12 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseURL }: any) => {
 
             case Tab.commonTaxa: {
                 const props: any = {
+                    classes,
                     source: dataSource,
                     year
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = baseURL + '/' + getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, year);
+                    props.dataUrl = baseUrl + '/' + getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, year);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
@@ -51,11 +62,12 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseURL }: any) => {
 
             case Tab.favourites: {
                 const props: any = {
+                    classes,
                     source: dataSource,
                     year
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = baseURL + '/' + getSourceFile(Feature.favourites, taxonInfo, placeInfo, year);
+                    props.dataUrl = baseUrl + '/' + getSourceFile(Feature.favourites, taxonInfo, placeInfo, year);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
@@ -67,11 +79,12 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseURL }: any) => {
 
             case Tab.stats: {
                 const props: any = {
+                    classes,
                     source: dataSource,
                     year
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = baseURL + '/' + getSourceFile(Feature.stats, taxonInfo, placeInfo, year);
+                    props.dataUrl = baseUrl + '/' + getSourceFile(Feature.stats, taxonInfo, placeInfo, year);
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
@@ -81,20 +94,24 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseURL }: any) => {
         }
     };
 
+    const tabsClass = classes?.tabs || '';
+    const yearDropdownClass = classes?.yearDropdown || '';
+
     return (
         <div className={styles.page}>
             <Tabs
                 selectedTab={tab}
                 onChangeTab={setTab}
                 features={config.features}
+                className={tabsClass}
             />
             <div>
                 {tab !== Tab.recent && (
-                    <div style={{ float: "right" }}>
+                    <div style={{ float: "right" }} className={yearDropdownClass}>
                         <Years value={year} onChange={setYear} />
                     </div>
                 )}
-                <h1>{titles[tab]}</h1>
+                <h1 className={classes?.pageHeadings}>{titles[tab]}</h1>
             </div>
             {getCurrentTab()}
         </div>

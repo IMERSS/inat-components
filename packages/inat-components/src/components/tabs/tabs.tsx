@@ -6,14 +6,20 @@ import {useFeatureTitles} from "../hooks/hooks";
 export type TabsProps = {
     selectedTab: Tab;
     onChangeTab: (tab: Tab) => void;
-    features: any; // TODO
+    features: any;
+    className?: string;
 }
 
-const Tabs = ({ selectedTab, onChangeTab, features }: TabsProps) => {
+const Tabs = ({ selectedTab, onChangeTab, features, className }: TabsProps) => {
     const titles = useFeatureTitles(features);
 
+    let classes = styles.tabs;
+    if (className) {
+        classes += ` ${className}`;
+    }
+
     return (
-        <ul className={styles.tabs}>
+        <ul className={classes}>
             {features.recentObservations && (
                 <li onClick={() => onChangeTab(Tab.recent)}
                     className={selectedTab === Tab.recent ? styles.selected : ""}>
