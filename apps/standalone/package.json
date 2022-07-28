@@ -4,6 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "watch": "react-scripts start",
     "build": "react-scripts build"
   },
   "dependencies": {

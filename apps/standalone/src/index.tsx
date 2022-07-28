@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import TaxonPanel, { DataSource } from "@imerss/inat-components";
-import config from "./inat.config.json";
+import TaxonPanel, { DataSource } from '@imerss/inat-components';
+import config from './inat.config.json';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const root = ReactDOM.createRoot(document.getElementById('inat-components') as HTMLElement);
 root.render(
 	<TaxonPanel
 		taxonId={config.taxa[0].taxonId}
 		placeId={config.places[0].placeId}
-		dataSource={DataSource.autoLoad}
+		dataSource={DataSource.url}
 		config={config}
 		baseURL="http://sisyphean.ca/inat"
 	/>

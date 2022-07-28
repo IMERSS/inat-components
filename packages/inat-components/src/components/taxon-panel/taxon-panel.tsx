@@ -13,8 +13,8 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseURL }: any) => {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState<string>("all");
     const titles = useFeatureTitles(config.features);
-    const [taxonInfo, setTaxonInfo] = useState(() => config.taxa.find((i) => i.taxonId === taxonId));
-    const [placeInfo, setPlaceInfo] = useState(() => config.places.find((i) => i.placeId === placeId));
+    const [taxonInfo] = useState(() => config.taxa.find((i) => i.taxonId === taxonId));
+    const [placeInfo] = useState(() => config.places.find((i) => i.placeId === placeId));
 
     const getCurrentTab = () => {
         switch (tab) {
