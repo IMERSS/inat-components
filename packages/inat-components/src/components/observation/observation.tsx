@@ -4,10 +4,11 @@ import styles from "./observation.module.scss";
 export type ObservationProps = {
 	imageUrl: string;
 	linkUrl: string;
+	itemWidth: number;
 	children: any;
 };
 
-export const Observation = ({imageUrl, linkUrl, children}: ObservationProps) => {
+export const Observation = ({imageUrl, linkUrl, itemWidth, children}: ObservationProps) => {
 	const gotoObservation = useCallback(() => {
 		window.open(linkUrl);
 	}, [linkUrl]);
@@ -15,8 +16,8 @@ export const Observation = ({imageUrl, linkUrl, children}: ObservationProps) => 
 	return (
 		<article className={styles.obs} onClick={gotoObservation}>
 			<div style={{
-				width: 200,
-				height: 200,
+				width: itemWidth,
+				height: itemWidth,
 				overflow: "hidden",
 				borderRadius: 5,
 				background: `url(${imageUrl}) 50% 50% no-repeat`,

@@ -34,6 +34,10 @@ const SettingsRow = ({ config, taxonId, onChangeTaxon, placeId, onChangePlace, d
                     {config.places.map(({ placeId, label }: any) => <option key={placeId} value={placeId}>{label}</option>)}
                 </select>
             </div>
+            <div>
+                <h4>Item Width</h4>
+                <input type="text" style={{ width: 60 }} />
+            </div>
         </section>
     )
 };

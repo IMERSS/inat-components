@@ -10,6 +10,6 @@ root.render(
 		placeId={config.places[0].placeId}
 		dataSource={DataSource.url}
 		config={config}
-		baseURL="http://sisyphean.ca/inat"
+		baseUrl="http://sisyphean.ca/inat"
 	/>
 );

@@ -1,15 +1,9 @@
 {
-  "name": "standalone-file-generation",
+  "name": "standalone",
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "scripts": {
-    "watch": "react-scripts start",
-    "build": "react-scripts build"
-  },
   "dependencies": {
-    "@imerss/inat-components": "^1.0.0",
-    "@imerss/inat-components-utils": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",

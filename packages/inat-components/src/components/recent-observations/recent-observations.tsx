@@ -37,6 +37,7 @@ export const RecentObservations = ({
 	dataUrl,
 	source = DataSource.autoLoad,
 	perPage = C.PER_PAGE,
+	itemWidth = C.DEFAULT_ITEM_WIDTH,
 	components,
 	className,
 	classes
@@ -92,15 +93,18 @@ export const RecentObservations = ({
 		componentClasses += ` ${className}`;
 	}
 
+	console.log("....", { itemWidth });
+
 	return (
 		<div className={componentClasses}>
 			<Load loading={loading}/>
-			<div className={styles.grid}>
+			<div className={styles.grid} style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}px, 1fr))` }}>
 				{!loading && observations.length === 0 && <NoResults/>}
 				{observations.map((obs: RecentObservationData) => (
 					<Observation
 						key={obs.id}
 						imageUrl={obs.imageUrl.replace(/square/, "medium")}
+						itemWidth={itemWidth}
 						linkUrl={obs.obsUrl}>
 						<Label {...obs} classes={classes} />
 					</Observation>

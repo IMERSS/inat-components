@@ -3,10 +3,6 @@
   "version": "1.1.1",
   "main": "dist/utils.js",
   "module": "dist/utils.js",
-  "scripts": {
-    "build": "rollup -c",
-    "watch": "rollup -cw"
-  },
   "dependencies": {
     "cli-progress": "^3.11.2",
     "date-fns": "^2.28.0",

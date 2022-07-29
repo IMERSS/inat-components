@@ -40,6 +40,15 @@ export enum Tab {
 	stats = "stats"
 }
 
+export type BaseClasses = {
+	tabs?: string;
+	yearsDropdown?: string;
+	pageHeadings?: string;
+	observationLabelTitle?: string;
+	observationLabelDate?: string;
+	observationLabelName?: string;
+}
+
 export type BaseComponentProps = {
 	taxonId?: number;
 	placeId?: number;
@@ -49,11 +58,13 @@ export type BaseComponentProps = {
 	data?: any;
 	dataUrl?: string;
 	className?: string;
+	itemWidth?: number;
 	components?: {
 		label?: any;
 		error?: any;
 		loader?: any;
 	};
+	classes?: BaseClasses;
 };
 
 export type TaxaConfig = {

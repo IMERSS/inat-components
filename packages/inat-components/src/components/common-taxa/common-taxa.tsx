@@ -23,6 +23,7 @@ export const CommonTaxa = ({
 	taxonId,
 	placeId,
 	perPage = C.PER_PAGE,
+	itemWidth = C.DEFAULT_ITEM_WIDTH,
 	data,
 	dataUrl,
 	components,
@@ -84,11 +85,12 @@ export const CommonTaxa = ({
 		<div className={classes}>
 			<Load loading={loading}/>
 			{!loading && taxa.length === 0 && <NoResults/>}
-			<div className={styles.grid}>
+			<div className={styles.grid} style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}px, 1fr))` }}>
 				{taxa.map((data: CommonTaxData) => (
 					<Observation
 						key={data.id}
 						imageUrl={data.imageUrl.replace(/square/, "medium")}
+						itemWidth={itemWidth}
 						linkUrl={`${C.BASE_URL}/${data.id}`}>
 						<Label {...data} />
 					</Observation>

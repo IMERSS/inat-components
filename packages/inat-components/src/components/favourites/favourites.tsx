@@ -27,6 +27,7 @@ export const Favourites = ({
 	dataUrl,
 	components,
 	className,
+	itemWidth = C.DEFAULT_ITEM_WIDTH,
 	perPage = C.PER_PAGE
 }: FavouritesProps) => {
 	const [observations, setObservations] = useState<any>(() => (source === DataSource.dataProp) ? data : []);
@@ -79,15 +80,17 @@ export const Favourites = ({
 	if (className) {
 		classes += ` ${className}`;
 	}
+
 	return (
 		<div className={classes}>
 			<Load loading={loading}/>
 			{!loading && observations.length === 0 && <NoResults/>}
-			<div className={generalStyles.grid}>
+			<div className={generalStyles.grid} style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}px, 1fr))` }}>
 				{observations.map((obs: any) => (
 					<Observation
 						key={obs.id}
 						imageUrl={obs.imageUrl.replace(/square/, "medium")}
+						itemWidth={itemWidth}
 						linkUrl={obs.obsUrl}>
 						<Label {...obs} />
 					</Observation>

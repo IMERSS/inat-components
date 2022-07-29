@@ -15,10 +15,11 @@ export type TaxonPanelProps = {
     dataSource: DataSource;
     config: ConfigFile;
     baseUrl: string;
+    itemWidth?: number;
     classes?: BaseClasses;
 }
 
-const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, classes }: TaxonPanelProps) => {
+const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, classes }: TaxonPanelProps) => {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState<string>("all");
     const titles = useFeatureTitles(config.features);
@@ -30,6 +31,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, classes }: 
             case Tab.recent: {
                 const props: Partial<RecentObservationsProps> = {
                     source: dataSource,
+                    itemWidth,
                     classes
                 };
                 if (dataSource === DataSource.url) {
@@ -47,6 +49,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, classes }: 
                 const props: any = {
                     classes,
                     source: dataSource,
+                    itemWidth,
                     year
                 };
                 if (dataSource === DataSource.url) {
@@ -63,6 +66,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, classes }: 
             case Tab.favourites: {
                 const props: any = {
                     classes,
+                    itemWidth,
                     source: dataSource,
                     year
                 };
@@ -95,7 +99,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, classes }: 
     };
 
     const tabsClass = classes?.tabs || '';
-    const yearDropdownClass = classes?.yearDropdown || '';
+    const yearDropdownClass = classes?.yearsDropdown || '';
 
     return (
         <div className={styles.page}>

@@ -3,7 +3,11 @@ import {Feature, PlaceConfig, TaxaConfig} from "../typings";
 /*
  * Note that right now the source filenames aren't configurable.
  */
-export const getSourceFile = (api: Feature, taxonInfo: TaxaConfig, placeInfo: PlaceConfig, year?: string | number): string => {
+export const getSourceFile = (api: Feature, taxonInfo?: TaxaConfig, placeInfo?: PlaceConfig, year?: string | number): string => {
+	if (!taxonInfo || !placeInfo) {
+		return '';
+	}
+
 	const yearStr = year === "all" ? "allyears" : year;
 
 	let filename = "";

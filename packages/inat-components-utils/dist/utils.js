@@ -335,6 +335,9 @@ var Tab;
  * Note that right now the source filenames aren't configurable.
  */
 var getSourceFile = function (api, taxonInfo, placeInfo, year) {
+    if (!taxonInfo || !placeInfo) {
+        return '';
+    }
     var yearStr = year === "all" ? "allyears" : year;
     var filename = "";
     if (api === Feature.recentObservations) {
