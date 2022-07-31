@@ -6,13 +6,15 @@ export type SettingsProp = {
     taxonId: number;
     placeId: number;
     dataSource: DataSource;
+    itemWidth: number;
     onChangeTaxon: (taxonId: number) => void;
     onChangePlace: (placeId: number) => void;
     onChangeDataSource: (source: DataSource) => void;
+    onChangeItemWidth: (itemWidth: number) => void;
     config: any; // TODO
 };
 
-const SettingsRow = ({ config, taxonId, onChangeTaxon, placeId, onChangePlace, dataSource, onChangeDataSource }: SettingsProp) => {
+const SettingsRow = ({ config, taxonId, onChangeTaxon, placeId, onChangePlace, dataSource, onChangeDataSource, itemWidth, onChangeItemWidth }: SettingsProp) => {
     return (
         <section className={styles.row}>
             <div>
@@ -36,7 +38,7 @@ const SettingsRow = ({ config, taxonId, onChangeTaxon, placeId, onChangePlace, d
             </div>
             <div>
                 <h4>Item Width</h4>
-                <input type="text" style={{ width: 60 }} />
+                <input type="number" style={{ width: 60 }} value={itemWidth} onChange={(e) => onChangeItemWidth(parseInt(e.target.value))}/>
             </div>
         </section>
     )

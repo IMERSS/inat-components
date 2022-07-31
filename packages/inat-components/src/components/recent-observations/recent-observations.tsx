@@ -93,7 +93,7 @@ export const RecentObservations = ({
 		componentClasses += ` ${className}`;
 	}
 
-	console.log("....", { itemWidth });
+	console.log(".... ->", { itemWidth });
 
 	return (
 		<div className={componentClasses}>

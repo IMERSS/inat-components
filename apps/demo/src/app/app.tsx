@@ -8,7 +8,7 @@ const App = () => {
 	const [taxonId, setTaxonId] = useState(config.taxa[0].taxonId);
 	const [placeId, setPlaceId] = useState(config.places[0].placeId);
 	const [dataSource, setDataSource] = useState(DataSource.autoLoad);
-	const [itemWidth, setItemWidth] = useState(200);
+	const [itemWidth, setItemWidth] = useState(150);
 
 	return (
 		<>
@@ -19,6 +19,8 @@ const App = () => {
 				onChangePlace={setPlaceId}
 				dataSource={dataSource}
 				onChangeDataSource={setDataSource}
+				itemWidth={itemWidth}
+				onChangeItemWidth={setItemWidth}
 				config={config}
 			/>
 			<TaxonPanel

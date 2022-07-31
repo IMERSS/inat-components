@@ -6,7 +6,7 @@
     "build": "lerna run build",
     "generate": "cd apps/demo && yarn generate",
     "copyShared": "npx grunt",
-    "watchPackages": "lerna exec --parallel -- yarn watch",
+    "watchPackages": "lerna exec --parallel --ignore=standalone -- yarn watch",
     "watchShared": "npx grunt watch",
     "dev": "npm-run-all --parallel copyShared watchPackages watchShared",
     "standalone": "npx lerna run build --scope=standalone"
