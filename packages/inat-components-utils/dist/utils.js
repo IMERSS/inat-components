@@ -141,12 +141,7 @@ var getFavourites = function (_a) {
                     if (year !== "all") {
                         url += "&d1=".concat(year, "-01-01&d2=").concat(year, "-12-31");
                     }
-                    return [4 /*yield*/, fetch__default["default"](url, {
-                        // method: 'GET',
-                        // headers: {
-                        //     Accept: 'application/json'
-                        // }
-                        })];
+                    return [4 /*yield*/, fetch__default["default"](url)];
                 case 1:
                     response = _b.sent();
                     return [4 /*yield*/, response.json()];
@@ -163,18 +158,15 @@ var getFavourites = function (_a) {
                     });
                     return [2 /*return*/, {
                             totalResults: resp.total_results,
-                            results: sortedTaxa.map(function (row) {
-                                var _a, _b;
-                                return ({
-                                    id: row.id,
-                                    imageUrl: ((_b = (_a = row.taxon) === null || _a === void 0 ? void 0 : _a.default_photo) === null || _b === void 0 ? void 0 : _b.square_url) || "",
-                                    obsDate: row.observed_on_string,
-                                    obsUrl: row.uri,
-                                    taxonName: row.taxon.name || "",
-                                    taxonCommonName: row.taxon.preferred_common_name,
-                                    numFaves: row.faves.length
-                                });
-                            })
+                            results: sortedTaxa.map(function (row) { return ({
+                                id: row.id,
+                                imageUrl: row.observation_photos[0].photo.url || "",
+                                obsDate: row.observed_on_string,
+                                obsUrl: row.uri,
+                                taxonName: row.taxon.name || "",
+                                taxonCommonName: row.taxon.preferred_common_name,
+                                numFaves: row.faves.length
+                            }); })
                         }];
             }
         });

@@ -30,14 +30,9 @@ export const getFavourites = async ({ year, taxonId, placeId, perPage }: Favouri
         url += `&d1=${year}-01-01&d2=${year}-12-31`;
     }
 
-    const response = await fetch(url, {
-        // method: 'GET',
-        // headers: {
-        //     Accept: 'application/json'
-        // }
-    });
-
+    const response = await fetch(url);
     const resp = await response.json();
+
     const sortedTaxa = resp.results.filter((i: any) => i.faves.length > 0).sort((a: any, b: any) => {
         if (a.faves.length > b.faves.length) {
             return -1;
@@ -51,7 +46,7 @@ export const getFavourites = async ({ year, taxonId, placeId, perPage }: Favouri
         totalResults: resp.total_results,
         results: sortedTaxa.map((row: any) => ({
             id: row.id,
-            imageUrl: row.taxon?.default_photo?.square_url || "",
+            imageUrl: row.observation_photos[0].photo.url || "",
             obsDate: row.observed_on_string,
             obsUrl: row.uri,
             taxonName: row.taxon.name || "",

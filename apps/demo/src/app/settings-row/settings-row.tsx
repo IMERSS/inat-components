@@ -38,7 +38,7 @@ const SettingsRow = ({ config, taxonId, onChangeTaxon, placeId, onChangePlace, d
             </div>
             <div>
                 <h4>Item Width</h4>
-                <input type="number" style={{ width: 60 }} value={itemWidth} onChange={(e) => onChangeItemWidth(parseInt(e.target.value))}/>
+                <input type="range" min={50} max={400} step={10} style={{ width: 60 }} value={itemWidth} onChange={(e) => onChangeItemWidth(parseInt(e.target.value))}/>
             </div>
         </section>
     )
