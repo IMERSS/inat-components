@@ -30,6 +30,9 @@ const App = () => {
 				config={config}
 				itemWidth={itemWidth}
 				baseUrl="http://sisyphean.ca/inat"
+				classes={{
+					pageHeadings: ''
+				}}
 			/>
 		</>
 	);

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {numberWithCommas, DataSource, getSummary, FavouritesRespData} from "../../__shared";
+import {BaseClasses, numberWithCommas, DataSource, getSummary, FavouritesRespData} from "../../__shared";
 import { ObserverList } from './ObserverList';
 import Loader from "../loader/loader";
 import {SeasonalityGraph} from "../seasonality-graph/seasonality-graph";
@@ -12,9 +12,10 @@ export type SummaryProps = {
     year: string | number;
     data?: FavouritesRespData; /// TODO
     dataUrl?: string;
+    classes?: BaseClasses;
 };
 
-export const Summary = ({ source, data, dataUrl, taxonId, placeId, year }: SummaryProps) => {
+export const Summary = ({ source, data, dataUrl, taxonId, placeId, year, classes }: SummaryProps) => {
     const [summaryData, setSummaryData] = useState<any>({});
     const [loading, setLoading] = useState(false);
 
@@ -58,6 +59,11 @@ export const Summary = ({ source, data, dataUrl, taxonId, placeId, year }: Summa
         })();
     }, [source, dataUrl]);
 
+    let countSummaryClasses = styles.countSummary;
+    if (classes?.statsCountSummary) {
+        countSummaryClasses += ` ${classes.statsCountSummary}`;
+    }
+
     return (
         <div className={styles.summaryPage}>
             <Loader loading={loading} />
@@ -72,10 +78,9 @@ export const Summary = ({ source, data, dataUrl, taxonId, placeId, year }: Summa
                     <h1>Seasonality</h1>
                     {summaryData.seasonalityData && <SeasonalityGraph data={summaryData.seasonalityData.monthOfYear} />}
                 </div>
-
                 <div className={styles.observersBlock}>
                     <h1>Top observers</h1>
-                    {summaryData.observers?.top && <ObserverList observers={summaryData.observers.top} />}
+                    {summaryData.observers?.top && <ObserverList observers={summaryData.observers.top} className={classes?.observersList} />}
                 </div>
             </section>
         </div>

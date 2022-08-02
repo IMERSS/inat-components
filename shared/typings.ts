@@ -47,6 +47,8 @@ export type BaseClasses = {
 	observationLabelTitle?: string;
 	observationLabelDate?: string;
 	observationLabelName?: string;
+	observersList?: string;
+	statsCountSummary?: string;
 }
 
 export type BaseComponentProps = {
