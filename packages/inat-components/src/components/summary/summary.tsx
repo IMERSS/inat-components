@@ -67,12 +67,10 @@ export const Summary = ({ source, data, dataUrl, taxonId, placeId, year, classes
     return (
         <div className={styles.summaryPage}>
             <Loader loading={loading} />
-
-            <ul className={styles.countSummary}>
+            <ul className={countSummaryClasses}>
                 <li>Total number of observers: <b>{summaryData.observers?.totalCount ? numberWithCommas(summaryData.observers.totalCount): ""}</b></li>
                 <li>Total number of observations: <b>{summaryData.observations?.totalCount ? numberWithCommas(summaryData.observations.totalCount): ""}</b></li>
             </ul>
-
             <section>
                 <div className={styles.seasonalityBlock}>
                     <h1>Seasonality</h1>
