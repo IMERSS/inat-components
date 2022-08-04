@@ -10,7 +10,7 @@ export type SummaryProps = {
     taxonId: number;
     placeId: number;
     year: string | number;
-    data?: FavouritesRespData; /// TODO
+    data?: FavouritesRespData;
     dataUrl?: string;
     classes?: BaseClasses;
     tabDesc?: string;
@@ -64,10 +64,13 @@ export const Summary = ({ source, data, dataUrl, taxonId, placeId, year, classes
     if (classes?.statsCountSummary) {
         countSummaryClasses += ` ${classes.statsCountSummary}`;
     }
-
+    let descClasses = styles.tabDesc;
+    if (classes?.tabDescClass) {
+        descClasses += ` ${classes.tabDescClass}`;
+    }
     return (
         <div className={styles.summaryPage}>
-            {tabDesc && <p>{tabDesc}</p>}
+            {tabDesc && <p className={descClasses}>{tabDesc}</p>}
             <Loader loading={loading} />
             <ul className={countSummaryClasses}>
                 <li>Total number of observers: <b>{summaryData.observers?.totalCount ? numberWithCommas(summaryData.observers.totalCount): ""}</b></li>

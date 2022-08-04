@@ -34,7 +34,10 @@ const App = () => {
 					pageHeadings: ''
 				}}
 				tabDescs={{
-					recentDesc: "This page lists recent observations."
+					recentDesc: "This page lists recent observations.",
+					mostCommonDesc: "These are the most common species.",
+					mostFavouritedDesc: "These are the most favourited observations.",
+					generalStatsDesc: ""
 				}}
 			/>
 		</>

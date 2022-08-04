@@ -4,6 +4,7 @@ import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
 import {NoResults} from "../no-results/no-results";
 import generalStyles from "../shared/css/general.module.scss";
+import styles from "../shared/css/general.module.scss";
 
 export type FavouritesProps = BaseComponentProps & {
 	year: string | number;
@@ -81,10 +82,13 @@ export const Favourites = ({
 	if (className) {
 		classes += ` ${className}`;
 	}
-
+	let descClasses = styles.tabDesc;
+	if (classes?.tabDescClass) {
+		descClasses += ` ${classes.tabDescClass}`;
+	}
 	return (
 		<div className={classes}>
-			{tabDesc && <p>{tabDesc}</p>}
+			{tabDesc && <p className={descClasses}>{tabDesc}</p>}
 			<Load loading={loading}/>
 			{!loading && observations.length === 0 && <NoResults/>}
 			<div className={generalStyles.grid} style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}px, 1fr))` }}>

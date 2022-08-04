@@ -93,9 +93,13 @@ export const RecentObservations = ({
 	if (className) {
 		componentClasses += ` ${className}`;
 	}
+	let descClasses = styles.tabDesc;
+	if (classes?.tabDescClass) {
+		descClasses += ` ${classes.tabDescClass}`;
+	}
 	return (
 		<div className={componentClasses}>
-			{tabDesc && <p>{tabDesc}</p>}
+			{tabDesc && <p className={descClasses}>{tabDesc}</p>}
 			<Load loading={loading}/>
 			<div className={styles.grid} style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}px, 1fr))` }}>
 				{!loading && observations.length === 0 && <NoResults/>}

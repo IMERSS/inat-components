@@ -81,10 +81,13 @@ export const CommonTaxa = ({
 	if (className) {
 		classes += ` ${className}`;
 	}
-
+	let descClasses = styles.tabDesc;
+	if (classes?.tabDescClass) {
+		descClasses += ` ${classes.tabDescClass}`;
+	}
 	return (
 		<div className={classes}>
-			{tabDesc && <p>{tabDesc}</p>}
+			{tabDesc && <p className={descClasses}>{tabDesc}</p>}
 			<Load loading={loading}/>
 			{!loading && taxa.length === 0 && <NoResults/>}
 			<div className={styles.grid} style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}px, 1fr))` }}>

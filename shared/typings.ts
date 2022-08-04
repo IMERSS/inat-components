@@ -49,6 +49,7 @@ export type BaseClasses = {
 	observationLabelName?: string;
 	observersList?: string;
 	statsCountSummary?: string;
+	tabDescClass?: string;
 }
 
 export type BaseComponentProps = {
