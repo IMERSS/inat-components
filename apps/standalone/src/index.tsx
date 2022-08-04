@@ -11,5 +11,16 @@ root.render(
 		dataSource={DataSource.url}
 		config={config}
 		baseUrl="http://sisyphean.ca/inat"
+		itemWidth={180}
+		classes={{
+			tabs: "inat-tabs",
+			yearsDropdown: "inat-years-dropdown",
+			pageHeadings: "inat-page-headings",
+			observationLabelTitle: "inat-observation-label-title",
+			observationLabelDate: "inat-observation-label-data",
+			observationLabelName: "inat-observation-label-name",
+			observersList: "inat-observers-list",
+			statsCountSummary: "inat-stats-count-summary"
+		}}
 	/>
 );
