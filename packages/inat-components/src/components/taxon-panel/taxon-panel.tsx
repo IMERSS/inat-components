@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {getSourceFile, Tab, DataSource, Feature, ConfigFile, BaseClasses} from "../../__shared";
+import {getSourceFile, Tab, DataSource, Feature, ConfigFile, BaseClasses, TabDescs} from "../../__shared";
 import {RecentObservations, RecentObservationsProps} from '../recent-observations/recent-observations';
 import {CommonTaxa} from '../common-taxa/common-taxa';
 import {Favourites} from "../favourites/favourites"
@@ -17,14 +17,17 @@ export type TaxonPanelProps = {
     baseUrl: string;
     itemWidth?: number;
     classes?: BaseClasses;
+    tabDescs?: TabDescs;
 }
 
-const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, classes }: TaxonPanelProps) => {
+const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, classes, tabDescs }: TaxonPanelProps) => {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState<string>("all");
     const titles = useFeatureTitles(config.features);
     const [taxonInfo] = useState(() => config.taxa.find((i) => i.taxonId === taxonId));
     const [placeInfo] = useState(() => config.places.find((i) => i.placeId === placeId));
+
+    console.log(tabDescs);
 
     const getCurrentTab = () => {
         switch (tab) {
@@ -32,7 +35,8 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
                 const props: Partial<RecentObservationsProps> = {
                     source: dataSource,
                     itemWidth,
-                    classes
+                    classes,
+                    tabDesc: tabDescs?.recentDesc
                 };
                 if (dataSource === DataSource.url) {
                     props.dataUrl = baseUrl + '/' + getSourceFile(Feature.recentObservations, taxonInfo, placeInfo);
@@ -50,7 +54,8 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
                     classes,
                     source: dataSource,
                     itemWidth,
-                    year
+                    year,
+                    tabDesc: tabDescs?.mostCommonDesc
                 };
                 if (dataSource === DataSource.url) {
                     props.dataUrl = baseUrl + '/' + getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, year);
@@ -68,7 +73,8 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
                     classes,
                     itemWidth,
                     source: dataSource,
-                    year
+                    year,
+                    tabDesc: tabDescs?.mostFavouritedDesc
                 };
                 if (dataSource === DataSource.url) {
                     props.dataUrl = baseUrl + '/' + getSourceFile(Feature.favourites, taxonInfo, placeInfo, year);
@@ -85,7 +91,8 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
                 const props: any = {
                     classes,
                     source: dataSource,
-                    year
+                    year,
+                    tabDesc: tabDescs?.generalStatsDesc
                 };
                 if (dataSource === DataSource.url) {
                     props.dataUrl = baseUrl + '/' + getSourceFile(Feature.stats, taxonInfo, placeInfo, year);

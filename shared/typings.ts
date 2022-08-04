@@ -67,6 +67,7 @@ export type BaseComponentProps = {
 		loader?: any;
 	};
 	classes?: BaseClasses;
+	tabDesc?: string;
 };
 
 export type TaxaConfig = {
@@ -79,4 +80,11 @@ export type PlaceConfig = {
 	label: string;
 	short: string;
 	placeId: number;
+}
+
+export type TabDescs = {
+	recentDesc?: string;
+	mostCommonDesc?: string;
+	mostFavouritedDesc?: string;
+	generalStatsDesc?: string;
 }

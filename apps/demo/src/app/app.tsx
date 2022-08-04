@@ -33,6 +33,9 @@ const App = () => {
 				classes={{
 					pageHeadings: ''
 				}}
+				tabDescs={{
+					recentDesc: "This page lists recent observations."
+				}}
 			/>
 		</>
 	);

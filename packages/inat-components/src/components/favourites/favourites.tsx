@@ -27,6 +27,7 @@ export const Favourites = ({
 	dataUrl,
 	components,
 	className,
+	tabDesc,
 	itemWidth = C.DEFAULT_ITEM_WIDTH,
 	perPage = C.PER_PAGE
 }: FavouritesProps) => {
@@ -83,6 +84,7 @@ export const Favourites = ({
 
 	return (
 		<div className={classes}>
+			{tabDesc && <p>{tabDesc}</p>}
 			<Load loading={loading}/>
 			{!loading && observations.length === 0 && <NoResults/>}
 			<div className={generalStyles.grid} style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}px, 1fr))` }}>

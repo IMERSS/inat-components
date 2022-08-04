@@ -40,7 +40,8 @@ export const RecentObservations = ({
 	itemWidth = C.DEFAULT_ITEM_WIDTH,
 	components,
 	className,
-	classes
+	classes,
+	tabDesc
 }: RecentObservationsProps) => {
 	const [loading, setLoading] = useState(false);
 	const [observations, setObservations] = useState<any>(() => (source === DataSource.dataProp) ? data : []);
@@ -92,11 +93,9 @@ export const RecentObservations = ({
 	if (className) {
 		componentClasses += ` ${className}`;
 	}
-
-	console.log(".... ->", { itemWidth });
-
 	return (
 		<div className={componentClasses}>
+			{tabDesc && <p>{tabDesc}</p>}
 			<Load loading={loading}/>
 			<div className={styles.grid} style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}px, 1fr))` }}>
 				{!loading && observations.length === 0 && <NoResults/>}

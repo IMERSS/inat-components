@@ -27,7 +27,8 @@ export const CommonTaxa = ({
 	data,
 	dataUrl,
 	components,
-	className
+	className,
+	tabDesc
 }: CommonTaxaProps) => {
 	const [taxa, setTaxa] = useState<any>(() => (source === DataSource.dataProp) ? data : []);
 	const [loading, setLoading] = useState(false);
@@ -83,6 +84,7 @@ export const CommonTaxa = ({
 
 	return (
 		<div className={classes}>
+			{tabDesc && <p>{tabDesc}</p>}
 			<Load loading={loading}/>
 			{!loading && taxa.length === 0 && <NoResults/>}
 			<div className={styles.grid} style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}px, 1fr))` }}>
