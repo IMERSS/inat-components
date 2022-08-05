@@ -65,9 +65,10 @@ export const Summary = ({ source, data, dataUrl, taxonId, placeId, year, classes
         countSummaryClasses += ` ${classes.statsCountSummary}`;
     }
     let descClasses = styles.tabDesc;
-    if (classes?.tabDescClass) {
-        descClasses += ` ${classes.tabDescClass}`;
+    if (classes?.tabDesc) {
+        descClasses += ` ${classes.tabDesc}`;
     }
+
     return (
         <div className={styles.summaryPage}>
             {tabDesc && <p className={descClasses}>{tabDesc}</p>}

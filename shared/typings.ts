@@ -49,7 +49,7 @@ export type BaseClasses = {
 	observationLabelName?: string;
 	observersList?: string;
 	statsCountSummary?: string;
-	tabDescClass?: string;
+	tabDesc?: string;
 }
 
 export type BaseComponentProps = {
