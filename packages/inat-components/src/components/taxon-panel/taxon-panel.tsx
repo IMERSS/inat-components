@@ -27,6 +27,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
     const [taxonInfo] = useState(() => config.taxa.find((i) => i.taxonId === taxonId));
     const [placeInfo] = useState(() => config.places.find((i) => i.placeId === placeId));
 
+    console.log("..." , classes);
     const getCurrentTab = () => {
         switch (tab) {
             case Tab.recent: {

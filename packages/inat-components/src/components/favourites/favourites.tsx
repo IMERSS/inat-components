@@ -29,6 +29,7 @@ export const Favourites = ({
 	components,
 	className,
 	tabDesc,
+	classes,
 	itemWidth = C.DEFAULT_ITEM_WIDTH,
 	perPage = C.PER_PAGE
 }: FavouritesProps) => {
@@ -78,16 +79,16 @@ export const Favourites = ({
 	const Load = components?.loader ? components.loader as any : Loader;
 	const Label = components?.label ? components.label as any : FavouritesLabel;
 
-	let classes = generalStyles.panel;
+	let elClasses = generalStyles.panel;
 	if (className) {
-		classes += ` ${className}`;
+		elClasses += ` ${className}`;
 	}
 	let descClasses = styles.tabDesc;
 	if (classes?.tabDesc) {
 		descClasses += ` ${classes.tabDesc}`;
 	}
 	return (
-		<div className={classes}>
+		<div className={elClasses}>
 			{tabDesc && <p className={descClasses}>{tabDesc}</p>}
 			<Load loading={loading}/>
 			{!loading && observations.length === 0 && <NoResults/>}

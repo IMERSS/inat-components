@@ -31,8 +31,9 @@ const App = () => {
 				itemWidth={itemWidth}
 				baseUrl="http://sisyphean.ca/inat"
 				classes={{
-					pageHeadings: "",
-					tabDesc: "inat-tab-desc"
+					pageHeadings: "page-headings",
+					tabDesc: "inat-tab-desc",
+					observationLabelTitle: "obs-title"
 				}}
 				tabDescs={{
 					recentDesc: "This page lists recent observations.",

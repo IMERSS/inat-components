@@ -27,6 +27,7 @@ export const CommonTaxa = ({
 	data,
 	dataUrl,
 	components,
+	classes,
 	className,
 	tabDesc
 }: CommonTaxaProps) => {
@@ -77,16 +78,17 @@ export const CommonTaxa = ({
 	const Label = components?.label ? components.label as any : CommonTaxaLabel;
 	const ErrorMsg = components?.error ? components.error as any : Error;
 
-	let classes = styles.panel;
+	let elClasses = styles.panel;
 	if (className) {
-		classes += ` ${className}`;
+		elClasses += ` ${className}`;
 	}
 	let descClasses = styles.tabDesc;
-	if (classes?.tabDesc) {
-		descClasses += ` ${classes.tabDesc}`;
+	if (elClasses?.tabDesc) {
+		descClasses += ` ${elClasses.tabDesc}`;
 	}
+
 	return (
-		<div className={classes}>
+		<div className={elClasses}>
 			{tabDesc && <p className={descClasses}>{tabDesc}</p>}
 			<Load loading={loading}/>
 			{!loading && taxa.length === 0 && <NoResults/>}
