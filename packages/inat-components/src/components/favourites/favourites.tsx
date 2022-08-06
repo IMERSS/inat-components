@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {formatDate, C, getFavourites, FavouritesData, BaseComponentProps, DataSource} from "../../__shared";
+import {formatDate, C, getFavourites, FavouritesData, BaseComponentProps, DataSource, BaseClasses} from "../../__shared";
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
 import {NoResults} from "../no-results/no-results";
@@ -10,11 +10,11 @@ export type FavouritesProps = BaseComponentProps & {
 	year: string | number;
 }
 
-export const FavouritesLabel = (data: FavouritesData) => (
+export const FavouritesLabel = (data: FavouritesData & { classes: BaseClasses }) => (
 	<div className={generalStyles.obsLabel}>
-		<h3>{data.taxonCommonName || data.taxonName}</h3>
-		<div>{data.observerUsername}</div>
-		<div>{formatDate(data.obsDate)}</div>
+		<h3 className={data.classes?.observationLabelTitle}>{data.taxonCommonName || data.taxonName}</h3>
+		<div className={data.classes?.observationLabelTitle}>{data.observerUsername}</div>
+		<div className={data.classes?.observationLabelDate}>{formatDate(data.obsDate)}</div>
 		<label className={generalStyles.count}>{data.numFaves}</label>
 	</div>
 );
@@ -98,7 +98,7 @@ export const Favourites = ({
 						imageUrl={obs.imageUrl.replace(/square/, "medium")}
 						itemWidth={itemWidth}
 						linkUrl={obs.obsUrl}>
-						<Label {...obs} />
+						<Label {...obs} classes={classes} />
 					</Observation>
 				))}
 			</div>
