@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {numberWithCommas, C, CommonTaxData, getCommonTaxa, BaseComponentProps, DataSource} from "../../__shared";
+import {numberWithCommas, C, CommonTaxData, getCommonTaxa, BaseComponentProps, BaseClasses, DataSource} from "../../__shared";
 import {Observation} from "../observation/observation";
 import Loader from "../loader/loader";
 import Error from "../error/error";
 import {NoResults} from "../no-results/no-results";
 import styles from "../shared/css/general.module.scss";
-import {BaseClasses} from "../../../../../shared";
 
 export type CommonTaxaProps = BaseComponentProps & {
 	year: string | number;
