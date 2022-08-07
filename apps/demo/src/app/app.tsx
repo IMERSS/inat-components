@@ -29,7 +29,7 @@ const App = () => {
 				dataSource={dataSource}
 				config={config}
 				itemWidth={itemWidth}
-				baseUrl="http://sisyphean.ca/inat"
+				baseUrl="https://sisyphean.ca/inat"
 				classes={{
 					pageHeadings: "page-headings",
 					tabDesc: "inat-tab-desc",
