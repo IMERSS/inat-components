@@ -13,13 +13,11 @@ You have a choice with the front-end components to displa
 
 ### Demo
 
-Simple: https://imerss.github.io/inat-components/
-Live example: https://bcleps.weebly.com/inat.html
+- Simple: https://imerss.github.io/inat-components/
+- Live example: https://bcleps.weebly.com/inat.html
 
 
 ### How it works
-
-Consider the following diagram. 
 
 ![diagram](./resources/images/flow-diagram.png)
 
