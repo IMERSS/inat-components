@@ -1,33 +1,48 @@
 # inat-components
 
-This repo contains some pre-built React components to display iNaturalist data on your own sites. The goal was to
+This repo contains some pre-built React components to display iNaturalist data on your own sites. The original goal was to
 provide add an [interactive page to the BC Lepidoptera website](https://bcleps.weebly.com/inat.html) so visitors could 
-see some high-level information about lepidoptera (butterflies and moths) spotted in British Columbia. But the code was
-written in a generic way to allow it being used by any website and for any taxon or place.
-
-The purpose of these components is _not_ to be exhaustive. iNat contains a _huge_ amount of information about taxa,
-observations, users and so forth. We're not trying to re-invent the wheel - just to provide a high-level view of the
-data. For digging into the data, it's designed to link back to iNaturalist itself. As such, the data fed into the
-front-end component listed below is quite limited.
+see some high-level information about lepidoptera (butterflies and moths) spotted in British Columbia. But the code 
+was written to allow it to be re-used by any website and for any taxon or place.
 
 This repo stores both the components themselves (published to npm under `@imerss/inat-components`) and the backend
 scripts to scrape iNat data and store it in JSON files for use by the front-end components (`@imerss/inat-components-utils`).
-You don't want to ping iNat on every request to display the data: it's slow and would hammer their servers
-unnecessarily. iNaturalist caps the number of times you can make requests to their server per second, so realistically
-you'll have to set up the data scraping step for any non-trivial usage. 
+See below for an explanation of why that's necessary.
+
+You have a choice with the front-end components to displa
 
 ### Demo
 
-https://imerss.github.io/inat-components/
+Simple: https://imerss.github.io/inat-components/
+Live example: https://bcleps.weebly.com/inat.html
+
 
 ### How it works
 
+Consider the following diagram. 
+
 ![diagram](./resources/images/flow-diagram.png)
+
+1. iNaturalist contains all the of the data about observations, taxonomy, observers and so on. They kindly offer a 
+[public API](https://api.inaturalist.org/v1/docs/) (Application Programming Interface) to allow developers to request
+data programmatically. The inat-components repo relies on that API to request the data that you need.
+2. In between the iNat API and your own website is a script (`@imerss/inat-components-utils`) that does the job of calling
+iNat and storing the data your want into separate data files. This code can run wherever you want - your own website 
+is probably the most convenient. But wherever it is, it has to put the data files in a place that can be called by a
+website. *
+3. The front-end code running on your website then makes requests to the data files. They are created to be as small 
+as possible and contain the smallest amount of info you need so the requests should be fast.
+
+_Why the need for #2? Why not just call the iNat API from your own website?_ A couple of reasons: 
+1. It's slow. Each API request has to do a lot of work on their end to retrieve the information. Also, the response will
+contain a ton of information you don't need. 
+iNaturalist caps the number of times you can make requests to their server per second, so they would be likely to shut down
+your access to their API.
 
 
 ### Installation
 
-To use the components, just use npm, pnpm or yarn - whatever you happen to be using.
+To use the components, just use npm, pnpm or yarn - whatever you happen to be using for your package managed. 
 
 ```
 npm install @imerss/inat-components
