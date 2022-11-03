@@ -28,19 +28,19 @@ data programmatically. The inat-components repo relies on that API to request th
 iNat and storing the data your want into separate data files. This code can run wherever you want - your own website 
 is probably the most convenient. But wherever it is, it has to put the data files in a place that can be called by a
 website. *
-3. The front-end code running on your website then makes requests to the data files. They are created to be as small 
-as possible and contain the smallest amount of info you need so the requests should be fast.
+3. The front-end code running on your website then makes requests to the data files. They are designed to be as small 
+as possible and contain the minimal amount of data needed. So the requests are as fast as possible.
 
-_Why the need for #2? Why not just call the iNat API from your own website?_ A couple of reasons: 
-1. It's slow. Each API request has to do a lot of work on their end to retrieve the information. Also, the response will
-contain a ton of information you don't need. 
-iNaturalist caps the number of times you can make requests to their server per second, so they would be likely to shut down
+_Why the need for #2? Why not just call the iNat API from your own website?_ A few reasons: 
+- First it's slow. The iNaturalist server has to do a lot of work on their end to retrieve the information for each API request. 
+- Secondly, the response will contain a ton of information you don't need. 
+- Lastly, iNaturalist caps the number of times you can make requests to their server per second, so they would be likely to shut down
 your access to their API.
 
 
 ### Installation
 
-To use the components, just use npm, pnpm or yarn - whatever you happen to be using for your package managed. 
+To use the components, just use npm, pnpm or yarn - whatever package manager you want. 
 
 ```
 npm install @imerss/inat-components
