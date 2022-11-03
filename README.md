@@ -37,7 +37,6 @@ _Why the need for #2? Why not just call the iNat API from your own website?_ A f
 - Lastly, iNaturalist caps the number of times you can make requests to their server per second, so they would be likely to shut down
 your access to their API.
 
-
 ### Installation
 
 To use the components, just use npm, pnpm or yarn - whatever package manager you want. 
@@ -92,6 +91,30 @@ This shows a high-level summary of the selected taxon and place. It shows inform
 observations, total number of observers, a histogram of data observations per month, top observers, total number of
 species and observation/species counts of the next taxonomical sub-level, e.g. if you specified an Order as the primary
 taxon ID, it would provide family-level stats (Kingdom -> Phylum -> Class -> Order -> Family -> Genus -> Species).
+
+
+## How to use 
+
+First, you may want to look at a couple of examples.
+
+### Example 1 
+
+In this repo, look at `apps/standalone/src/index.tsx`. This example does a "live" version of the script. For development 
+purposes, it bypasses the need for separate data files and pings iNat directly. To do that, it defines a config file of the 
+iNat taxons, places and features that it wants to display. See: `apps/standalone/src/inat.config.json`. 
+That contains the details about what particular iNaturalist taxons you want. 
+
+To run it, do this:
+- check out this repo and navigate to the root folder in your terminal.
+- `yarn install`
+- `yarn bootstrap`
+- `yarn dev`
+
+That'll open up a browser in dev mode where you can play around with the code and see how it functions. 
+
+### Example 2
+
+TODO.
 
 
 ## Changelog
