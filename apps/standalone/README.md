@@ -1,7 +1,5 @@
 # Standalone 
 
-The purpose of this is to generated a build artifact of a single CSS + JS file that can be included in the site. This is 
-front-end only.
+The purpose of this (private, non-published) package is provide a way to generate a standalone version of the script: 
+i.e. the raw JS and CSS files that you can then copy for use on your own site. 
 
-TODO
-taxa.label is not needed for standalone

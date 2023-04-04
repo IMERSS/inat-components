@@ -93,28 +93,27 @@ species and observation/species counts of the next taxonomical sub-level, e.g. i
 taxon ID, it would provide family-level stats (Kingdom -> Phylum -> Class -> Order -> Family -> Genus -> Species).
 
 
-## How to use 
+## Local dev env
 
-First, you may want to look at a couple of examples.
+Let's start with running your local dev environment. 
 
-### Example 1 
-
-In this repo, look at `apps/standalone/src/index.tsx`. This example does a "live" version of the script. For development 
-purposes, it bypasses the need for separate data files and pings iNat directly. To do that, it defines a config file of the 
-iNat taxons, places and features that it wants to display. See: `apps/standalone/src/inat.config.json`. 
-That contains the details about what particular iNaturalist taxons you want. 
-
-To run it, do this:
-- check out this repo and navigate to the root folder in your terminal.
+Ro run the application, do this:
+- check out this repo and navigate to the root folder in your terminal. Run:
 - `yarn install`
 - `yarn boot`
 - `yarn dev`
 
-That'll open up a browser in dev mode where you can play around with the code and see how it functions. 
+In this repo, look at `apps/standalone/src/index.tsx`. This example does a "live" version of the script. For development purposes, it bypasses the need for separate data files and calls the 
+iNat API directly. To do that, it defines a config file of the iNat taxons, places and features that it wants to 
+display. See: `apps/standalone/src/inat.config.json`. That contains the details about what particular iNaturalist
+taxons you want.
 
-### Example 2
+That'll open up a browser in dev mode where you can play around with the code and see how it functions.
 
-TODO.
+### Standalone app 
+
+It's called "standalone" because you can use that package to generate the CSS and JS needed to embed the script into
+your own site. See the [apps README](./apps/standalone/README.md) for more information.
 
 
 ## Changelog
