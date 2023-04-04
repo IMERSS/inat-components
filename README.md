@@ -107,7 +107,7 @@ That contains the details about what particular iNaturalist taxons you want.
 To run it, do this:
 - check out this repo and navigate to the root folder in your terminal.
 - `yarn install`
-- `yarn bootstrap`
+- `yarn boot`
 - `yarn dev`
 
 That'll open up a browser in dev mode where you can play around with the code and see how it functions. 
