@@ -5,14 +5,15 @@ import styles from "./year-dropdown.module.scss";
 interface YearsProps {
     value: string;
     onChange: (year: string) => void;
+    numYears: number;
     className?: string;
 }
 
-const Years = ({ value, onChange, className }: YearsProps) => {
+const Years = ({ value, onChange, numYears, className }: YearsProps) => {
     const [years] = useState(() => {
         const currentYear = getCurrentYear();
         const years: any = [];
-        for (let i = currentYear; i>=currentYear-10; i--) {
+        for (let i = currentYear; i>=currentYear-numYears; i--) {
             years.push(i);
         }
         return years;
@@ -22,6 +23,7 @@ const Years = ({ value, onChange, className }: YearsProps) => {
     if (className) {
         classes += ` ${className}`;
     }
+
     return (
         <select className={classes} onChange={(e) => onChange(e.target.value)} defaultValue={value}>
             <option value="all">All years</option>

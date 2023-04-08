@@ -1,7 +1,8 @@
-import fs from "fs";
+import fs from "fs" ;
 import sleep from "sleep-promise";
 import cliProgress from "cli-progress";
 import {
+	C,
 	BaseComponentProps,
 	ConfigFile,
 	Feature,
@@ -25,7 +26,7 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 			// Recent observations
 			configurations.push({
 				api: Feature.recentObservations,
-				perPage: 100,
+				perPage: config.features?.recentObservations?.numResults || C.PER_PAGE,
 				taxonId: taxonInfo.taxonId,
 				placeId: placeInfo.placeId,
 				filename: getSourceFile(Feature.recentObservations, taxonInfo, placeInfo)
@@ -34,7 +35,7 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 			// Common taxa
 			const baseCommonTaxaData = {
 				api: Feature.commonTaxa,
-				perPage: 100,
+				perPage: config.features?.commonTaxa?.numResults || C.PER_PAGE,
 				taxonId: taxonInfo.taxonId,
 				placeId: placeInfo.placeId,
 				filename: getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, "all")
@@ -45,7 +46,8 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 				year: "all"
 			})
 
-			for (let year = currentYear - 10; year <= currentYear; year++) {
+			const numCommonTaxaYears = config.features?.commonTaxa?.numYears || C.DEFAULT_NUM_YEARS;
+			for (let year = currentYear - numCommonTaxaYears; year <= currentYear; year++) {
 				configurations.push({
 					...baseCommonTaxaData,
 					filename: getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, year),
@@ -56,7 +58,7 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 			// Favourites. For this, generate the last 10 years of info plus one for all years
 			const baseFavouritesData = {
 				api: Feature.favourites,
-				perPage: 100,
+				perPage: config.features?.favourites?.numResults || C.PER_PAGE,
 				taxonId: taxonInfo.taxonId,
 				placeId: placeInfo.placeId,
 				filename: getSourceFile(Feature.favourites, taxonInfo, placeInfo, "all")
@@ -67,7 +69,8 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 				year: "all"
 			})
 
-			for (let year = currentYear - 10; year <= currentYear; year++) {
+			const numFavouritesYears = config.features?.favourites?.numYears || C.DEFAULT_NUM_YEARS;
+			for (let year = currentYear - numFavouritesYears; year <= currentYear; year++) {
 				configurations.push({
 					...baseFavouritesData,
 					filename: getSourceFile(Feature.favourites, taxonInfo, placeInfo, year),
@@ -88,7 +91,8 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 				year: "all"
 			});
 
-			for (let year = currentYear - 10; year <= currentYear; year++) {
+			const numStatsYears = config.features?.stats?.numYears || C.DEFAULT_NUM_YEARS;
+			for (let year = currentYear - numStatsYears; year <= currentYear; year++) {
 				configurations.push({
 					...baseStatsData,
 					filename: getSourceFile(Feature.stats, taxonInfo, placeInfo, year),

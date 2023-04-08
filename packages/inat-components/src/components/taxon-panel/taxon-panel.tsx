@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {getSourceFile, Tab, DataSource, Feature, ConfigFile, BaseClasses, TabDescs} from "../../__shared";
+import {C, getSourceFile, Tab, DataSource, Feature, ConfigFile, BaseClasses, TabDescs} from '../../__shared';
 import {RecentObservations, RecentObservationsProps} from '../recent-observations/recent-observations';
 import {CommonTaxa} from '../common-taxa/common-taxa';
 import {Favourites} from "../favourites/favourites"
@@ -7,7 +7,7 @@ import {Summary} from "../summary/summary";
 import Years from "../year-dropdown/year-dropdown";
 import Tabs from "../tabs/tabs";
 import {useFeatureTitles} from "../hooks/hooks";
-import styles from '../shared/css/general.module.scss';
+import styles from "../shared/css/general.module.scss";
 
 export type TaxonPanelProps = {
     taxonId: number;
@@ -106,6 +106,25 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
     const tabsClass = classes?.tabs || '';
     const yearDropdownClass = classes?.yearsDropdown || '';
 
+    const getNumYears = () => {
+        let numYears = C.DEFAULT_NUM_YEARS;
+        switch (tab) {
+            case Tab.commonTaxa: {
+                numYears = config.features?.commonTaxa?.numYears || C.PER_PAGE;
+                break;
+            }
+            case Tab.favourites: {
+                numYears = config.features?.favourites?.numYears || C.PER_PAGE;
+                break;
+            }
+            case Tab.stats: {
+                numYears = config.features?.stats?.numYears || C.PER_PAGE;
+                break;
+            }
+        }
+        return numYears;
+    }
+
     return (
         <div className={styles.page}>
             <Tabs
@@ -117,7 +136,7 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
             <div>
                 {tab !== Tab.recent && (
                     <div style={{ float: "right" }} className={yearDropdownClass}>
-                        <Years value={year} onChange={setYear} />
+                        <Years value={year} onChange={setYear} numYears={getNumYears()} />
                     </div>
                 )}
                 <h1 className={classes?.pageHeadings}>{titles[tab]}</h1>

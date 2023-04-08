@@ -2,19 +2,20 @@ export type ConfigFile = {
 	taxa: TaxaConfig[];
 	places: PlaceConfig[];
 	features: {
+		[Feature.recentObservations]?: {
+			numResults?: number;
+		};
 		[Feature.commonTaxa]?: {
 			numResults?: number;
+			numYears?: number;
 		};
 		[Feature.favourites]?: {
 			numResults?: number;
 			numYears?: number;
 		};
-		[Feature.recentObservations]?: {
-			numResults?: number;
-			numYears?: number;
-		};
 		[Feature.stats]?: {
 			numTopObservers?: number;
+			numYears?: number;
 		};
 	}
 }
