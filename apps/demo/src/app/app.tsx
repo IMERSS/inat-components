@@ -33,7 +33,11 @@ const App = () => {
 				classes={{
 					pageHeadings: "page-headings",
 					tabDesc: "inat-tab-desc",
-					observationLabelTitle: "obs-title"
+					observationLabelTitle: "obs-title",
+					recentObservationsPanel: "recentObservationsPanel",
+					commonTaxaPanel: "commonTaxaPanel",
+					favouritesPanel: "favouritesPanel",
+					statsPanel: "statsPanel",
 				}}
 				tabDescs={{
 					recentDesc: "This page lists recent observations.",

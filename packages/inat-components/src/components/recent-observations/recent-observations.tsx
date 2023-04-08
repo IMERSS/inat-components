@@ -97,6 +97,7 @@ export const RecentObservations = ({
 	if (classes?.tabDesc) {
 		descClasses += ` ${classes.tabDesc}`;
 	}
+
 	return (
 		<div className={componentClasses}>
 			{tabDesc && <p className={descClasses}>{tabDesc}</p>}

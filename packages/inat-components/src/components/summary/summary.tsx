@@ -13,10 +13,11 @@ export type SummaryProps = {
     data?: FavouritesRespData;
     dataUrl?: string;
     classes?: BaseClasses;
+    className?: string;
     tabDesc?: string;
 };
 
-export const Summary = ({ source, data, dataUrl, taxonId, placeId, year, classes, tabDesc }: SummaryProps) => {
+export const Summary = ({ source, data, dataUrl, taxonId, placeId, year, classes, className, tabDesc }: SummaryProps) => {
     const [summaryData, setSummaryData] = useState<any>({});
     const [loading, setLoading] = useState(false);
 
@@ -69,8 +70,13 @@ export const Summary = ({ source, data, dataUrl, taxonId, placeId, year, classes
         descClasses += ` ${classes.tabDesc}`;
     }
 
+    let classList = styles.summaryPage;
+    if (className) {
+        classList += ` ${className}`;
+    }
+
     return (
-        <div className={styles.summaryPage}>
+        <div className={classList}>
             {tabDesc && <p className={descClasses}>{tabDesc}</p>}
             <Loader loading={loading} />
             <ul className={countSummaryClasses}>

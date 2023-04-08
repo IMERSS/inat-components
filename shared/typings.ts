@@ -51,6 +51,10 @@ export type BaseClasses = {
 	observersList?: string;
 	statsCountSummary?: string;
 	tabDesc?: string;
+	recentObservationsPanel?: string;
+	commonTaxaPanel?: string;
+	favouritesPanel?: string;
+	statsPanel?: string;
 }
 
 export type BaseComponentProps = {

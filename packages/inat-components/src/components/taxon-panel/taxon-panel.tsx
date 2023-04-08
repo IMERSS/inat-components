@@ -42,6 +42,9 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
                     props.placeId = placeId;
                     props.taxonId = taxonId;
                 }
+                if (classes?.recentObservationsPanel) {
+                    props.className = classes?.recentObservationsPanel;
+                }
                 return (
                     <RecentObservations {...props} />
                 );
@@ -61,6 +64,10 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
                     props.placeId = placeId;
                     props.taxonId = taxonId;
                 }
+                if (classes?.commonTaxaPanel) {
+                    props.className = classes?.commonTaxaPanel;
+                }
+
                 return (
                     <CommonTaxa {...props} />
                 );
@@ -80,6 +87,9 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
                     props.placeId = placeId;
                     props.taxonId = taxonId;
                 }
+                if (classes?.favouritesPanel) {
+                    props.className = classes?.favouritesPanel;
+                }
                 return (
                     <Favourites {...props} />
                 );
@@ -97,6 +107,9 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
                 } else {
                     props.placeId = placeId;
                     props.taxonId = taxonId;
+                }
+                if (classes?.statsPanel) {
+                    props.className = classes?.statsPanel;
                 }
                 return <Summary {...props} />;
             }
