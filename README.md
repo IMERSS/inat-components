@@ -100,6 +100,7 @@ Let's start with running your local dev environment.
 Ro run the application, do this:
 - check out this repo and navigate to the root folder in your terminal. Run:
 - `yarn install`
+- `nvm install` (or `nvm use`) to get the right node version
 - `yarn boot`
 - `yarn dev`
 
