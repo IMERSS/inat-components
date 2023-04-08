@@ -2,7 +2,7 @@ import React from "react";
 import {BaseClasses, numberWithCommas, DataSource, getSummary } from "../../__shared";
 import { ObserverList } from './ObserverList';
 import Loader from "../loader/loader";
-import {SeasonalityGraph} from "../seasonality-graph/seasonality-graph";
+import { SeasonalityGraph } from "../seasonality-graph/seasonality-graph";
 import styles from "./summary.module.scss";
 import { useLoadSourceData } from "../../hooks/useLoadSourceData";
 

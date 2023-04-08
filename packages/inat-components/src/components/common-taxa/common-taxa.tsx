@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { numberWithCommas, C, CommonTaxData, getCommonTaxa, BaseComponentProps, BaseClasses } from "../../__shared";
 import { Observation } from "../observation/observation";
 import Loader from "../loader/loader";

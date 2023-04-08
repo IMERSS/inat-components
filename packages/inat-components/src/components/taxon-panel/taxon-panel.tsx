@@ -1,12 +1,12 @@
 import React, {useState} from "react";
-import {C, getSourceFile, Tab, DataSource, Feature, ConfigFile, BaseClasses, TabDescs} from '../../__shared';
-import {RecentObservations, RecentObservationsProps} from '../recent-observations/recent-observations';
-import {CommonTaxa} from '../common-taxa/common-taxa';
-import {Favourites} from "../favourites/favourites"
-import {Summary} from "../summary/summary";
+import { C, getSourceFile, Tab, DataSource, Feature, ConfigFile, BaseClasses, TabDescs } from '../../__shared';
+import { RecentObservations, RecentObservationsProps } from '../recent-observations/recent-observations';
+import { CommonTaxa } from '../common-taxa/common-taxa';
+import { Favourites } from "../favourites/favourites"
+import { Summary } from "../summary/summary";
 import Years from "../year-dropdown/year-dropdown";
 import Tabs from "../tabs/tabs";
-import {useFeatureTitles} from "../hooks/hooks";
+import { useFeatureTitles } from "../hooks/hooks";
 import styles from "../shared/css/general.module.scss";
 
 export type TaxonPanelProps = {
@@ -24,7 +24,7 @@ export type TaxonPanelProps = {
  * TODO
  * ----
  * This component got too big too fast. The existing interface isn't great: you pass in taxonId, placeId as
- * separate props, then ALSO include them witin the `config` prop. This allows the component to work for both LOCAL
+ * separate props, then ALSO include them within the `config` prop. This allows the component to work for both LOCAL
  * dev. This top-level component sorts out all the appropriate props + passes them to the individual tab components
  * which either pings iNat directly or loads from the prefab source. Handy for local dev, but makes for a confusing
  * interface for consumers.
@@ -138,15 +138,15 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
         let numYears = C.DEFAULT_NUM_YEARS;
         switch (tab) {
             case Tab.commonTaxa: {
-                numYears = config.features?.commonTaxa?.numYears || C.PER_PAGE;
+                numYears = config.features?.commonTaxa?.numYears || C.DEFAULT_NUM_YEARS;
                 break;
             }
             case Tab.favourites: {
-                numYears = config.features?.favourites?.numYears || C.PER_PAGE;
+                numYears = config.features?.favourites?.numYears || C.DEFAULT_NUM_YEARS;
                 break;
             }
             case Tab.stats: {
-                numYears = config.features?.stats?.numYears || C.PER_PAGE;
+                numYears = config.features?.stats?.numYears || C.DEFAULT_NUM_YEARS;
                 break;
             }
         }

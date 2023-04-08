@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useEffect, useState } from "react";
 import {getCurrentYear} from "../../__shared";
 import styles from "./year-dropdown.module.scss";
 
@@ -10,14 +10,16 @@ interface YearsProps {
 }
 
 const Years = ({ value, onChange, numYears, className }: YearsProps) => {
-    const [years] = useState(() => {
+    const [years, setYears] = useState([]);
+
+    useEffect(() => {
         const currentYear = getCurrentYear();
         const years: any = [];
-        for (let i = currentYear; i>=currentYear-numYears; i--) {
+        for (let i = currentYear; i>currentYear-numYears; i--) {
             years.push(i);
         }
-        return years;
-    });
+        setYears(years);
+    }, [numYears]);
 
     let classes = styles.dropdown;
     if (className) {
