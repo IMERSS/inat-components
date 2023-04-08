@@ -1,65 +1,37 @@
-import React, {useEffect, useState} from "react";
-import {BaseClasses, numberWithCommas, DataSource, getSummary, FavouritesRespData} from "../../__shared";
+import React from "react";
+import {BaseClasses, numberWithCommas, DataSource, getSummary } from "../../__shared";
 import { ObserverList } from './ObserverList';
 import Loader from "../loader/loader";
 import {SeasonalityGraph} from "../seasonality-graph/seasonality-graph";
 import styles from "./summary.module.scss";
+import { useLoadSourceData } from "../../hooks/useLoadSourceData";
 
 export type SummaryProps = {
     source: DataSource;
     taxonId: number;
     placeId: number;
-    year: string | number;
-    data?: FavouritesRespData;
+    year: number;
     dataUrl?: string;
     classes?: BaseClasses;
     className?: string;
     tabDesc?: string;
 };
 
-export const Summary = ({ source, data, dataUrl, taxonId, placeId, year, classes, className, tabDesc }: SummaryProps) => {
-    const [summaryData, setSummaryData] = useState<any>({});
-    const [loading, setLoading] = useState(false);
+export const Summary = ({ source, dataUrl, taxonId, placeId, year, classes, className, tabDesc }: SummaryProps) => {
+    const { loading, results: summaryData } = useLoadSourceData({
+        year,
+        taxonId,
+        placeId,
+        dataUrl,
+        source,
 
-    useEffect(() => {
-        if (source !== DataSource.autoLoad) {
-            return;
+        // shim to standardize the response from the `action` method with a top-level `results` property. This
+        // just lets the useLoadSourceData hook work for all tab components
+        action: async (data) => {
+            const results = await getSummary(data);
+            return { results };
         }
-        if (!taxonId) {
-            console.error("Please supply a `taxonId` prop for the `autoLoad` source prop option.");
-            return;
-        }
-        if (!placeId) {
-            console.error("Please supply a `placeId` prop for the `autoLoad` source prop option.");
-            return;
-        }
-
-        (async () => {
-            setLoading(true);
-            const data = await getSummary({ taxonId, placeId, year });
-            setSummaryData(data);
-            setLoading(false);
-        })();
-    }, [source, year, placeId, taxonId]);
-
-    useEffect(() => {
-        if (source !== DataSource.url) {
-            return;
-        }
-
-        if (!dataUrl) {
-            console.error("Please supply a `dataUrl` prop for the `url` source prop option.");
-            return;
-        }
-
-        (async () => {
-            setLoading(true);
-            const obs = await fetch(dataUrl);
-            const json = await obs.json();
-            setSummaryData(json);
-            setLoading(false);
-        })();
-    }, [source, dataUrl]);
+    });
 
     let countSummaryClasses = styles.countSummary;
     if (classes?.statsCountSummary) {

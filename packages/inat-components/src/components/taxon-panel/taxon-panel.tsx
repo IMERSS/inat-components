@@ -20,10 +20,25 @@ export type TaxonPanelProps = {
     tabDescs?: TabDescs;
 }
 
+/**
+ * TODO
+ * ----
+ * This component got too big too fast. The existing interface isn't great: you pass in taxonId, placeId as
+ * separate props, then ALSO include them witin the `config` prop. This allows the component to work for both LOCAL
+ * dev. This top-level component sorts out all the appropriate props + passes them to the individual tab components
+ * which either pings iNat directly or loads from the prefab source. Handy for local dev, but makes for a confusing
+ * interface for consumers.
+ *
+ * Options:
+ * - rethink local dev + have a separate component?
+ * - have 2 different sets of interfaces you can use for the component - one for local dev, one for consumers in the real world?
+ */
 const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, classes, tabDescs }: TaxonPanelProps) => {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState<string>("all");
     const titles = useFeatureTitles(config.features);
+
+    // check where this extra taxonInfo is really needed
     const [taxonInfo] = useState(() => config.taxa.find((i) => i.taxonId === taxonId));
     const [placeInfo] = useState(() => config.places.find((i) => i.placeId === placeId));
 

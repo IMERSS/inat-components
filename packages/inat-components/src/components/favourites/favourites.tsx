@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from "react";
-import {formatDate, C, getFavourites, FavouritesData, BaseComponentProps, DataSource, BaseClasses} from "../../__shared";
-import {Observation} from "../observation/observation";
+import React from "react";
+import { formatDate, C, getFavourites, FavouritesData, BaseComponentProps, BaseClasses } from "../../__shared";
+import { Observation } from "../observation/observation";
 import Loader from "../loader/loader";
-import {NoResults} from "../no-results/no-results";
+import { NoResults } from "../no-results/no-results";
 import generalStyles from "../shared/css/general.module.scss";
 import styles from "../shared/css/general.module.scss";
+import { useLoadSourceData } from "../../hooks/useLoadSourceData";
 
 export type FavouritesProps = BaseComponentProps & {
-	year: string | number;
+	year: number;
 }
 
 export const FavouritesLabel = (data: FavouritesData & { classes: BaseClasses }) => (
@@ -33,49 +34,16 @@ export const Favourites = ({
 	itemWidth = C.DEFAULT_ITEM_WIDTH,
 	perPage = C.PER_PAGE
 }: FavouritesProps) => {
-	const [observations, setObservations] = useState<any>(() => (source === DataSource.dataProp) ? data : []);
-	const [loading, setLoading] = useState(false);
-
-	useEffect(() => {
-		if (source !== DataSource.autoLoad) {
-			return;
-		}
-		if (!taxonId) {
-			console.error("Please supply a `taxonId` prop for the `autoLoad` source prop option.");
-			return;
-		}
-		if (!placeId) {
-			console.error("Please supply a `placeId` prop for the `autoLoad` source prop option.");
-			return;
-		}
-
-		(async () => {
-			setLoading(true);
-			const resp = await getFavourites({taxonId, placeId, year, perPage});
-			setObservations(resp.results);
-			setLoading(false);
-		})();
-	}, [source, year, placeId, taxonId, perPage]);
-
-	useEffect(() => {
-		if (source !== DataSource.url) {
-			return;
-		}
-
-		if (!dataUrl) {
-			console.error("Please supply a `dataUrl` prop for the `url` source prop option.");
-			return;
-		}
-
-		(async () => {
-			setLoading(true);
-			const obs = await fetch(dataUrl);
-			const json = await obs.json();
-			setObservations(json.results);
-			setLoading(false);
-		})();
-	}, [source, dataUrl]);
-
+	const { loading, results: observations } = useLoadSourceData({
+		year,
+		taxonId,
+		placeId,
+		perPage,
+		data,
+		dataUrl,
+		source,
+		action: getFavourites
+	});
 	const Load = components?.loader ? components.loader as any : Loader;
 	const Label = components?.label ? components.label as any : FavouritesLabel;
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {
 	formatDate,
 	C,
@@ -8,10 +8,11 @@ import {
 	DataSource,
 	BaseClasses
 } from "../../__shared";
-import {Observation} from "../observation/observation";
+import { Observation } from "../observation/observation";
 import Loader from "../loader/loader";
-import {NoResults} from "../no-results/no-results";
+import { NoResults } from "../no-results/no-results";
 import styles from "../shared/css/general.module.scss";
+import { useLoadSourceData } from "../../hooks/useLoadSourceData";
 
 export type RecentObservationsProps = BaseComponentProps;
 
@@ -35,57 +36,23 @@ export const RecentObservations = ({
 	placeId,
 	data,
 	dataUrl,
-	source = DataSource.autoLoad,
-	perPage = C.PER_PAGE,
-	itemWidth = C.DEFAULT_ITEM_WIDTH,
 	components,
 	className,
 	classes,
-	tabDesc
+	tabDesc,
+	source = DataSource.autoLoad,
+	perPage = C.PER_PAGE,
+	itemWidth = C.DEFAULT_ITEM_WIDTH
 }: RecentObservationsProps) => {
-	const [loading, setLoading] = useState(false);
-	const [observations, setObservations] = useState<any>(() => (source === DataSource.dataProp) ? data : []);
-
-	useEffect(() => {
-		if (source !== DataSource.autoLoad) {
-			return;
-		}
-		if (!taxonId) {
-			console.error("Please supply a `taxonId` prop for the `autoLoad` source prop option.");
-			return;
-		}
-		if (!placeId) {
-			console.error("Please supply a `placeId` prop for the `autoLoad` source prop option.");
-			return;
-		}
-
-		(async () => {
-			setLoading(true);
-			const obs = await getRecentObservations({taxonId, placeId, perPage});
-			setObservations(obs.results);
-			setLoading(false);
-		})();
-	}, [source, taxonId, placeId, perPage]);
-
-	useEffect(() => {
-		if (source !== DataSource.url) {
-			return;
-		}
-
-		if (!dataUrl) {
-			console.error("Please supply a `dataUrl` prop for the `url` source prop option.");
-			return;
-		}
-
-		(async () => {
-			setLoading(true);
-			const obs = await fetch(dataUrl);
-			const json = await obs.json();
-			setObservations(json.results);
-			setLoading(false);
-		})();
-	}, [source, dataUrl]);
-
+	const { loading, results: observations } = useLoadSourceData({
+		taxonId,
+		placeId,
+		perPage,
+		data,
+		dataUrl,
+		source,
+		action: getRecentObservations
+	});
 	const Load = components?.loader ? components.loader as any : Loader;
 	const Label = components?.label ? components.label as any : RecentObservationLabel;
 

@@ -2,5 +2,11 @@
   "extends": "../../tsconfig.base.json",
   "exclude": [
     "src/**/*.test.tsx"
-  ]
+  ],
+  "compilerOptions": {
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ]
+  }
 }
