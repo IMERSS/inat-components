@@ -1,4 +1,4 @@
-import { Feature } from "./__shared";
+import { Feature, ItemConfig } from "./__shared";
 
 export type UtilsConfig = {
 	taxa: ItemConfig[];
@@ -20,9 +20,4 @@ export type UtilsConfig = {
 			numYears?: number;
 		};
 	}
-}
-
-export type ItemConfig = {
-	id: number;
-	str: string;
 }

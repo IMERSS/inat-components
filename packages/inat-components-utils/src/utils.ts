@@ -16,6 +16,7 @@ import {
 	getSourceFile
 } from "./__shared";
 
+// TODO return type?
 export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 	const configurations: any = [];
 

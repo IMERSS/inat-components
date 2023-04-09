@@ -6,7 +6,7 @@ import {
 	RecentObservationData,
 	BaseComponentProps,
 	DataSource,
-	BaseClasses
+	GeneralClasses
 } from "../../__shared";
 import { Observation } from "../observation/observation";
 import Loader from "../loader/loader";
@@ -16,7 +16,7 @@ import { useLoadSourceData } from "../../hooks/useLoadSourceData";
 
 export type RecentObservationsProps = BaseComponentProps;
 
-export const RecentObservationLabel = (obs: RecentObservationData & { classes: BaseClasses }) => (
+export const RecentObservationLabel = (obs: RecentObservationData & { classes: GeneralClasses }) => (
 	<div className={styles.obsLabel}>
 		<h3 className={obs.classes?.observationLabelTitle}>{obs.taxonCommonName || obs.taxonName}</h3>
 		<div className={obs.classes?.observationLabelDate}>{formatDate(obs.obsDate)}</div>
@@ -34,11 +34,10 @@ export const RecentObservationLabel = (obs: RecentObservationData & { classes: B
 export const RecentObservations = ({
 	taxonId,
 	placeId,
-	data,
 	dataUrl,
 	components,
 	className,
-	classes,
+	generalClasses,
 	tabDesc,
 	source = DataSource.autoLoad,
 	perPage = C.PER_PAGE,
@@ -48,7 +47,6 @@ export const RecentObservations = ({
 		taxonId,
 		placeId,
 		perPage,
-		data,
 		dataUrl,
 		source,
 		action: getRecentObservations
@@ -61,8 +59,8 @@ export const RecentObservations = ({
 		componentClasses += ` ${className}`;
 	}
 	let descClasses = styles.tabDesc;
-	if (classes?.tabDesc) {
-		descClasses += ` ${classes.tabDesc}`;
+	if (generalClasses?.tabDesc) {
+		descClasses += ` ${generalClasses.tabDesc}`;
 	}
 
 	return (
@@ -77,7 +75,7 @@ export const RecentObservations = ({
 						imageUrl={obs.imageUrl.replace(/square/, "medium")}
 						itemWidth={itemWidth}
 						linkUrl={obs.obsUrl}>
-						<Label {...obs} classes={classes} />
+						<Label {...obs} classes={generalClasses} />
 					</Observation>
 				))}
 			</div>

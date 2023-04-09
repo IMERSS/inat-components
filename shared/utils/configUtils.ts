@@ -1,10 +1,10 @@
-import {Feature, PlaceConfig, TaxaConfig} from "../typings";
+import { Feature, ItemConfig } from "../typings";
 
 /*
  * Note that right now the source filenames aren't configurable.
  */
-export const getSourceFile = (api: Feature, taxonInfo?: TaxaConfig, placeInfo?: PlaceConfig, year?: string | number): string => {
-	if (!taxonInfo || !placeInfo) {
+export const getSourceFile = (api: Feature, taxon: ItemConfig, place: ItemConfig, year?: string | number): string => {
+	if (!taxon || !place) {
 		return '';
 	}
 
@@ -12,13 +12,13 @@ export const getSourceFile = (api: Feature, taxonInfo?: TaxaConfig, placeInfo?: 
 
 	let filename = "";
 	if (api === Feature.recentObservations) {
-		filename = `${taxonInfo.taxonStr}-${placeInfo.placeStr}-recent.json`;
+		filename = `${taxon.str}-${place.str}-recent.json`;
 	} else if (api === Feature.commonTaxa) {
-		filename = `${taxonInfo.taxonStr}-${placeInfo.placeStr}-${yearStr}-commonTaxa.json`;
+		filename = `${taxon.str}-${place.str}-${yearStr}-commonTaxa.json`;
 	} else if (api === Feature.favourites) {
-		filename = `${taxonInfo.taxonStr}-${placeInfo.placeStr}-${yearStr}-favourites.json`;
+		filename = `${taxon.str}-${place.str}-${yearStr}-favourites.json`;
 	} else if (api === Feature.stats) {
-		filename = `${taxonInfo.taxonStr}-${placeInfo.placeStr}-${yearStr}-stats.json`;
+		filename = `${taxon.str}-${place.str}-${yearStr}-stats.json`;
 	}
 
 	return filename;

@@ -1,8 +1,3 @@
-export enum DataSource {
-	autoLoad = "autoLoad",
-	url = "url"
-}
-
 export enum Feature {
 	commonTaxa = "commonTaxa",
 	favourites = "favourites",
@@ -10,28 +5,44 @@ export enum Feature {
 	stats = "stats"
 }
 
-// I know this is duplicated, but it's very possible they could be different in future
-export enum Tab {
-	recent = "recent",
-	commonTaxa = "commonTaxa",
-	favourites = "favourites",
-	stats = "stats"
+export enum DataSource {
+	autoLoad = "autoLoad",
+	url = "url"
 }
 
-// export type BaseClasses = {
-// 	recentObservationsPanel?: string;
-// 	commonTaxaPanel?: string;
-// 	favouritesPanel?: string;
-// 	statsPanel?: string;
+// used for places + taxons
+export type ItemConfig = {
+	id: number;
+	str: string;
+}
+
+// I know this is duplicated, but it's very possible they could be different in future
+// export enum Tab {
+// 	recent = "recent",
+// 	commonTaxa = "commonTaxa",
+// 	favourites = "favourites",
+// 	stats = "stats"
 // }
+
+
+export type GeneralClasses = {
+	tabsElement?: string;
+	yearsDropdown?: string;
+	pageHeadings?: string;
+	tabDesc?: string;
+	observationLabelTitle?: string;
+	observationLabelDate?: string;
+	observationLabelName?: string;
+	// observersList?: string;
+	// statsCountSummary?: string;
+};
 
 export type BaseComponentProps = {
 	taxonId?: number;
 	placeId?: number;
-	filename?: string;
+//	filename?: string;
 	perPage?: number;
 	source?: DataSource;
-	data?: any;
 	dataUrl?: string;
 	className?: string;
 	itemWidth?: number;
@@ -40,13 +51,13 @@ export type BaseComponentProps = {
 		error?: any;
 		loader?: any;
 	};
-	classes?: BaseClasses;
+	generalClasses?: GeneralClasses;
 	tabDesc?: string;
 };
 
-export type TabDescs = {
-	recentDesc?: string;
-	mostCommonDesc?: string;
-	mostFavouritedDesc?: string;
-	generalStatsDesc?: string;
-}
+// export type TabDescs = {
+// 	recentDesc?: string;
+// 	mostCommonDesc?: string;
+// 	mostFavouritedDesc?: string;
+// 	generalStatsDesc?: string;
+// }

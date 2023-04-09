@@ -6,7 +6,6 @@ type UseLoadSourceData = {
 	placeId?: number;
 	perPage?: number;
 	source?: DataSource;
-	data?: any;
 	dataUrl?: string;
 	year?: number,
 	action: any;
@@ -24,13 +23,12 @@ export const useLoadSourceData = ({
 	placeId,
 	perPage,
 	source,
-	data,
 	dataUrl,
 	year,
 	action
 }: UseLoadSourceData) => {
 	const [loading, setLoading] = useState(false);
-	const [results, setResults] = useState<any>(() => (source === DataSource.dataProp) ? data : []);
+	const [results, setResults] = useState<any>([]);
 
 	useEffect(() => {
 		if (source === DataSource.autoLoad) {

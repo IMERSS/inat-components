@@ -4,6 +4,7 @@ import SettingsRow from "./settings-row/settings-row";
 import config from "../inat.config.json";
 import "./app.module.scss";
 
+// k, this is a totally custom thing. New types.
 const App = () => {
 	const [taxonId, setTaxonId] = useState(config.taxa[0].taxonId);
 	const [placeId, setPlaceId] = useState(config.places[0].placeId);
@@ -24,10 +25,9 @@ const App = () => {
 				config={config}
 			/>
 			<TaxonPanel
-				taxonId={taxonId}
-				placeId={placeId}
+				taxon={taxonId}
+				place={placeId}
 				dataSource={dataSource}
-				config={config}
 				itemWidth={itemWidth}
 				baseUrl="https://sisyphean.ca/inat"
 				classes={{

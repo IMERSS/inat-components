@@ -13,10 +13,10 @@ export const useFeatureTitles = (features: any) => {
 
     useEffect(() => {
         setTitles({
-            [Tab.recent]: features.recentObservations?.label || defaultTitles[Tab.recent],
-            [Tab.commonTaxa]: features.commonTaxa?.label || defaultTitles[Tab.commonTaxa],
-            [Tab.favourites]: features.favourites?.label || defaultTitles[Tab.favourites],
-            [Tab.stats]: features.stats?.label || defaultTitles[Tab.stats]
+            [Tab.recent]: features.recentObservations?.title || defaultTitles[Tab.recent],
+            [Tab.commonTaxa]: features.commonTaxa?.title || defaultTitles[Tab.commonTaxa],
+            [Tab.favourites]: features.favourites?.title || defaultTitles[Tab.favourites],
+            [Tab.stats]: features.stats?.title || defaultTitles[Tab.stats]
         });
     }, [features]);
 

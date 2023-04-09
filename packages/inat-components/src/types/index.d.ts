@@ -6,3 +6,8 @@ declare global {
 }
 
 window.initStandalone = window.initStandalone || {};
+
+export enum DataSource {
+	autoLoad = "autoLoad",
+	url = "url"
+}

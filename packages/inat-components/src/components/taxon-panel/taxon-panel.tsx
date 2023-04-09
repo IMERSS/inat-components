@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { C, getSourceFile, Tab, DataSource, Feature, ConfigFile, BaseClasses, TabDescs } from '../../__shared';
+import { C, getSourceFile, Tab, DataSource, Feature, GeneralClasses } from '../../__shared';
 import { RecentObservations, RecentObservationsProps } from '../recent-observations/recent-observations';
 import { CommonTaxa } from '../common-taxa/common-taxa';
 import { Favourites } from "../favourites/favourites"
@@ -50,41 +50,13 @@ export type TaxonPanelProps = {
             className?: string;
         };
     };
-    generalClasses: {
-        tabs?: string; // this the whole group of tabs? `tabsElement`?
-        yearsDropdown?: string;
-        pageHeadings?: string;
-        observationLabelTitle?: string;
-        observationLabelDate?: string;
-        observationLabelName?: string;
-        observersList?: string;
-        statsCountSummary?: string;
-        tabDesc?: string;
-    };
+    generalClasses: GeneralClasses;
 }
 
-
-/**
- * TODO
- * ----
- * This component got too big too fast. The existing interface isn't great: you pass in taxonId, placeId as
- * separate props, then ALSO include them within the `config` prop. This allows the component to work for both LOCAL
- * dev. This top-level component sorts out all the appropriate props + passes them to the individual tab components
- * which either pings iNat directly or loads from the prefab source. Handy for local dev, but makes for a confusing
- * interface for consumers.
- *
- * Options:
- * - rethink local dev + have a separate component?
- * - have 2 different sets of interfaces you can use for the component - one for local dev, one for consumers in the real world?
- *
- * I don't like the fussiness of the taxonInfo data + how it constructs the URL filename, either. Means more props.
- */
-const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, classes, tabDescs }: TaxonPanelProps) => {
+const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, itemWidth, generalClasses }: TaxonPanelProps) => {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState<string>("all");
-    const titles = useFeatureTitles(config.features);
-    const [taxonInfo] = useState(() => config.taxa.find((i) => i.taxonId === taxonId));
-    const [placeInfo] = useState(() => config.places.find((i) => i.placeId === placeId));
+    const titles = useFeatureTitles(features);
 
     const getCurrentTab = () => {
         switch (tab) {
@@ -92,17 +64,15 @@ const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, 
                 const props: Partial<RecentObservationsProps> = {
                     source: dataSource,
                     itemWidth,
-                    classes,
-                    tabDesc: tabDescs?.recentDesc
+                    tabDesc: features?.[Feature.recentObservations]?.desc,
+                    generalClasses,
+                    className: features?.[Feature.recentObservations]?.className
                 };
                 if (dataSource === DataSource.url) {
-                    props.dataUrl = baseUrl + '/' + getSourceFile(Feature.recentObservations, taxonInfo, placeInfo);
+                    props.dataUrl = dataSourceBaseUrl + '/' + getSourceFile(Feature.recentObservations, taxon, place);
                 } else {
-                    props.placeId = placeId;
-                    props.taxonId = taxonId;
-                }
-                if (classes?.recentObservationsPanel) {
-                    props.className = classes?.recentObservationsPanel;
+                    props.placeId = place.id;
+                    props.taxonId = taxon.id;
                 }
                 return (
                     <RecentObservations {...props} />
