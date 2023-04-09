@@ -1,0 +1,28 @@
+import { Feature } from "./__shared";
+
+export type UtilsConfig = {
+	taxa: ItemConfig[];
+	places: ItemConfig[];
+	features: {
+		[Feature.recentObservations]?: {
+			numResults?: number;
+		};
+		[Feature.commonTaxa]?: {
+			numResults?: number;
+			numYears?: number;
+		};
+		[Feature.favourites]?: {
+			numResults?: number;
+			numYears?: number;
+		};
+		[Feature.stats]?: {
+			numTopObservers?: number;
+			numYears?: number;
+		};
+	}
+}
+
+export type ItemConfig = {
+	id: number;
+	str: string;
+}

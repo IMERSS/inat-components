@@ -12,13 +12,13 @@ export const getSourceFile = (api: Feature, taxonInfo?: TaxaConfig, placeInfo?: 
 
 	let filename = "";
 	if (api === Feature.recentObservations) {
-		filename = `${taxonInfo.short}-${placeInfo.short}-recent.json`;
+		filename = `${taxonInfo.taxonStr}-${placeInfo.placeStr}-recent.json`;
 	} else if (api === Feature.commonTaxa) {
-		filename = `${taxonInfo.short}-${placeInfo.short}-${yearStr}-commonTaxa.json`;
+		filename = `${taxonInfo.taxonStr}-${placeInfo.placeStr}-${yearStr}-commonTaxa.json`;
 	} else if (api === Feature.favourites) {
-		filename = `${taxonInfo.short}-${placeInfo.short}-${yearStr}-favourites.json`;
+		filename = `${taxonInfo.taxonStr}-${placeInfo.placeStr}-${yearStr}-favourites.json`;
 	} else if (api === Feature.stats) {
-		filename = `${taxonInfo.short}-${placeInfo.short}-${yearStr}-stats.json`;
+		filename = `${taxonInfo.taxonStr}-${placeInfo.placeStr}-${yearStr}-stats.json`;
 	}
 
 	return filename;

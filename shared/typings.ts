@@ -1,28 +1,5 @@
-export type ConfigFile = {
-	taxa: TaxaConfig[];
-	places: PlaceConfig[];
-	features: {
-		[Feature.recentObservations]?: {
-			numResults?: number;
-		};
-		[Feature.commonTaxa]?: {
-			numResults?: number;
-			numYears?: number;
-		};
-		[Feature.favourites]?: {
-			numResults?: number;
-			numYears?: number;
-		};
-		[Feature.stats]?: {
-			numTopObservers?: number;
-			numYears?: number;
-		};
-	}
-}
-
 export enum DataSource {
 	autoLoad = "autoLoad",
-	dataProp = "dataProp",
 	url = "url"
 }
 
@@ -41,21 +18,12 @@ export enum Tab {
 	stats = "stats"
 }
 
-export type BaseClasses = {
-	tabs?: string;
-	yearsDropdown?: string;
-	pageHeadings?: string;
-	observationLabelTitle?: string;
-	observationLabelDate?: string;
-	observationLabelName?: string;
-	observersList?: string;
-	statsCountSummary?: string;
-	tabDesc?: string;
-	recentObservationsPanel?: string;
-	commonTaxaPanel?: string;
-	favouritesPanel?: string;
-	statsPanel?: string;
-}
+// export type BaseClasses = {
+// 	recentObservationsPanel?: string;
+// 	commonTaxaPanel?: string;
+// 	favouritesPanel?: string;
+// 	statsPanel?: string;
+// }
 
 export type BaseComponentProps = {
 	taxonId?: number;
@@ -75,18 +43,6 @@ export type BaseComponentProps = {
 	classes?: BaseClasses;
 	tabDesc?: string;
 };
-
-export type TaxaConfig = {
-	label: string;
-	short: string;
-	taxonId: number;
-}
-
-export type PlaceConfig = {
-	label: string;
-	short: string;
-	placeId: number;
-}
 
 export type TabDescs = {
 	recentDesc?: string;

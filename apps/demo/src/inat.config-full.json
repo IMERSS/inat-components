@@ -2,29 +2,29 @@
   "taxa": [
     {
       "label": "Butterflies and moth",
-      "short": "leps",
+      "taxonStr": "leps",
       "taxonId": 47157
     },
     {
       "label": "Beetles",
-      "short": "beetles",
+      "taxonStr": "beetles",
       "taxonId": 47208
     },
     {
       "label": "Birds",
-      "short": "birds",
+      "taxonStr": "birds",
       "taxonId": 3
     }
   ],
   "places": [
     {
       "label": "BC",
-      "short": "bc",
+      "placeStr": "bc",
       "placeId": 7085
     },
     {
       "label": "Alberta",
-      "short": "alberta",
+      "placeStr": "alberta",
       "placeId": 6834
     }
   ],

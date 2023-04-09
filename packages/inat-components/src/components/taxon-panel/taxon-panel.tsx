@@ -10,15 +10,59 @@ import { useFeatureTitles } from "../hooks/hooks";
 import styles from "../shared/css/general.module.scss";
 
 export type TaxonPanelProps = {
-    taxonId: number;
-    placeId: number;
-    dataSource: DataSource;
-    config: ConfigFile;
-    baseUrl: string;
+    taxon: {
+        id: number;
+        str: string;
+    };
+    place: {
+        id: number;
+        str: string;
+    }
+    dataSourceBaseUrl: string;
+    dataSource: DataSource; // dump this for now?
     itemWidth?: number;
-    classes?: BaseClasses;
-    tabDescs?: TabDescs;
+    features: {
+        [Feature.recentObservations]?: {
+            title: string;
+            numResults?: number;
+            desc?: string;
+            className?: string;
+        };
+        [Feature.commonTaxa]?: {
+            title: string;
+            numResults?: number;
+            numYears?: number;
+            desc?: string;
+            className?: string;
+        };
+        [Feature.favourites]?: {
+            title: string;
+            numResults?: number;
+            numYears?: number;
+            desc?: string;
+            className?: string;
+        };
+        [Feature.stats]?: {
+            title: string;
+            numTopObservers?: number;
+            numYears?: number;
+            desc?: string;
+            className?: string;
+        };
+    };
+    generalClasses: {
+        tabs?: string; // this the whole group of tabs? `tabsElement`?
+        yearsDropdown?: string;
+        pageHeadings?: string;
+        observationLabelTitle?: string;
+        observationLabelDate?: string;
+        observationLabelName?: string;
+        observersList?: string;
+        statsCountSummary?: string;
+        tabDesc?: string;
+    };
 }
+
 
 /**
  * TODO
@@ -32,13 +76,13 @@ export type TaxonPanelProps = {
  * Options:
  * - rethink local dev + have a separate component?
  * - have 2 different sets of interfaces you can use for the component - one for local dev, one for consumers in the real world?
+ *
+ * I don't like the fussiness of the taxonInfo data + how it constructs the URL filename, either. Means more props.
  */
 const TaxonPanel = ({ taxonId, placeId, dataSource, config, baseUrl, itemWidth, classes, tabDescs }: TaxonPanelProps) => {
     const [tab, setTab] = useState(Tab.recent);
     const [year, setYear] = useState<string>("all");
     const titles = useFeatureTitles(config.features);
-
-    // check where this extra taxonInfo is really needed
     const [taxonInfo] = useState(() => config.taxa.find((i) => i.taxonId === taxonId));
     const [placeInfo] = useState(() => config.places.find((i) => i.placeId === placeId));
 

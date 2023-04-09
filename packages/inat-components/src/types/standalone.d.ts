@@ -3,4 +3,4 @@ interface InitStandaloneProps {
 	placeId: number;
 }
 
-export type InitStandalone = (props: InitStandaloneProps) => void;
+export type InitStandalone = (id: string, props: InitStandaloneProps) => void;
