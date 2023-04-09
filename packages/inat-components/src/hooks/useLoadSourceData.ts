@@ -12,7 +12,7 @@ type UseLoadSourceData = {
 };
 
 /**
- * This hooks handles loading the iNat data from whatever source has been specified (DataSource):
+ * This hook handles loading the iNat data from whatever source has been specified (DataSource):
  * - "dataProp": the user has already fed in the data to the component (RecentObservations, CommonTaxa etc) so
  *   nothing needs to be done.
  * - "autoLoad": the user is developing locally and wants to just ping iNat directly for the source

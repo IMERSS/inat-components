@@ -16,15 +16,6 @@ export type ItemConfig = {
 	str: string;
 }
 
-// I know this is duplicated, but it's very possible they could be different in future
-// export enum Tab {
-// 	recent = "recent",
-// 	commonTaxa = "commonTaxa",
-// 	favourites = "favourites",
-// 	stats = "stats"
-// }
-
-
 export type GeneralClasses = {
 	tabsElement?: string;
 	yearsDropdown?: string;
