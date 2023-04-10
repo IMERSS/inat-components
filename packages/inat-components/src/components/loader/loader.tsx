@@ -1,6 +1,6 @@
 import React from "react";
-import LoadingSpinner from "react-spinners/MoonLoader.js"; // TODO. Interesting. Why is this required?
-import styles from "../shared/css/general.module.scss";
+import LoadingSpinner from "react-spinners/MoonLoader.js";
+import styles from "../__shared/css/general.module.scss";
 
 export type LoaderProps = {
     loading: boolean;

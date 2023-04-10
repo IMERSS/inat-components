@@ -4,10 +4,8 @@ import cliProgress from "cli-progress";
 import {
 	C,
 	BaseComponentProps,
-	ConfigFile,
 	Feature,
-	PlaceConfig,
-	TaxaConfig,
+	ItemConfig,
 	getRecentObservations,
 	getCommonTaxa,
 	getFavourites,
@@ -16,20 +14,19 @@ import {
 	getSourceFile
 } from "./__shared";
 
-// TODO return type?
-export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
+export const getConfigurations = (config: any): BaseComponentProps[] => {
 	const configurations: any = [];
 
-	config.taxa.forEach((taxonInfo: TaxaConfig) => {
-		config.places.forEach((placeInfo: PlaceConfig) => {
+	config.taxa.forEach((taxonInfo: ItemConfig) => {
+		config.places.forEach((placeInfo: ItemConfig) => {
 			const currentYear = getCurrentYear();
 
 			// Recent observations
 			configurations.push({
 				api: Feature.recentObservations,
 				perPage: config.features?.recentObservations?.numResults || C.PER_PAGE,
-				taxonId: taxonInfo.taxonId,
-				placeId: placeInfo.placeId,
+				taxonId: taxonInfo.id,
+				placeId: placeInfo.id,
 				filename: getSourceFile(Feature.recentObservations, taxonInfo, placeInfo)
 			});
 
@@ -37,8 +34,8 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 			const baseCommonTaxaData = {
 				api: Feature.commonTaxa,
 				perPage: config.features?.commonTaxa?.numResults || C.PER_PAGE,
-				taxonId: taxonInfo.taxonId,
-				placeId: placeInfo.placeId,
+				taxonId: taxonInfo.id,
+				placeId: placeInfo.id,
 				filename: getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, "all")
 			};
 
@@ -60,8 +57,8 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 			const baseFavouritesData = {
 				api: Feature.favourites,
 				perPage: config.features?.favourites?.numResults || C.PER_PAGE,
-				taxonId: taxonInfo.taxonId,
-				placeId: placeInfo.placeId,
+				taxonId: taxonInfo.id,
+				placeId: placeInfo.id,
 				filename: getSourceFile(Feature.favourites, taxonInfo, placeInfo, "all")
 			};
 
@@ -82,8 +79,8 @@ export const getConfigurations = (config: ConfigFile): BaseComponentProps[] => {
 			// Stats
 			const baseStatsData = {
 				api: Feature.stats,
-				taxonId: taxonInfo.taxonId,
-				placeId: placeInfo.placeId,
+				taxonId: taxonInfo.id,
+				placeId: placeInfo.id,
 				filename: getSourceFile(Feature.stats, taxonInfo, placeInfo, "all")
 			};
 
@@ -135,7 +132,8 @@ const generateFile = async (config, folder) => {
 	fs.writeFileSync(filenameWithPath, content);
 };
 
-const process = async (config: ConfigFile, folder: string) => {
+// TODO types
+const process = async (config: any, folder: string) => {
 	let currentIndex = 0;
 	const loadingBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 

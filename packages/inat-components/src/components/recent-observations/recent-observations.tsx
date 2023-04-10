@@ -11,8 +11,8 @@ import {
 import { Observation } from "../observation/observation";
 import Loader from "../loader/loader";
 import { NoResults } from "../no-results/no-results";
-import styles from "../shared/css/general.module.scss";
 import { useLoadSourceData } from "../../hooks/useLoadSourceData";
+import styles from "../__shared/css/general.module.scss";
 
 export type RecentObservationsProps = BaseComponentProps;
 

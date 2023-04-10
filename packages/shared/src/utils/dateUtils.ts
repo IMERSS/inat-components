@@ -1,4 +1,4 @@
-import {format} from "date-fns";
+import { format } from "date-fns";
 
 export const getCurrentYear = () => new Date().getFullYear();
 

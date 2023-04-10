@@ -12,9 +12,6 @@
     "dev": "npm-run-all --parallel copyShared watchPackages watchShared",
     "standalone": "npx lerna run build --scope=standalone"
   },
-  "dependencies": {
-    "isomorphic-unfetch": "^3.1.0"
-  },
   "devDependencies": {
     "grunt": "^1.5.3",
     "grunt-cli": "^1.4.3",

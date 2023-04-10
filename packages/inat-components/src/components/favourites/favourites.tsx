@@ -3,9 +3,8 @@ import { formatDate, C, getFavourites, FavouritesData, BaseComponentProps, Gener
 import { Observation } from "../observation/observation";
 import Loader from "../loader/loader";
 import { NoResults } from "../no-results/no-results";
-import generalStyles from "../shared/css/general.module.scss";
-import styles from "../shared/css/general.module.scss";
 import { useLoadSourceData } from "../../hooks/useLoadSourceData";
+import generalStyles from "../__shared/css/general.module.scss";
 
 export type FavouritesProps = BaseComponentProps & {
 	year: number;
@@ -49,7 +48,7 @@ export const Favourites = ({
 	if (className) {
 		elClasses += ` ${className}`;
 	}
-	let descClasses = styles.tabDesc;
+	let descClasses = generalStyles.tabDesc;
 	if (generalClasses?.tabDesc) {
 		descClasses += ` ${generalClasses.tabDesc}`;
 	}
