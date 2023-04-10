@@ -13,6 +13,7 @@ import Loader from "../loader/loader";
 import { NoResults } from "../no-results/no-results";
 import styles from "../shared/css/general.module.scss";
 import { useLoadSourceData } from "../../hooks/useLoadSourceData";
+import { DataSourceEnum } from "../../../../../shared";
 
 export type RecentObservationsProps = BaseComponentProps;
 
@@ -39,7 +40,7 @@ export const RecentObservations = ({
 	className,
 	generalClasses,
 	tabDesc,
-	source = DataSource.autoLoad,
+	source = DataSourceEnum.autoLoad,
 	perPage = C.PER_PAGE,
 	itemWidth = C.DEFAULT_ITEM_WIDTH
 }: RecentObservationsProps) => {

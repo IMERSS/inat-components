@@ -1,15 +1,45 @@
-import {useState} from "react";
-import TaxonPanel, {DataSource} from "@imerss/inat-components";
+import { useState } from "react";
+import TaxonPanel, { DataSource } from "@imerss/inat-components";
 import SettingsRow from "./settings-row/settings-row";
-import config from "../inat.config.json";
 import "./app.module.scss";
+import { ItemConfig } from "../../../../shared";
 
-// k, this is a totally custom thing. New types.
+const config = {
+	taxa: [
+		{ title: "Butterflies and moth", id: 47157, str: "leps" },
+		// { title: "Beetles", id: 47208, str: "beetles" },
+		// { title: "Birds", id: 3, str: "birds" }
+	],
+	places: [
+		{ title: "BC", id: 7085, str: "bc" },
+		// { title: "Alberta", id: 6834, str: "alberta" }
+	],
+	features: {
+		recentObservations: {
+			numResults: 100
+		},
+		commonTaxa: {
+			numResults: 100,
+			numYears: 10
+		},
+		favourites: {
+			numResults: 100,
+			numYears: 10
+		},
+		stats: {
+			numTopObservers: 10
+		}
+	}
+};
+
 const App = () => {
-	const [taxonId, setTaxonId] = useState(config.taxa[0].taxonId);
-	const [placeId, setPlaceId] = useState(config.places[0].placeId);
+	const [taxonId, setTaxonId] = useState(config.taxa[0].id);
+	const [placeId, setPlaceId] = useState(config.places[0].id);
 	const [dataSource, setDataSource] = useState(DataSource.autoLoad);
 	const [itemWidth, setItemWidth] = useState(180);
+
+	const taxon = config.taxa.find((t) => t.id == taxonId) as ItemConfig;
+	const place = config.places.find((p) => p.id == placeId) as ItemConfig;
 
 	return (
 		<>
@@ -22,11 +52,12 @@ const App = () => {
 				onChangeDataSource={setDataSource}
 				itemWidth={itemWidth}
 				onChangeItemWidth={setItemWidth}
-				config={config}
+				taxa={config.taxa}
+				places={config.places}
 			/>
 			<TaxonPanel
-				taxon={taxonId}
-				place={placeId}
+				taxon={{ id: taxon.id, str: taxon.str }}
+				place={place}
 				dataSource={dataSource}
 				itemWidth={itemWidth}
 				baseUrl="https://sisyphean.ca/inat"

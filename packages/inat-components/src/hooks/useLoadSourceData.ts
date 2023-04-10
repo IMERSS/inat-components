@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { DataSource } from "../__shared";
+import { DataSourceEnum } from "../../../../shared";
 
 type UseLoadSourceData = {
 	taxonId?: number;
@@ -31,7 +32,7 @@ export const useLoadSourceData = ({
 	const [results, setResults] = useState<any>([]);
 
 	useEffect(() => {
-		if (source === DataSource.autoLoad) {
+		if (source === DataSourceEnum.autoLoad) {
 			if (!taxonId) {
 				console.error("Please supply a `taxonId` prop for the `autoLoad` source prop option.");
 				return;
@@ -52,7 +53,7 @@ export const useLoadSourceData = ({
 			})();
 		}
 
-		if (source === DataSource.url) {
+		if (source === DataSourceEnum.url) {
 			if (!dataUrl) {
 				console.error("Please supply a `dataUrl` prop for the `url` source prop option.");
 				return;

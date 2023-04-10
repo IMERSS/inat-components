@@ -1,5 +1,5 @@
 import React from "react";
-import {BaseClasses, numberWithCommas, DataSource, getSummary } from "../../__shared";
+import { numberWithCommas, DataSource, getSummary, GeneralClasses } from "../../__shared";
 import { ObserverList } from './ObserverList';
 import Loader from "../loader/loader";
 import { SeasonalityGraph } from "../seasonality-graph/seasonality-graph";
@@ -7,17 +7,30 @@ import styles from "./summary.module.scss";
 import { useLoadSourceData } from "../../hooks/useLoadSourceData";
 
 export type SummaryProps = {
-    source: DataSource;
     taxonId: number;
     placeId: number;
     year: number;
+    source: DataSource;
     dataUrl?: string;
-    classes?: BaseClasses;
+    generalClasses?: GeneralClasses;
     className?: string;
     tabDesc?: string;
+    observersListClass?: string;
+    statsCountSummaryClass?: string;
 };
 
-export const Summary = ({ source, dataUrl, taxonId, placeId, year, classes, className, tabDesc }: SummaryProps) => {
+export const Summary = ({
+    source,
+    dataUrl,
+    taxonId,
+    placeId,
+    year,
+    generalClasses,
+    className,
+    tabDesc,
+    observersListClass,
+    statsCountSummaryClass
+}: SummaryProps) => {
     const { loading, results: summaryData } = useLoadSourceData({
         year,
         taxonId,
@@ -34,12 +47,12 @@ export const Summary = ({ source, dataUrl, taxonId, placeId, year, classes, clas
     });
 
     let countSummaryClasses = styles.countSummary;
-    if (classes?.statsCountSummary) {
-        countSummaryClasses += ` ${classes.statsCountSummary}`;
+    if (statsCountSummaryClass) {
+        countSummaryClasses += ` ${statsCountSummaryClass}`;
     }
     let descClasses = styles.tabDesc;
-    if (classes?.tabDesc) {
-        descClasses += ` ${classes.tabDesc}`;
+    if (generalClasses?.tabDesc) {
+        descClasses += ` ${generalClasses.tabDesc}`;
     }
 
     let classList = styles.summaryPage;
@@ -62,7 +75,7 @@ export const Summary = ({ source, dataUrl, taxonId, placeId, year, classes, clas
                 </div>
                 <div className={styles.observersBlock}>
                     <h1>Top observers</h1>
-                    {summaryData.observers?.top && <ObserverList observers={summaryData.observers.top} className={classes?.observersList} />}
+                    {summaryData.observers?.top && <ObserverList observers={summaryData.observers.top} className={observersListClass} />}
                 </div>
             </section>
         </div>

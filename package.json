@@ -4,6 +4,7 @@
   "scripts": {
     "boot": "lerna bootstrap",
     "build": "lerna run build",
+    "clean": "lerna run clean",
     "generate": "cd apps/demo && yarn generate",
     "copyShared": "npx grunt",
     "watchPackages": "lerna exec --parallel --ignore=standalone -- yarn watch",

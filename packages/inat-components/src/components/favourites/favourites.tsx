@@ -1,5 +1,5 @@
 import React from "react";
-import { formatDate, C, getFavourites, FavouritesData, BaseComponentProps, BaseClasses } from "../../__shared";
+import { formatDate, C, getFavourites, FavouritesData, BaseComponentProps, GeneralClasses } from "../../__shared";
 import { Observation } from "../observation/observation";
 import Loader from "../loader/loader";
 import { NoResults } from "../no-results/no-results";
@@ -11,7 +11,7 @@ export type FavouritesProps = BaseComponentProps & {
 	year: number;
 }
 
-export const FavouritesLabel = (data: FavouritesData & { classes: BaseClasses }) => (
+export const FavouritesLabel = (data: FavouritesData & { classes: GeneralClasses }) => (
 	<div className={generalStyles.obsLabel}>
 		<h3 className={data.classes?.observationLabelTitle}>{data.taxonCommonName || data.taxonName}</h3>
 		<div className={data.classes?.observationLabelTitle}>{data.observerUsername}</div>
@@ -25,12 +25,11 @@ export const Favourites = ({
 	source,
 	taxonId,
 	placeId,
-	data,
 	dataUrl,
 	components,
 	className,
 	tabDesc,
-	classes,
+	generalClasses,
 	itemWidth = C.DEFAULT_ITEM_WIDTH,
 	perPage = C.PER_PAGE
 }: FavouritesProps) => {
@@ -39,7 +38,6 @@ export const Favourites = ({
 		taxonId,
 		placeId,
 		perPage,
-		data,
 		dataUrl,
 		source,
 		action: getFavourites
@@ -52,8 +50,8 @@ export const Favourites = ({
 		elClasses += ` ${className}`;
 	}
 	let descClasses = styles.tabDesc;
-	if (classes?.tabDesc) {
-		descClasses += ` ${classes.tabDesc}`;
+	if (generalClasses?.tabDesc) {
+		descClasses += ` ${generalClasses.tabDesc}`;
 	}
 	return (
 		<div className={elClasses}>
@@ -67,7 +65,7 @@ export const Favourites = ({
 						imageUrl={obs.imageUrl.replace(/square/, "medium")}
 						itemWidth={itemWidth}
 						linkUrl={obs.obsUrl}>
-						<Label {...obs} classes={classes} />
+						<Label {...obs} classes={generalClasses} />
 					</Observation>
 				))}
 			</div>

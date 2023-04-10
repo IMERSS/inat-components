@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { C, getSourceFile, DataSource, Feature, GeneralClasses } from '../../__shared';
 import { RecentObservations } from '../recent-observations/recent-observations';
 import { CommonTaxa } from '../common-taxa/common-taxa';
@@ -8,6 +8,7 @@ import Years from "../year-dropdown/year-dropdown";
 import Tabs from "../tabs/tabs";
 import { useFeatureTitles } from "../hooks/hooks";
 import styles from "../shared/css/general.module.scss";
+import { DataSourceEnum } from "../../../../../shared";
 
 export type TaxonPanelProps = {
     taxon: {
@@ -23,31 +24,33 @@ export type TaxonPanelProps = {
     itemWidth?: number;
     features: {
         [Feature.recentObservations]?: {
-            title: string;
+            title?: string;
             numResults?: number;
             desc?: string;
             className?: string;
         };
         [Feature.commonTaxa]?: {
-            title: string;
+            title?: string;
             numResults?: number;
             numYears?: number;
             desc?: string;
             className?: string;
         };
         [Feature.favourites]?: {
-            title: string;
+            title?: string;
             numResults?: number;
             numYears?: number;
             desc?: string;
             className?: string;
         };
         [Feature.stats]?: {
-            title: string;
+            title?: string;
             numTopObservers?: number;
             numYears?: number;
             desc?: string;
             className?: string;
+            observersListClass?: string;
+            statsCountSummaryClass?: string;
         };
     };
     generalClasses: GeneralClasses;
@@ -62,11 +65,11 @@ const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, ite
         const props: any = {
             source: dataSource,
             itemWidth,
-            tabDesc: features?.[feature]?.desc,
+            tabDesc: features[feature]?.desc,
             generalClasses,
-            className: features?.[feature]?.className
+            className: features[feature]?.className
         };
-        if (dataSource === DataSource.url) {
+        if (dataSource === DataSourceEnum.url) {
             props.dataUrl = dataSourceBaseUrl + '/' + getSourceFile(feature, taxon, place, year);
         } else {
             props.placeId = place.id;
@@ -78,50 +81,26 @@ const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, ite
 
     const getCurrentTab = () => {
         switch (tab) {
-            case Feature.recentObservations: {
-                return (
-                    <RecentObservations {...getProps(Feature.recentObservations)} />
-                );
-            }
-            case Feature.commonTaxa: {
-                return (
-                    <CommonTaxa {...getProps(Feature.commonTaxa)} />
-                );
-            }
+            case Feature.recentObservations:
+                return <RecentObservations {...getProps(Feature.recentObservations)} />;
+            case Feature.commonTaxa:
+                return <CommonTaxa {...getProps(Feature.commonTaxa)} />;
+            case Feature.favourites:
+                return <Favourites {...getProps(Feature.favourites)} />;
 
-            case Feature.favourites: {
+            case Feature.stats:
                 return (
-                    <Favourites {...getProps(Feature.favourites)} />
+                    <Summary
+                        {...getProps(Feature.stats)}
+                        observersListClass={features[Feature.stats]?.observersListClass}
+                        statsCountSummaryClass={features[Feature.stats]?.statsCountSummaryClass}
+                    />
                 );
-            }
-
-            case Feature.stats: {
-                return <Summary {...getProps(Feature.stats)} />;
-            }
         }
     };
 
     const tabsClass = generalClasses?.tabsElement || '';
     const yearDropdownClass = generalClasses?.yearsDropdown || '';
-
-    const getNumYears = () => {
-        let numYears = C.DEFAULT_NUM_YEARS;
-        switch (tab) {
-            case Feature.commonTaxa: {
-                numYears = features?.commonTaxa?.numYears || C.DEFAULT_NUM_YEARS;
-                break;
-            }
-            case Feature.favourites: {
-                numYears = features?.favourites?.numYears || C.DEFAULT_NUM_YEARS;
-                break;
-            }
-            case Feature.stats: {
-                numYears = features?.stats?.numYears || C.DEFAULT_NUM_YEARS;
-                break;
-            }
-        }
-        return numYears;
-    }
 
     return (
         <div className={styles.page}>
@@ -134,7 +113,11 @@ const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, ite
             <div>
                 {tab !== Feature.recentObservations && (
                     <div style={{ float: "right" }} className={yearDropdownClass}>
-                        <Years value={year} onChange={setYear} numYears={getNumYears()} />
+                        <Years
+                            value={year}
+                            numYears={features[tab]?.numYears || C.DEFAULT_NUM_YEARS}
+                            onChange={setYear}
+                        />
                     </div>
                 )}
                 <h1 className={generalClasses?.pageHeadings}>{titles[tab]}</h1>

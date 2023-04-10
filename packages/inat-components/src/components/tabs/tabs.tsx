@@ -1,11 +1,11 @@
 import React from "react";
-import {Tab} from "../../__shared";
+import { Feature } from "../../__shared";
 import styles from "./tabs.module.scss";
 import {useFeatureTitles} from "../hooks/hooks";
 
 export type TabsProps = {
-    selectedTab: Tab;
-    onChangeTab: (tab: Tab) => void;
+    selectedTab: Feature;
+    onChangeTab: (tab: Feature) => void;
     features: any;
     className?: string;
 }
@@ -21,26 +21,26 @@ const Tabs = ({ selectedTab, onChangeTab, features, className }: TabsProps) => {
     return (
         <ul className={classes}>
             {features.recentObservations && (
-                <li onClick={() => onChangeTab(Tab.recent)}
-                    className={selectedTab === Tab.recent ? styles.selected : ""}>
-                    {titles[Tab.recent]}
+                <li onClick={() => onChangeTab(Feature.recentObservations)}
+                    className={selectedTab === Feature.recentObservations ? styles.selected : ""}>
+                    {titles[Feature.recentObservations]}
                 </li>
             )}
             {features.commonTaxa && (
-                <li onClick={() => onChangeTab(Tab.commonTaxa)}
-                    className={selectedTab === Tab.commonTaxa ? styles.selected : ""}>
-                    {titles[Tab.commonTaxa]}
+                <li onClick={() => onChangeTab(Feature.commonTaxa)}
+                    className={selectedTab === Feature.commonTaxa ? styles.selected : ""}>
+                    {titles[Feature.commonTaxa]}
                 </li>
             )}
             {features.favourites && (
-                <li onClick={() => onChangeTab(Tab.favourites)}
-                    className={selectedTab === Tab.favourites ? styles.selected : ""}>
-                    {titles[Tab.favourites]}
+                <li onClick={() => onChangeTab(Feature.favourites)}
+                    className={selectedTab === Feature.favourites ? styles.selected : ""}>
+                    {titles[Feature.favourites]}
                 </li>
             )}
             {features.stats && (
-                <li onClick={() => onChangeTab(Tab.stats)} className={selectedTab === Tab.stats ? styles.selected : ""}>
-                    {titles[Tab.stats]}
+                <li onClick={() => onChangeTab(Feature.stats)} className={selectedTab === Feature.stats ? styles.selected : ""}>
+                    {titles[Feature.stats]}
                 </li>
             )}
         </ul>

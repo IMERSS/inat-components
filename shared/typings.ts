@@ -5,10 +5,12 @@ export enum Feature {
 	stats = "stats"
 }
 
-export enum DataSource {
+export enum DataSourceEnum {
 	autoLoad = "autoLoad",
 	url = "url"
 }
+
+export type DataSource = `${DataSourceEnum}`;
 
 // used for places + taxons
 export type ItemConfig = {
@@ -24,14 +26,11 @@ export type GeneralClasses = {
 	observationLabelTitle?: string;
 	observationLabelDate?: string;
 	observationLabelName?: string;
-	// observersList?: string;
-	// statsCountSummary?: string;
-};
+}
 
 export type BaseComponentProps = {
 	taxonId?: number;
 	placeId?: number;
-//	filename?: string;
 	perPage?: number;
 	source?: DataSource;
 	dataUrl?: string;
