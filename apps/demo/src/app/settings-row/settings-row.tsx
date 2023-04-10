@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./settings-row.module.scss";
-import { DataSource } from "@imerss/inat-components";
+import { DataSource, DataSourceEnum } from "@imerss/inat-components";
 // import { ItemConfig } from "../../../../../shared";
 
 export type SettingsProp = {
@@ -28,8 +28,8 @@ const SettingsRow = ({
         <div>
             <h4>Data Source</h4>
             <select defaultValue={dataSource} onChange={(e) => onChangeDataSource(e.target.value as DataSource)}>
-                <option value={DataSource.autoLoad}>Auto-load</option>
-                <option value={DataSource.url}>Static JSON files</option>
+                <option value={DataSourceEnum.autoLoad}>Auto-load</option>
+                <option value={DataSourceEnum.url}>Static JSON files</option>
             </select>
         </div>
         <div>
@@ -41,7 +41,7 @@ const SettingsRow = ({
         <div>
             <h4>Place</h4>
             <select defaultValue={placeId} onChange={(e) => onChangePlace(parseInt(e.target.value, 10))}>
-                {places.map(({ placeId, label }: any) => <option key={placeId} value={placeId}>{label}</option>)}
+                {places.map(({ id, label }: any) => <option key={id} value={id}>{label}</option>)}
             </select>
         </div>
         <div>

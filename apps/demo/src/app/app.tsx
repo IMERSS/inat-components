@@ -1,8 +1,7 @@
 import { useState } from "react";
-import TaxonPanel, { DataSource } from "@imerss/inat-components";
+import TaxonPanel, { DataSource, DataSourceEnum } from "@imerss/inat-components";
 import SettingsRow from "./settings-row/settings-row";
 import "./app.module.scss";
-// import { ItemConfig } from "../../../../shared";
 
 const config = {
 	taxa: [
@@ -16,18 +15,25 @@ const config = {
 	],
 	features: {
 		recentObservations: {
-			numResults: 100
+			numResults: 100,
+			desc: "This page lists recent observations.",
+			className: "recentObservationsPanel"
 		},
 		commonTaxa: {
 			numResults: 100,
-			numYears: 10
+			numYears: 10,
+			desc: "These are the most common species.",
+			className: "commonTaxaPanel"
 		},
 		favourites: {
 			numResults: 100,
-			numYears: 10
+			numYears: 10,
+			desc: "These are the most favourited observations.",
+			className: "favouritesPanel",
 		},
 		stats: {
-			numTopObservers: 10
+			numTopObservers: 10,
+			className: "statsPanel",
 		}
 	}
 };
@@ -35,11 +41,10 @@ const config = {
 const App = () => {
 	const [taxonId, setTaxonId] = useState(config.taxa[0].id);
 	const [placeId, setPlaceId] = useState(config.places[0].id);
-	const [dataSource, setDataSource] = useState(DataSource.autoLoad);
+	const [dataSource, setDataSource] = useState<DataSource>(DataSourceEnum.autoLoad);
 	const [itemWidth, setItemWidth] = useState(180);
-
-	const taxon = config.taxa.find((t) => t.id == taxonId) as any;
-	const place = config.places.find((p) => p.id == placeId) as any;
+	const taxon = config.taxa.find((t) => t.id === taxonId) as any;
+	const place = config.places.find((p) => p.id === placeId) as any;
 
 	return (
 		<>
@@ -56,25 +61,16 @@ const App = () => {
 				places={config.places}
 			/>
 			<TaxonPanel
-				taxon={{ id: taxon.id, str: taxon.str }}
+				taxon={taxon}
 				place={place}
 				dataSource={dataSource}
+				dataSourceBaseUrl="https://sisyphean.ca/inat"
 				itemWidth={itemWidth}
-				baseUrl="https://sisyphean.ca/inat"
-				classes={{
+				features={config.features}
+				generalClasses={{
 					pageHeadings: "page-headings",
 					tabDesc: "inat-tab-desc",
 					observationLabelTitle: "obs-title",
-					recentObservationsPanel: "recentObservationsPanel",
-					commonTaxaPanel: "commonTaxaPanel",
-					favouritesPanel: "favouritesPanel",
-					statsPanel: "statsPanel",
-				}}
-				tabDescs={{
-					recentDesc: "This page lists recent observations.",
-					mostCommonDesc: "These are the most common species.",
-					mostFavouritedDesc: "These are the most favourited observations.",
-					generalStatsDesc: ""
 				}}
 			/>
 		</>
