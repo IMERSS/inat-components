@@ -2,7 +2,7 @@ import { useState } from "react";
 import TaxonPanel, { DataSource } from "@imerss/inat-components";
 import SettingsRow from "./settings-row/settings-row";
 import "./app.module.scss";
-import { ItemConfig } from "../../../../shared";
+// import { ItemConfig } from "../../../../shared";
 
 const config = {
 	taxa: [
@@ -38,8 +38,8 @@ const App = () => {
 	const [dataSource, setDataSource] = useState(DataSource.autoLoad);
 	const [itemWidth, setItemWidth] = useState(180);
 
-	const taxon = config.taxa.find((t) => t.id == taxonId) as ItemConfig;
-	const place = config.places.find((p) => p.id == placeId) as ItemConfig;
+	const taxon = config.taxa.find((t) => t.id == taxonId) as any;
+	const place = config.places.find((p) => p.id == placeId) as any;
 
 	return (
 		<>

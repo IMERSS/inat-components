@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./settings-row.module.scss";
 import { DataSource } from "@imerss/inat-components";
-import { ItemConfig } from "../../../../../shared";
+// import { ItemConfig } from "../../../../../shared";
 
 export type SettingsProp = {
     taxonId: number;
@@ -12,8 +12,8 @@ export type SettingsProp = {
     onChangePlace: (placeId: number) => void;
     onChangeDataSource: (source: DataSource) => void;
     onChangeItemWidth: (itemWidth: number) => void;
-    taxa: ItemConfig[];
-    places: ItemConfig[];
+    taxa: any; //ItemConfig[];
+    places: any; //ItemConfig[];
 };
 
 /**

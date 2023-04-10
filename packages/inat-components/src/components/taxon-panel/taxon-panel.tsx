@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { C, getSourceFile, DataSource, Feature, GeneralClasses } from '../../__shared';
+import { C, getSourceFile, DataSource, DataSourceEnum, Feature, GeneralClasses } from '../../__shared';
 import { RecentObservations } from '../recent-observations/recent-observations';
 import { CommonTaxa } from '../common-taxa/common-taxa';
 import { Favourites } from "../favourites/favourites"
@@ -8,7 +8,6 @@ import Years from "../year-dropdown/year-dropdown";
 import Tabs from "../tabs/tabs";
 import { useFeatureTitles } from "../hooks/hooks";
 import styles from "../shared/css/general.module.scss";
-import { DataSourceEnum } from "../../../../../shared";
 
 export type TaxonPanelProps = {
     taxon: {
