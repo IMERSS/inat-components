@@ -1,5 +1,5 @@
 import React from "react";
-import {numberWithCommas, Observer, C} from "../../__shared";
+import {numberWithCommas, Observer, C} from "../../../../../shared";
 import styles from "./summary.module.scss";
 
 export const ObserverList = ({observers, className = ''}: { observers: Observer[], className?: string }) => {

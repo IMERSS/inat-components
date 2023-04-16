@@ -3,8 +3,8 @@ node_modules
 .idea
 dist
 apps/demo/public/source/**
-packages/inat-components/src/__shared
-packages/inat-components-utils/src/__shared
+packages/inat-components/dist/**
 packages/inat-components-utils/dist/**
+packages/shared/dist/**
 build
 .DS_Store

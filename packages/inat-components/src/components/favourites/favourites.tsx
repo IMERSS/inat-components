@@ -1,5 +1,5 @@
 import React from "react";
-import { formatDate, C, getFavourites, FavouritesData, BaseComponentProps, GeneralClasses } from "../../__shared";
+import { formatDate, C, getFavourites, FavouritesData, BaseComponentProps, GeneralClasses } from "../../../../../shared";
 import { Observation } from "../observation/observation";
 import Loader from "../loader/loader";
 import { NoResults } from "../no-results/no-results";

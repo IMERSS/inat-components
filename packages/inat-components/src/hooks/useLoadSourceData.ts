@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { DataSource, DataSourceEnum } from "../__shared";
+import { DataSource, DataSourceEnum } from "../../../../shared";
 
 type UseLoadSourceData = {
 	taxonId?: number;
@@ -13,7 +13,6 @@ type UseLoadSourceData = {
 
 /**
  * This hook handles loading the iNat data from whatever source has been specified (DataSource):
- * - "dataProp": the user has already fed in the data to the component (RecentObservations, CommonTaxa etc) so
  *   nothing needs to be done.
  * - "autoLoad": the user is developing locally and wants to just ping iNat directly for the source
  * - "url": the user has generated the data sources at a URL somewhere via @imerss/inat-component-utils

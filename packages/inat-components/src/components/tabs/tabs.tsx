@@ -1,5 +1,5 @@
 import React from "react";
-import { Feature } from "../../__shared";
+import { Feature } from "../../../../../shared";
 import styles from "./tabs.module.scss";
 import {useFeatureTitles} from "../hooks/hooks";
 

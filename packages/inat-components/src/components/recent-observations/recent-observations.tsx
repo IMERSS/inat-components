@@ -7,7 +7,7 @@ import {
 	BaseComponentProps,
 	DataSourceEnum,
 	GeneralClasses
-} from "../../__shared";
+} from "../../../../../shared";
 import { Observation } from "../observation/observation";
 import Loader from "../loader/loader";
 import { NoResults } from "../no-results/no-results";
