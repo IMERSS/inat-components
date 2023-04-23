@@ -12,7 +12,7 @@ import {
 	getSummary,
 	getCurrentYear,
 	getSourceFile
-} from "../../../shared";
+} from "./__shared";
 
 export const getConfigurations = (config: any): BaseComponentProps[] => {
 	const configurations: any = [];

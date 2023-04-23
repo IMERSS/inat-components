@@ -1,10 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "composite": true,
+    "declaration": true,
     "module": "commonjs",
-    "target": "es6",
-    "rootDir": "src",
-    "outDir": "dist",
-    "noEmit": false
+    "target": "es2015",
+    "rootDir": "./src",
+    "outDir": "./dist"
   }
 }

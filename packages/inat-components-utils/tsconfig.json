@@ -2,5 +2,8 @@
   "extends": "../../tsconfig.base.json",
   "exclude": [
     "src/**/*.test.tsx"
+  ],
+  "references": [
+    { "path": "../../shared" }
   ]
 }

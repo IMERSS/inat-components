@@ -20,5 +20,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "noImplicitAny": false
-  }
+  },
+  "references": [
+    { "path": "./shared"}
+  ]
 }

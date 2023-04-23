@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Feature } from "../../../../../shared";
+import { Feature } from "../../__shared";
 
 const defaultTitles = {
     [Feature.recentObservations]: "Recent",

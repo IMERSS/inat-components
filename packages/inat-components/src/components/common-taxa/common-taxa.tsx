@@ -1,5 +1,5 @@
 import React from 'react';
-import { numberWithCommas, C, CommonTaxData, getCommonTaxa, BaseComponentProps, GeneralClasses } from "../../../../../shared";
+import { numberWithCommas, C, CommonTaxData, getCommonTaxa, BaseComponentProps, GeneralClasses } from "../../__shared";
 import { Observation } from "../observation/observation";
 import Loader from "../loader/loader";
 import { NoResults } from "../no-results/no-results";

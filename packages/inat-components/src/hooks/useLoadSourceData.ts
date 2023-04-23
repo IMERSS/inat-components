@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { DataSource, DataSourceEnum } from "../../../../shared";
+import { DataSource, DataSourceEnum } from "../__shared";
 
 type UseLoadSourceData = {
 	taxonId?: number;

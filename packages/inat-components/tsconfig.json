@@ -4,11 +4,12 @@
     "src/**/*.test.tsx"
   ],
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/types"
-    ]
-  }
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "esnext",
+    "target": "es6"
+  },
+  "references": [
+    { "path":  "../../shared" }
+  ]
 }

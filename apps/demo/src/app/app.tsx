@@ -2,41 +2,8 @@ import { useState } from "react";
 import TaxonPanel, { DataSource, DataSourceEnum } from "@imerss/inat-components";
 import SettingsRow from "./settings-row/settings-row";
 import "./app.module.scss";
+const config = require("../inat.config.json");
 
-const config = {
-	taxa: [
-		{ title: "Butterflies and moth", id: 47157, str: "leps" },
-		// { title: "Beetles", id: 47208, str: "beetles" },
-		// { title: "Birds", id: 3, str: "birds" }
-	],
-	places: [
-		{ title: "BC", id: 7085, str: "bc" },
-		// { title: "Alberta", id: 6834, str: "alberta" }
-	],
-	features: {
-		recentObservations: {
-			numResults: 100,
-			desc: "This page lists recent observations.",
-			className: "recentObservationsPanel"
-		},
-		commonTaxa: {
-			numResults: 100,
-			numYears: 10,
-			desc: "These are the most common species.",
-			className: "commonTaxaPanel"
-		},
-		favourites: {
-			numResults: 100,
-			numYears: 10,
-			desc: "These are the most favourited observations.",
-			className: "favouritesPanel",
-		},
-		stats: {
-			numTopObservers: 10,
-			className: "statsPanel",
-		}
-	}
-};
 
 const App = () => {
 	const [taxonId, setTaxonId] = useState(config.taxa[0].id);

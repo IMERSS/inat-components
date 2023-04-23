@@ -1,10 +1,10 @@
 import React from "react";
-import { formatDate, C, getFavourites, FavouritesData, BaseComponentProps, GeneralClasses } from "../../../../../shared";
+import { formatDate, C, getFavourites, FavouritesData, BaseComponentProps, GeneralClasses } from "../../__shared";
 import { Observation } from "../observation/observation";
 import Loader from "../loader/loader";
 import { NoResults } from "../no-results/no-results";
 import { useLoadSourceData } from "../../hooks/useLoadSourceData";
-import generalStyles from "../__shared/css/general.module.scss";
+import generalStyles from "../shared/css/general.module.scss";
 
 export type FavouritesProps = BaseComponentProps & {
 	year: number;

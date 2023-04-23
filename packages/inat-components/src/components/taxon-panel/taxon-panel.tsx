@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { C, getSourceFile, DataSource, DataSourceEnum, Feature, GeneralClasses } from '../../__shared';
+import { C, getSourceFile, DataSource, DataSourceEnum, Feature, GeneralClasses } from "../../__shared";
 import { RecentObservations } from '../recent-observations/recent-observations';
 import { CommonTaxa } from '../common-taxa/common-taxa';
 import { Favourites } from "../favourites/favourites"

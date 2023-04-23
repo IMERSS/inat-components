@@ -1,5 +1,5 @@
 import React from "react";
-import { numberWithCommas, DataSource, getSummary, GeneralClasses } from "../../../../../shared";
+import { numberWithCommas, DataSource, getSummary, GeneralClasses } from "../../__shared";
 import { ObserverList } from './ObserverList';
 import Loader from "../loader/loader";
 import { SeasonalityGraph } from "../seasonality-graph/seasonality-graph";

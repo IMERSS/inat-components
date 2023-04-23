@@ -10,6 +10,6 @@ export * from "./components/seasonality-graph/seasonality-graph";
 export * from "./components/summary/summary";
 
 // all typings
-export * from "../../../shared";
+export * from "./__shared";
 
 export default TaxonPanel;

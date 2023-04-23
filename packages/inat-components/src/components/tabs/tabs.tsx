@@ -1,7 +1,7 @@
 import React from "react";
-import { Feature } from "../../../../../shared";
+import { Feature } from "../../__shared";
 import styles from "./tabs.module.scss";
-import {useFeatureTitles} from "../hooks/hooks";
+import { useFeatureTitles } from "../hooks/hooks";
 
 export type TabsProps = {
     selectedTab: Feature;
