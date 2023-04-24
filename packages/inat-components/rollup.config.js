@@ -1,6 +1,13 @@
+// import * as react from 'react';
+// import * as reactDom from 'react-dom';
 import typescript from "@rollup/plugin-typescript";
+import resolve from "@rollup/plugin-node-resolve";
+import commonJS from "@rollup/plugin-commonjs";
+import replace from "@rollup/plugin-replace";
+import json from "@rollup/plugin-json";
 import postcss from "rollup-plugin-postcss";
 import dts from "rollup-plugin-dts";
+import { terser } from "rollup-plugin-terser";
 
 export default [
 
@@ -11,6 +18,9 @@ export default [
             dir: "dist",
             format: "es"
         },
+
+        // these let's rollup know that these are external scripts + can be excluded from the final bundle without
+        // any warnings. TODO: check these are peer deps.
         external: [
             "react",
             "fs",
@@ -31,23 +41,31 @@ export default [
     },
 
     // the standalone version of the script
-    // {
-    //     input: "src/standalone.tsx",
-    //     output: {
-    //         dir: "dist",
-    //         format: "cjs"
-    //     },
-    //     external: [
-    //         "react"
-    //     ],
-    //     plugins: [
-    //         postcss({
-    //             modules: true,
-    //             plugins: []
-    //         }),
-    //         typescript()
-    //     ]
-    // },
+    {
+        input: "src/standalone.tsx",
+        output: {
+            dir: "dist",
+            format: "iife",
+            // compact: true
+        },
+        plugins: [
+            // these two plugins ensure all dependencies are also included as part of the single generated standalone.min.js file
+            resolve(),
+            commonJS({ include: 'node_modules/**' }),
+
+            // this ensures react (and maybe other libs) get their smaller prod bundles included + not the dev code
+            replace({
+                'process.env.NODE_ENV': JSON.stringify('production')
+            }),
+            postcss({
+                modules: true,
+                plugins: []
+            }),
+            typescript(),
+            json(),
+            terser()
+        ]
+    },
 
     // not beautiful, but rolls up all typings for export
     {

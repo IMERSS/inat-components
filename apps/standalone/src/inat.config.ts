@@ -33,7 +33,6 @@ const config: TaxonPanelProps = {
 			statsCountSummaryClass: "inat-stats-count-summary",
 		}
 	},
-
 	generalClasses: {
 		tabsElement: "inat-tabs",
 		yearsDropdown: "inat-years-dropdown",

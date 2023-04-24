@@ -1,7 +1,11 @@
+import { TaxonPanelProps } from "../components/taxon-panel/taxon-panel";
+
 export {};
 declare global {
 	interface Window {
-		initStandalone: any;
+		inatComponents: {
+			initTaxonPanel: (domId: string, taxonPanelProps: TaxonPanelProps) => void;
+		}
 	}
 }
 

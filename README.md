@@ -104,12 +104,19 @@ Ro run the application, do this:
 - `yarn boot`
 - `yarn dev`
 
-In this repo, look at `apps/standalone/src/index.tsx`. This example does a "live" version of the script. For development purposes, it bypasses the need for separate data files and calls the 
-iNat API directly. To do that, it defines a config file of the iNat taxons, places and features that it wants to 
-display. See: `apps/standalone/src/inat.config.json`. That contains the details about what particular iNaturalist
-taxons you want.
+In this repo, look at `apps/standalone/src/index.tsx`. This example does a "live" version of the script. For development
+purposes, it bypasses the need for separate data files and calls the iNat API directly. To do that, it defines a config
+file of the iNat taxons, places and features that it wants to display. See: `apps/standalone/src/inat.config.json`. That
+contains the details about what particular iNaturalist taxons you want, as well as which features and their settings
+you want to display.
 
-That'll open up a browser in dev mode where you can play around with the code and see how it functions.
+That'll open up a browser in dev mode where you can play around with the code and see how it works.
+
+> Please note that due to an issue with [Rollup](https://github.com/rollup/plugins/issues/1466), shared code between 
+the `inat-components` and `inat-components-utils` packages (found in the `/packages` folder) is actually stored in the
+root `shared/` folder. That is copied into 2 separate `src/__shared/` folders within each package during dev mode, so 
+don't edit the code there! Always edit the code in the root shared/ folder or your changes will be lost.
+
 
 ### Standalone app 
 

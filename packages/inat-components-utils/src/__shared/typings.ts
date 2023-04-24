@@ -44,10 +44,3 @@ export type BaseComponentProps = {
 	generalClasses?: GeneralClasses;
 	tabDesc?: string;
 };
-
-// export type TabDescs = {
-// 	recentDesc?: string;
-// 	mostCommonDesc?: string;
-// 	mostFavouritedDesc?: string;
-// 	generalStatsDesc?: string;
-// }
