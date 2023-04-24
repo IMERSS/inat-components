@@ -133,7 +133,7 @@ const generateFile = async (config, folder) => {
 };
 
 // TODO types
-const process = async (config: any, folder: string) => {
+export const process = async (config: any, folder: string) => {
 	let currentIndex = 0;
 	const loadingBar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 
@@ -155,5 +155,3 @@ const process = async (config: any, folder: string) => {
 
 	await processQueue();
 }
-
-export default process;

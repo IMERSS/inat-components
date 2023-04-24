@@ -12,7 +12,14 @@ export default [
             format: "es"
         },
         external: [
-            "react"
+            "react",
+            "fs",
+            "react-charts",
+            "date-fns",
+            "react-spinners",
+            "react-spinners/MoonLoader.js",
+            "isomorphic-unfetch",
+            "react/jsx-runtime"
         ],
         plugins: [
             postcss({
@@ -20,7 +27,7 @@ export default [
                 plugins: []
             }),
             typescript()
-        ]
+        ],
     },
 
     // the standalone version of the script

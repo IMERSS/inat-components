@@ -1,4 +1,4 @@
-export const enum Feature {
+export enum Feature {
 	commonTaxa = "commonTaxa",
 	favourites = "favourites",
 	recentObservations = "recentObservations",

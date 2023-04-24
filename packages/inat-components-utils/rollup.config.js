@@ -9,7 +9,12 @@ export default [
             format: "cjs"
         },
         external: [
-            "react"
+            "react",
+            "fs",
+            "sleep-promise",
+            "cli-progress",
+            "isomorphic-unfetch",
+            "date-fns"
         ],
         plugins: [
             typescript(),

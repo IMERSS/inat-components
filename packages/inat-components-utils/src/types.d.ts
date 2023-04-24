@@ -1,4 +1,4 @@
-import { Feature, ItemConfig } from "./../../../shared";
+import { Feature, ItemConfig } from "./__shared";
 
 export type UtilsConfig = {
 	taxa: ItemConfig[];

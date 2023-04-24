@@ -3,9 +3,10 @@
   "version": "1.1.2",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
+  "license": "MIT",
   "scripts": {
     "build": "rollup -c",
-    "clean": "shx rm -rf dist",
+    "clean": "shx rm -rf dist src/__shared",
     "watch": "rollup -cw"
   },
   "dependencies": {
@@ -23,6 +24,7 @@
     "@rollup/plugin-typescript": "^8.3.3",
     "@testing-library/react": "^13.3.0",
     "@types/cli-progress": "^3.11.0",
+    "@types/isomorphic-fetch": "0.0.36",
     "@types/jest": "^28.1.4",
     "jest": "^28.1.2",
     "node-sass": "^7.0.1",
