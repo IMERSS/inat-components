@@ -2,14 +2,5 @@
   "extends": "../../tsconfig.base.json",
   "exclude": [
     "src/**/*.test.tsx"
-  ],
-  "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "module": "esnext",
-    "target": "es6"
-  },
-  "references": [
-    { "path":  "../../shared" }
   ]
 }

@@ -10,8 +10,8 @@ const App = () => {
 	const [placeId, setPlaceId] = useState(config.places[0].id);
 	const [dataSource, setDataSource] = useState<DataSource>(DataSourceEnum.autoLoad);
 	const [itemWidth, setItemWidth] = useState(180);
-	const taxon = config.taxa.find((t) => t.id === taxonId) as any;
-	const place = config.places.find((p) => p.id === placeId) as any;
+	const taxon = config.taxa.find((t: any) => t.id === taxonId) as any;
+	const place = config.places.find((p: any) => p.id === placeId) as any;
 
 	return (
 		<>

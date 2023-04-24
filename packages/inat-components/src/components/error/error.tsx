@@ -7,7 +7,7 @@ export interface ErrorProps {
 export const Error = (props: ErrorProps) => {
 	return (
 		<div className={styles['container']}>
-			<h1>Welcome to Error!</h1>
+			<h1>Error!</h1>
 		</div>
 	);
 };
