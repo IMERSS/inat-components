@@ -4,7 +4,7 @@ import { DataSource, DataSourceEnum } from "../__shared";
 type UseLoadSourceData = {
 	taxonId?: number;
 	placeId?: number;
-	perPage?: number;
+	numResults?: number;
 	source?: DataSource;
 	dataUrl?: string;
 	year?: number,
@@ -20,7 +20,7 @@ type UseLoadSourceData = {
 export const useLoadSourceData = ({
 	taxonId,
 	placeId,
-	perPage,
+	numResults,
 	source,
 	dataUrl,
 	year,
@@ -45,7 +45,7 @@ export const useLoadSourceData = ({
 
 				// note that `year` isn't used for recentObservations, but we pass it anyway to get more reusability out
 				// of this hook
-				const obs = await action({ taxonId, placeId, perPage, year });
+				const obs = await action({ taxonId, placeId, numResults, year });
 				setResults(obs.results);
 				setLoading(false);
 			})();
@@ -65,7 +65,7 @@ export const useLoadSourceData = ({
 				setLoading(false);
 			})();
 		}
-	}, [source, dataUrl, taxonId, placeId, year, perPage]);
+	}, [source, dataUrl, taxonId, placeId, year, numResults]);
 
 	return {
 		loading, results

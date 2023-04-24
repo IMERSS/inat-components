@@ -4,7 +4,7 @@ import * as C from "../constants";
 export type RecentObservationsCallProps = {
     taxonId: string | number;
     placeId: string | number;
-    perPage: number;
+    numResults: number;
 };
 
 export type RecentObservationData = {
@@ -22,8 +22,8 @@ export type RecentObservationsRespData = {
     results: [RecentObservationData]
 }
 
-export const getRecentObservations = async ({ taxonId, placeId, perPage }: RecentObservationsCallProps): Promise<RecentObservationsRespData> => {
-    const url = `${C.BASE_API_URL}/v1/observations?photos=true&per_page=${perPage}&taxon_id=${taxonId}&place_id=${placeId}&order=desc&order_by=observed_on`;
+export const getRecentObservations = async ({ taxonId, placeId, numResults }: RecentObservationsCallProps): Promise<RecentObservationsRespData> => {
+    const url = `${C.BASE_API_URL}/v1/observations?photos=true&per_page=${numResults}&taxon_id=${taxonId}&place_id=${placeId}&order=desc&order_by=observed_on`;
     const response = await fetch(url);
     const obs = await response.json();
 

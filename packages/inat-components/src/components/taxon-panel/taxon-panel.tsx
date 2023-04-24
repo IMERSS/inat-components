@@ -75,6 +75,10 @@ const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, ite
             props.taxonId = taxon.id;
         }
 
+        if (feature !== Feature.stats) {
+            props.numResults = features[feature]?.numResults;
+        }
+
         return props;
     };
 

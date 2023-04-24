@@ -5,7 +5,7 @@ export type FavouritesCallProps = {
     year: string | number;
     taxonId: string | number;
     placeId: string | number;
-    perPage: number;
+    numResults: number;
 };
 
 export type FavouritesData = {
@@ -24,8 +24,8 @@ export type FavouritesRespData = {
     results: [FavouritesData]
 }
 
-export const getFavourites = async ({ year, taxonId, placeId, perPage }: FavouritesCallProps): Promise<FavouritesRespData> => {
-    let url = `${C.BASE_API_URL}/v1/observations?verifiable=true&order_by=votes&order=desc&page=1&spam=false&place_id=${placeId}&taxon_id=${taxonId}&locale=en-US&per_page=${perPage}`;
+export const getFavourites = async ({ year, taxonId, placeId, numResults }: FavouritesCallProps): Promise<FavouritesRespData> => {
+    let url = `${C.BASE_API_URL}/v1/observations?verifiable=true&order_by=votes&order=desc&page=1&spam=false&place_id=${placeId}&taxon_id=${taxonId}&locale=en-US&per_page=${numResults}`;
     if (year !== "all") {
         url += `&d1=${year}-01-01&d2=${year}-12-31`;
     }

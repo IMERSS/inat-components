@@ -40,13 +40,13 @@ export const RecentObservations = ({
 	generalClasses,
 	tabDesc,
 	source = DataSourceEnum.autoLoad,
-	perPage = C.PER_PAGE,
+	numResults = C.NUM_RESULTS,
 	itemWidth = C.DEFAULT_ITEM_WIDTH
 }: RecentObservationsProps) => {
 	const { loading, results: observations } = useLoadSourceData({
 		taxonId,
 		placeId,
-		perPage,
+		numResults,
 		dataUrl,
 		source,
 		action: getRecentObservations

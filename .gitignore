@@ -8,3 +8,5 @@ packages/inat-components-utils/dist/**
 packages/shared/dist/**
 build
 .DS_Store
+__shared
+__shared/*

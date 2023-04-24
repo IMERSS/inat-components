@@ -31,7 +31,7 @@ export type GeneralClasses = {
 export type BaseComponentProps = {
 	taxonId?: number;
 	placeId?: number;
-	perPage?: number;
+	numResults?: number;
 	source?: DataSource;
 	dataUrl?: string;
 	className?: string;

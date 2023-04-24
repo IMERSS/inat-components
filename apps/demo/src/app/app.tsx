@@ -2,6 +2,7 @@ import { useState } from "react";
 import TaxonPanel, { DataSource, DataSourceEnum } from "@imerss/inat-components";
 import SettingsRow from "./settings-row/settings-row";
 import "./app.module.scss";
+
 const config = require("../inat.config.json");
 
 
