@@ -24,7 +24,7 @@ export const getConfigurations = (config: any): BaseComponentProps[] => {
 			// Recent observations
 			configurations.push({
 				api: Feature.recentObservations,
-				perPage: config.features?.recentObservations?.numResults || C.PER_PAGE,
+				perPage: config.features?.recentObservations?.numResults || C.NUM_RESULTS,
 				taxonId: taxonInfo.id,
 				placeId: placeInfo.id,
 				filename: getSourceFile(Feature.recentObservations, taxonInfo, placeInfo)
@@ -33,7 +33,7 @@ export const getConfigurations = (config: any): BaseComponentProps[] => {
 			// Common taxa
 			const baseCommonTaxaData = {
 				api: Feature.commonTaxa,
-				perPage: config.features?.commonTaxa?.numResults || C.PER_PAGE,
+				perPage: config.features?.commonTaxa?.numResults || C.NUM_RESULTS,
 				taxonId: taxonInfo.id,
 				placeId: placeInfo.id,
 				filename: getSourceFile(Feature.commonTaxa, taxonInfo, placeInfo, "all")
@@ -56,7 +56,7 @@ export const getConfigurations = (config: any): BaseComponentProps[] => {
 			// Favourites. For this, generate the last 10 years of info plus one for all years
 			const baseFavouritesData = {
 				api: Feature.favourites,
-				perPage: config.features?.favourites?.numResults || C.PER_PAGE,
+				perPage: config.features?.favourites?.numResults || C.NUM_RESULTS,
 				taxonId: taxonInfo.id,
 				placeId: placeInfo.id,
 				filename: getSourceFile(Feature.favourites, taxonInfo, placeInfo, "all")
@@ -105,17 +105,17 @@ export const getConfigurations = (config: any): BaseComponentProps[] => {
 
 const generateFile = async (config, folder) => {
 	let data;
-	const { taxonId, placeId, perPage, year } = config;
+	const { taxonId, placeId, numResults, year } = config;
 
 	try {
 		if (config.api === Feature.recentObservations) {
-			data = await getRecentObservations({taxonId, placeId, perPage});
+			data = await getRecentObservations({ taxonId, placeId, numResults });
 		} else if (config.api === Feature.commonTaxa) {
-			data = await getCommonTaxa({taxonId, placeId, perPage, year});
+			data = await getCommonTaxa({ taxonId, placeId, numResults, year });
 		} else if (config.api === Feature.favourites) {
-			data = await getFavourites({taxonId, placeId, perPage, year});
+			data = await getFavourites({ taxonId, placeId, numResults, year });
 		} else if (config.api === Feature.stats) {
-			data = await getSummary({taxonId, placeId, year});
+			data = await getSummary({ taxonId, placeId, year });
 		}
 	} catch (e) {
 		console.log("ERROR -- [", config.api, "]", e);

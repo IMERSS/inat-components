@@ -22,7 +22,7 @@ export const CommonTaxa = ({
 	source,
 	taxonId,
 	placeId,
-	perPage = C.PER_PAGE,
+	numResults = C.NUM_RESULTS,
 	itemWidth = C.DEFAULT_ITEM_WIDTH,
 	dataUrl,
 	components,
@@ -33,7 +33,7 @@ export const CommonTaxa = ({
 	const { loading, results: taxa } = useLoadSourceData({
 		taxonId,
 		placeId,
-		perPage,
+		numResults,
 		dataUrl,
 		source,
 		year,

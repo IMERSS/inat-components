@@ -7,7 +7,7 @@ type UseLoadSourceData = {
 	numResults?: number;
 	source?: DataSource;
 	dataUrl?: string;
-	year?: number,
+	year?: number | string,
 	action: any;
 };
 

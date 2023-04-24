@@ -7,7 +7,7 @@ import { useLoadSourceData } from "../../hooks/useLoadSourceData";
 import generalStyles from "../shared/css/general.module.scss";
 
 export type FavouritesProps = BaseComponentProps & {
-	year: number;
+	year: number | string;
 }
 
 export const FavouritesLabel = (data: FavouritesData & { classes: GeneralClasses }) => (
@@ -30,13 +30,13 @@ export const Favourites = ({
 	tabDesc,
 	generalClasses,
 	itemWidth = C.DEFAULT_ITEM_WIDTH,
-	perPage = C.PER_PAGE
+	numResults = C.NUM_RESULTS
 }: FavouritesProps) => {
 	const { loading, results: observations } = useLoadSourceData({
 		year,
 		taxonId,
 		placeId,
-		perPage,
+		numResults,
 		dataUrl,
 		source,
 		action: getFavourites

@@ -79,6 +79,10 @@ const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, ite
             props.numResults = features[feature]?.numResults;
         }
 
+        if (feature !== Feature.recentObservations) {
+            props.year = year;
+        }
+
         return props;
     };
 
