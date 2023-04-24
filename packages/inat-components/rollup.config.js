@@ -8,6 +8,7 @@ import json from "@rollup/plugin-json";
 import postcss from "rollup-plugin-postcss";
 import dts from "rollup-plugin-dts";
 import { terser } from "rollup-plugin-terser";
+// import { visualizer } from "rollup-plugin-visualizer";
 
 export default [
 
@@ -44,15 +45,22 @@ export default [
     {
         input: "src/standalone.tsx",
         output: {
-            dir: "dist",
-            format: "iife",
-            // compact: true
+            file: "dist/standalone.min.js",
+            format: "es",
+            compact: true // does make it a bit smaller...
         },
         plugins: [
             // these two plugins ensure all dependencies are also included as part of the single generated standalone.min.js file
-            resolve(),
-            commonJS({ include: 'node_modules/**' }),
-
+            resolve({
+                browser: true
+            }),
+            commonJS({
+                include: [
+                    // 'node_modules/**',
+                    // 'node_modules/react-dom/client',
+                    // 'node_modules/isomorphic-unfetch'
+                ]
+            }),
             // this ensures react (and maybe other libs) get their smaller prod bundles included + not the dev code
             replace({
                 'process.env.NODE_ENV': JSON.stringify('production')
@@ -64,6 +72,7 @@ export default [
             typescript(),
             json(),
             terser()
+            // visualizer()
         ]
     },
 
