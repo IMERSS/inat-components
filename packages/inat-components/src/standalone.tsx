@@ -19,6 +19,7 @@ window.inatComponents = {
 		const el = document.getElementById(domId);
 		if (!el) {
 			console.error(`A DOM element with id ${domId} was not found.`);
+			return;
 		}
 
 		const root = createRoot(el);

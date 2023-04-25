@@ -76,7 +76,7 @@ export default [
         ]
     },
 
-    // not beautiful, but rolls up all typings for export
+    // rolls up all typings for export
     {
         input: "src/index.ts",
         output: {
