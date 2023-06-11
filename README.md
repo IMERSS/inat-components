@@ -9,7 +9,14 @@ This repo stores both the components themselves (published to npm under `@imerss
 scripts to scrape iNat data and store it in JSON files for use by the front-end components (`@imerss/inat-components-utils`).
 See below for an explanation of why that's necessary.
 
-You have a choice with the front-end components to displa
+You have a choice with the front-end components to display any of four pieces of information:
+- recent observations
+- common taxa
+- most favourited
+- general summary (graph)
+
+The main TaxonPanel component displays the information in tabbed format. Everything from text, labels and styles can be
+customized, including which tabs appear.
 
 ### Demo
 
@@ -21,32 +28,32 @@ You have a choice with the front-end components to displa
 
 ![diagram](./resources/images/flow-diagram.png)
 
-1. iNaturalist contains all the of the data about observations, taxonomy, observers and so on. They kindly offer a 
+1. iNaturalist stores all the of the data about observations, taxonomy, observers and so on. They kindly provide a 
 [public API](https://api.inaturalist.org/v1/docs/) (Application Programming Interface) to allow developers to request
 data programmatically. The inat-components repo relies on that API to request the data that you need.
 2. In between the iNat API and your own website is a script (`@imerss/inat-components-utils`) that does the job of calling
-iNat and storing the data your want into separate data files. This code can run wherever you want - your own website 
+iNat and storing the data you want into separate data files. This code can run wherever you want - your own website 
 is probably the most convenient. But wherever it is, it has to put the data files in a place that can be called by a
-website. *
+website (i.e. an http/https location).
 3. The front-end code running on your website then makes requests to the data files. They are designed to be as small 
-as possible and contain the minimal amount of data needed. So the requests are as fast as possible.
+as possible and contain the minimal amount of data needed. This ensures the requests are as quick as possible so the 
+user viewing your site doesn't have to wait. 
 
 _Why the need for #2? Why not just call the iNat API from your own website?_ A few reasons: 
 - First it's slow. The iNaturalist server has to do a lot of work on their end to retrieve the information for each API request. 
 - Secondly, the response will contain a ton of information you don't need. 
-- Lastly, iNaturalist caps the number of times you can make requests to their server per second, so they would be likely to shut down
-your access to their API.
+- Lastly, iNaturalist limits the number of times you can make requests to their server per second, so they would be likely 
+to shut down your access to their API.
 
 ### Installation
 
-To use the components, just use npm, pnpm or yarn - whatever package manager you want. 
+To use the components in your React code, just use npm, pnpm or yarn - whatever package manager you want. 
 
 ```
 npm install @imerss/inat-components
 pnpm install @imerss/inat-components
 yarn add @imerss/inat-components
 ```
-
 
 ### Features:
 
