@@ -5,7 +5,8 @@
   "main": "dist/standalone.js",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c --environment BUILD:production"
+    "build": "rollup -c --environment BUILD:production",
+    "copy": "cp dist/standalone.min.js ../inat-components/dist"
   },
   "dependencies": {
     "date-fns": "^2.28.0",
