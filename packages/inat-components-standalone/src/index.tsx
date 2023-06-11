@@ -12,7 +12,7 @@
  */
 
 import React, { createRoot } from "react-dom/client";
-import TaxonPanel from "./components/taxon-panel/taxon-panel";
+import TaxonPanel from "@imerss/inat-components";
 
 window.inatComponents = {
 	initTaxonPanel: (domId, settings) => {

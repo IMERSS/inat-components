@@ -130,6 +130,8 @@ don't edit the code there! Always edit the code in the root shared/ folder or yo
 It's called "standalone" because you can use that package to generate the CSS and JS needed to embed the script into
 your own site. See the [apps README](./apps/standalone/README.md) for more information.
 
+> This will be deprecated in v2.0.0. Instead, we're going to publish a `dist/standalone.min.js` script in @imerss/inat-components
+> which can use be used to do the same thing - only with more flexibility.
 
 ## Changelog
 
