@@ -1,5 +1,5 @@
 /**
- * Rollup looks at this file and creates a single JS file containing all the libs and all the code needed to render
+ * Parcel looks at this file and creates a single JS file containing all the libs and all the code needed to render
  * the full Taxon Panel. A user uses it by including the standalone.min.js file in their page, then doing this:
  *
  * <div id="target-dom-node"></div>

@@ -10,3 +10,4 @@ build
 .DS_Store
 __shared
 __shared/*
+.parcel-cache
