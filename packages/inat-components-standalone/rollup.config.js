@@ -15,21 +15,16 @@ export default [
             format: "iife",
             compact: true, // does make it a bit smaller...
             paths: {
-                'react/jsx-runtime': path.resolve('./node_modules/react/jsx-runtime.js'),
+                // 'react/jsx-runtime': path.resolve('./node_modules/react/jsx-runtime.js')
             },
         },
         plugins: [
             // these two plugins ensure all dependencies are also included as part of the single generated standalone.min.js file
             resolve({
-                browser: true
+                browser: true,
+                // extensions: [".js", ".jsx"]
             }),
-            commonJS({
-                include: [
-                    // 'node_modules/**',
-                    // 'node_modules/react-dom/client',
-                    // 'node_modules/isomorphic-unfetch'
-                ]
-            }),
+            commonJS(),
 
             // this ensures react (and maybe other libs) get their smaller prod bundles included + not the dev code
             replace({
