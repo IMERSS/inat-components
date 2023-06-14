@@ -11,7 +11,8 @@
  * `SETTINGS` is an object defining whatever taxon info + settings they want. See the documentation.
  */
 
-import React, { createRoot } from "react-dom/client";
+import React from "react";
+import { createRoot } from "react-dom/client";
 import TaxonPanel from "@imerss/inat-components";
 
 window.inatComponents = {
