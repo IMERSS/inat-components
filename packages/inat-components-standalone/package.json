@@ -2,6 +2,12 @@
   "name": "inat-components-standalone",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "test": "node scripts/test.js",
+    "copy": "cp build/static/js/main.js ../inat-components/dist && cp build/static/js/main.js ../../apps/standalone/public"
+  },
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@imerss/inat-components": "^1.1.2",
@@ -58,10 +64,8 @@
     "webpack-manifest-plugin": "^4.0.2",
     "workbox-webpack-plugin": "^6.4.1"
   },
-  "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   },
   "eslintConfig": {
     "extends": [
