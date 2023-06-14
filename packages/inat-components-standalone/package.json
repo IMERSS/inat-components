@@ -1,5 +1,5 @@
 {
-  "name": "inat-components-standalone",
+  "name": "@imerss/inat-components-standalone",
   "version": "0.1.0",
   "private": true,
   "scripts": {
