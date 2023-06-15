@@ -1,12 +1,29 @@
 <html>
 <head>
+    <title>Standalone example></title>
     <script src="./standalone.min.js"></script>
 </head>
 <body>
 
 <h1>Standalone example</h1>
 
+<p>
+    This is a simple page to let you experiment with the configuration. Just edit the file and refresh the page.
+</p>
+
+<hr size="1" />
+
 <div id="panel"></div>
+
+<style>
+body {
+    font-family: verdana;
+    font-size: 12px;
+}
+.inat-tabs li {
+    font-size: 13px;
+}
+</style>
 
 <script>
 inatComponents.initTaxonPanel("panel", {
