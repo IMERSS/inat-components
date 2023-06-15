@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { DataSource, DataSourceEnum } from "../__shared";
 
 type UseLoadSourceData = {
+	action: any;
 	taxonId?: number;
 	placeId?: number;
 	numResults?: number;
 	source?: DataSource;
 	dataUrl?: string;
 	year?: number | string,
-	action: any;
+	isSummaryData?: boolean;
 };
 
 /**
@@ -24,7 +25,8 @@ export const useLoadSourceData = ({
 	source,
 	dataUrl,
 	year,
-	action
+	action,
+	isSummaryData = false
 }: UseLoadSourceData) => {
 	const [loading, setLoading] = useState(false);
 	const [results, setResults] = useState<any>([]);
@@ -61,11 +63,17 @@ export const useLoadSourceData = ({
 				setLoading(true);
 				const obs = await fetch(dataUrl);
 				const json = await obs.json();
-				setResults(json.results);
+
+				// hack workaround. Better solution would have been to standardize the JSON structure at the top-level
+				if (isSummaryData) {
+					setResults(json);
+				} else {
+					setResults(json.results);
+				}
 				setLoading(false);
 			})();
 		}
-	}, [source, dataUrl, taxonId, placeId, year, numResults]);
+	}, [source, dataUrl, taxonId, placeId, year, numResults, isSummaryData]);
 
 	return {
 		loading, results

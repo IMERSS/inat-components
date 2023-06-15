@@ -8,7 +8,7 @@
     "clean": "lerna run clean && lerna clean",
     "generate": "cd apps/demo && yarn generate",
     "copyShared": "grunt",
-    "watchPackages": "lerna exec --parallel --ignore=standalone -- yarn watch",
+    "watchPackages": "lerna exec --parallel --ignore=standalone --ignore=@imerss/inat-components-standalone -- yarn watch",
     "watchShared": "npx grunt watch",
     "dev": "npm-run-all --parallel copyShared watchPackages watchShared",
     "standaloneDev": "npx lerna run watch --scope=standalone"

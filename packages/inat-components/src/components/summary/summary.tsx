@@ -37,11 +37,13 @@ export const Summary = ({
         placeId,
         dataUrl,
         source,
+        isSummaryData: true,
 
         // shim to standardize the response from the `action` method with a top-level `results` property. This
         // just lets the useLoadSourceData hook work for all tab components
         action: async (data) => {
             const results = await getSummary(data);
+
             return { results };
         }
     });
