@@ -33,8 +33,6 @@ export type SummaryData = {
 export const getObserverSummary = async (taxonId: number, placeId: number, year: string | number): Promise<SummaryData> => {
     let url = `${C.BASE_API_URL}/v1/observations/observers?verifiable=true&order_by=votes&order=desc&page=1&spam=false&place_id=${placeId}&taxon_id=${taxonId}&locale=en-US&per_page=10`;
 
-    console.log("--->", { year });
-
     if (year !== "all") {
         url += `&d1=${year}-01-01&d2=${year}-12-31`;
     }
