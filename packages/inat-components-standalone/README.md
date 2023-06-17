@@ -1,17 +1,27 @@
 # Standalone
 
+> *** Note: this isn't published yet. It'll be in version 2.0.0 (aka 1.2.0).
+
 The purpose of this (private, non-published) package is provide a way to generate a standalone version of the script:
 i.e. the raw JS and CSS files that you can then copy for use on your own site.
 
-To maximize re-usability, version 1.2.0 of this script separates the configuration settings from the code itself.
+To maximize re-usability, version 2.0.0 of this script separates the configuration settings from the code itself.
 Here's how it all works.
 
-- First, if you haven't already done so, play around with the [demo app](../demo). That'll give you and idea of what
-  options are available and how it works. It'll also give you an opportunity to tweak the settings to show exactly
-  what taxon, place + other settings you want (try editing the [inat.config.json](../demo/src/inat.config.json) file).
-
-  > TODO. Here link to the typings / doc for the data structure for the TaxonPanel component. Will that differ from the JSON
-  > data passed to the standalone script? I believe not, but the API for the inat-component-utils WILL differ. That should
-  > be explicitly explained & how the minimal settings needed for that are related to the main script's settings.
+TODO doc
 
 
+### Try it out locally
+
+Quick instructions to get it running:
+- check out this repo and navigate to the root folder in your terminal, then run:
+- `nvm install` (or `nvm use`) to get the right node version
+- `yarn install`
+- `yarn boot`
+- `yarn build`
+- `yarn standalone`
+
+That'll open up a browser window with a simple dev server running. It's loading this file in this package:
+`./public/index.html`
+
+You can just edit that file and refresh the page to see your changes.

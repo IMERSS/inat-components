@@ -102,36 +102,31 @@ taxon ID, it would provide family-level stats (Kingdom -> Phylum -> Class -> Ord
 
 ## Local dev env
 
-Let's start with running your local dev environment. 
+### Demo code 
 
-Ro run the application, do this:
-- check out this repo and navigate to the root folder in your terminal. Run:
-- `yarn install`
+Let's start with running your local dev environment. To run the demo application, do this:
+
+- check out this repo and navigate to the root folder in your terminal, then run:
 - `nvm install` (or `nvm use`) to get the right node version
+- `yarn install`
 - `yarn boot`
+- `yarn build`
 - `yarn dev`
 
-In this repo, look at `apps/standalone/src/index.tsx`. This example does a "live" version of the script. For development
-purposes, it bypasses the need for separate data files and calls the iNat API directly. To do that, it defines a config
-file of the iNat taxons, places and features that it wants to display. See: `apps/standalone/src/inat.config.json`. That
-contains the details about what particular iNaturalist taxons you want, as well as which features and their settings
-you want to display.
-
-That'll open up a browser in dev mode where you can play around with the code and see how it works.
+That'll open up a browser in dev mode where you can play around with the code and see how it works. It's loading the
+content of `apps/demo`.
 
 > Please note that due to an issue with [Rollup](https://github.com/rollup/plugins/issues/1466), shared code between 
 the `inat-components` and `inat-components-utils` packages (found in the `/packages` folder) is actually stored in the
 root `shared/` folder. That is copied into 2 separate `src/__shared/` folders within each package during dev mode, so 
-don't edit the code there! Always edit the code in the root shared/ folder or your changes will be lost.
+don't edit the code there! Always edit the code in the root shared/ folder or your changes will be lost. Does this suck?
+Yes it does.
 
+### Standalone version
 
-### Standalone app 
-
-It's called "standalone" because you can use that package to generate the CSS and JS needed to embed the script into
-your own site. See the [apps README](./apps/standalone/README.md) for more information.
-
-> This will be deprecated in v2.0.0. Instead, we're going to publish a `dist/standalone.min.js` script in @imerss/inat-components
-> which can use be used to do the same thing - only with more flexibility.
+A second way to run things locally is with the _standalone_ version. This is actually just a simple, single HTML page
+that links to a standalone version of the script (a single JS file, pre-bundled with everything you need). You can
+then use simple JS + CSS to pass in whatever values you need to configure the application. For mo
 
 ## Changelog
 
