@@ -8,8 +8,8 @@
 <h1>Standalone example</h1>
 
 <p>
-    This is a simple HTML page to let you experiment with the configuration. Just edit the <code>./public/index.html</code>
-    file and refresh the page after a second or so.
+    This is a simple HTML page to let you experiment with the configuration. Just edit the
+    <code>./packages/inat-components-standalone/public/index.html</code> file and refresh the page after a second or so.
 </p>
 
 <hr size="1" />
@@ -17,12 +17,44 @@
 <div id="panel"></div>
 
 <style>
+    /* some general styles to make the page look less than awful */
     body {
         font-family: verdana;
         font-size: 12px;
     }
+
+    /*
+    This block provides an example of how to style the various elements. It's not intended to be pretty - it's just to
+    give you an idea of how the styles can be applied. The classnames themselves are entirely up to you: just change them
+    here and in the JS `generalClasses` configuration below.
+
+    The component includes its own styles for some things to abstract away things like layout, positioning and so forth. So
+    in a couple of cases you'll need to increase the specificity on your rule to overwrite what you need.
+
+    tabDesc: "inat-tab-desc"
+    */
+
     .inat-tabs li {
-        font-size: 13px;
+        color: red;
+    }
+    .inat-tabs li:nth-child(3) {
+        color: white;
+        background-color: green;
+    }
+    .inat-years-dropdown option {
+        color: orange;
+    }
+    h1.inat-page-headings {
+        border-bottom: 6px solid pink;
+    }
+    .inat-observation-label-title {
+        color: blueviolet;
+    }
+    .inat-observation-label-data {
+        color: yellowgreen;
+    }
+    .inat-observation-label-name a {
+        color: deeppink;
     }
 </style>
 
@@ -40,7 +72,8 @@
         dataSourceBaseUrl: "https://sisyphean.ca/inat",
         itemWidth: 180,
 
-        // this controls which tabs appear in the interface. You can remove anything you don't want or re-order them
+        // this controls which tabs appear in the interface. You can remove anything you don't want or re-order them.
+        // if you only choose a single feature, the tabs won't appear.
         features: [
             {
                 feature: "recentObservations",
@@ -54,17 +87,17 @@
                 desc: "This page lists the most commonly reported species in BC. You can use the dropdown at the top right to filter the results to a particular year."
             },
             {
+                feature: 'favourites',
+                numResults: 100,
+                numYears: 10,
+                desc: "Any time iNaturalist users encounter an observation they like, they can choose to \"favourite\" it. This page lists the most favourited moth and butterfly observations made in BC."
+            },
+            {
                 feature: "stats",
                 numTopObservers: 10,
                 observersListClass: "inat-observers-list",
                 statsCountSummaryClass: "inat-stats-count-summary",
             },
-            {
-                feature: 'favourites',
-                numResults: 100,
-                numYears: 10,
-                desc: "Any time iNaturalist users encounter an observation they like, they can choose to \"favourite\" it. This page lists the most favourited moth and butterfly observations made in BC."
-            }
         ],
         generalClasses: {
             tabsElement: "inat-tabs",
