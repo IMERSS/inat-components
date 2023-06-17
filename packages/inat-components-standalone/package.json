@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "watch": "npm run build && npm run startServer",
+    "watch": "npm run build && node ./scripts/dev.js & npm run startServer",
     "startServer": "http-server ./build -o -c-1",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "copy": "cp build/static/js/main.js ../inat-components/dist"
+    "copyToInatComponentsPackage": "cp build/static/js/main.js ../inat-components/dist"
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
