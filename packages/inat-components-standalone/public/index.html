@@ -28,11 +28,13 @@
     give you an idea of how the styles can be applied. The classnames themselves are entirely up to you: just change them
     here and in the JS `generalClasses` configuration below.
 
-    The component includes its own styles for some things to abstract away things like layout, positioning and so forth. So
-    in a couple of cases you'll need to increase the specificity on your rule to overwrite what you need.
+    The component includes its own styles for some things to abstract away things like layout, positioning, and providing
+    a few base styles so it doesn't look too awful out the box. So in a couple of cases you'll need to increase the
+    specificity on your rule to overwrite what you need, as illustrated below.
 
-    tabDesc: "inat-tab-desc"
-    */
+    -- TODO
+        - this one isn't working: "inat-tab-desc"
+        - give examples of all the other styling too, e.g. the summary page things.
 
     .inat-tabs li {
         color: red;
@@ -41,8 +43,8 @@
         color: white;
         background-color: green;
     }
-    .inat-years-dropdown option {
-        color: orange;
+    .inat-years-dropdown {
+        border: 5px solid red;
     }
     h1.inat-page-headings {
         border-bottom: 6px solid pink;
@@ -56,10 +58,16 @@
     .inat-observation-label-name a {
         color: deeppink;
     }
+    */
 </style>
 
 <script>
     inatComponents.initTaxonPanel("panel", {
+        // this'll probably be the trickiest bit for people. The standalone script *requires* you have a data source
+        // set up containing the data you need. This example uses the data source for the BC Lepidopterist Guild site,
+        // see the URL below. We have a script running on that server to auto-update those files. You'll need to do the
+        // same. See the documentation on https://github.com/IMERSS/inat-components and specifically the
+        // @imerss/inat-component-utils package
         taxon: {
             id: 47157,
             str: "leps"
