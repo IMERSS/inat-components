@@ -126,7 +126,8 @@ Yes it does.
 
 A second way to run things locally is with the _standalone_ version. This is actually just a simple, single HTML page
 that links to a standalone version of the script (a single JS file, pre-bundled with everything you need). You can
-then use simple JS + CSS to pass in whatever values you need to configure the application. For mo
+then use simple JS + CSS to pass in whatever values you need to configure the application. For more information 
+[see the package documentation](./packages/inat-components-standalone/README.md).
 
 ## Changelog
 
