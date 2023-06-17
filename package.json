@@ -4,7 +4,8 @@
   "scripts": {
     "boot": "run-s copyShared lernaBootstrap",
     "lernaBootstrap": "lerna bootstrap",
-    "build": "lerna run build",
+    "build": "run-s copyShared buildAll",
+    "buildAll": "lerna run build",
     "clean": "lerna run clean && lerna clean",
     "generate": "cd apps/demo && yarn generate",
     "copyShared": "grunt",

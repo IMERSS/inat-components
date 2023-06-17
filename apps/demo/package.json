@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
-    "@imerss/inat-components": "^1.0.0",
+    "@imerss/inat-components": "^2.0.0",
     "@imerss/inat-components-utils": "^1.0.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
