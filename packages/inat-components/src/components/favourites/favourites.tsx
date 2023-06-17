@@ -15,7 +15,7 @@ export const FavouritesLabel = (data: FavouritesData & { classes: GeneralClasses
 		<h3 className={data.classes?.observationLabelTitle}>{data.taxonCommonName || data.taxonName}</h3>
 		<div className={data.classes?.observationLabelTitle}>{data.observerUsername}</div>
 		<div className={data.classes?.observationLabelDate}>{formatDate(data.obsDate)}</div>
-		<label className={generalStyles.count}>{data.numFaves}</label>
+		<label className={`${data.classes?.observationCount || ''} ${generalStyles.count}`}>{data.numFaves}</label>
 	</div>
 );
 

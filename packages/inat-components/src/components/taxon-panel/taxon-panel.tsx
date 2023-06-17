@@ -6,7 +6,7 @@ import { Favourites } from "../favourites/favourites"
 import { Summary } from "../summary/summary";
 import Years from "../year-dropdown/year-dropdown";
 import Tabs from "../tabs/tabs";
-import { useFeatureTitles } from "../hooks/hooks";
+import { convertFeaturesToObj, useFeatureTitles } from "../hooks/hooks";
 import styles from "../shared/css/general.module.scss";
 
 export type TaxonPanelProps = {
@@ -28,15 +28,16 @@ export type TaxonPanelProps = {
 const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, itemWidth, generalClasses }: TaxonPanelProps) => {
     const [tab, setTab] = useState(features[0].feature);
     const [year, setYear] = useState<string>("all");
-    const titles = useFeatureTitles(features);
+    const featuresObj = convertFeaturesToObj(features);
+    const titles = useFeatureTitles(featuresObj);
 
     const getProps = (feature: Feature): any => {
         const props: any = {
             source: dataSource,
             itemWidth,
-            tabDesc: features[feature]?.desc,
+            tabDesc: featuresObj[feature]?.desc,
             generalClasses,
-            className: features[feature]?.className
+            className: featuresObj[feature]?.className
         };
         if (dataSource === DataSourceEnum.url) {
             props.dataUrl = dataSourceBaseUrl + '/' + getSourceFile(feature, taxon, place, year);
@@ -46,7 +47,7 @@ const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, ite
         }
 
         if (feature !== Feature.stats) {
-            props.numResults = features[feature]?.numResults;
+            props.numResults = featuresObj[feature]?.numResults;
         }
 
         if (feature !== Feature.recentObservations) {
@@ -69,8 +70,8 @@ const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, ite
                 return (
                     <Summary
                         {...getProps(Feature.stats)}
-                        observersListClass={features[Feature.stats]?.observersListClass}
-                        statsCountSummaryClass={features[Feature.stats]?.statsCountSummaryClass}
+                        observersListClass={featuresObj[Feature.stats]?.observersListClass}
+                        statsCountSummaryClass={featuresObj[Feature.stats]?.statsCountSummaryClass}
                     />
                 );
         }
@@ -92,7 +93,7 @@ const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, ite
                     <div style={{ float: "right" }} className={yearDropdownClass}>
                         <Years
                             value={year}
-                            numYears={features[tab]?.numYears || C.DEFAULT_NUM_YEARS}
+                            numYears={featuresObj[tab]?.numYears || C.DEFAULT_NUM_YEARS}
                             onChange={setYear}
                         />
                     </div>

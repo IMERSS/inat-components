@@ -32,10 +32,6 @@
     a few base styles so it doesn't look too awful out the box. So in a couple of cases you'll need to increase the
     specificity on your rule to overwrite what you need, as illustrated below.
 
-    -- TODO
-        - this one isn't working: "inat-tab-desc"
-        - give examples of all the other styling too, e.g. the summary page things.
-
     .inat-tabs li {
         color: red;
     }
@@ -58,6 +54,18 @@
     .inat-observation-label-name a {
         color: deeppink;
     }
+    label.inat-observation-count {
+        color: seagreen;
+    }
+    .inat-tab-desc {
+        color: darkorange;
+    }
+    .inat-observers-list h3 {
+        border-bottom: 4px solid orange;
+    }
+    .inat-stats-count-summary li {
+        border-bottom: 4px solid lightblue;
+    }
     */
 </style>
 
@@ -67,7 +75,7 @@
         // set up containing the data you need. This example uses the data source for the BC Lepidopterist Guild site,
         // see the URL below. We have a script running on that server to auto-update those files. You'll need to do the
         // same. See the documentation on https://github.com/IMERSS/inat-components and specifically the
-        // @imerss/inat-component-utils package
+        // @imerss/inat-components-utils package
         taxon: {
             id: 47157,
             str: "leps"
@@ -114,6 +122,7 @@
             observationLabelTitle: "inat-observation-label-title",
             observationLabelDate: "inat-observation-label-data",
             observationLabelName: "inat-observation-label-name",
+            observationCount: "inat-observation-count",
             tabDesc: "inat-tab-desc"
         }
     });

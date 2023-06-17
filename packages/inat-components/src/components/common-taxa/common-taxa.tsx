@@ -13,7 +13,7 @@ export type CommonTaxaProps = BaseComponentProps & {
 export const CommonTaxaLabel = (data: CommonTaxData & { classes: GeneralClasses }) => (
 	<div className={styles.obsLabel}>
 		<h3 className={data.classes?.observationLabelTitle}>{data.taxonCommonName || data.taxonName}</h3>
-		<label className={styles.count}>{numberWithCommas(data.obsCount)}</label>
+		<label className={`${data.classes?.observationCount || ''} ${styles.count}`}>{numberWithCommas(data.obsCount)}</label>
 	</div>
 );
 
@@ -48,8 +48,8 @@ export const CommonTaxa = ({
 		elClasses += ` ${className}`;
 	}
 	let descClasses = styles.tabDesc;
-	if (elClasses?.tabDesc) {
-		descClasses += ` ${elClasses.tabDesc}`;
+	if (generalClasses?.tabDesc) {
+		descClasses += ` ${generalClasses.tabDesc}`;
 	}
 
 	return (

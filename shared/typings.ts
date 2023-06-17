@@ -26,6 +26,7 @@ export type GeneralClasses = {
 	observationLabelTitle?: string;
 	observationLabelDate?: string;
 	observationLabelName?: string;
+	observationCount?: string;
 }
 
 export type BaseComponentProps = {

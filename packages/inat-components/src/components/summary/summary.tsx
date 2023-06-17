@@ -77,7 +77,13 @@ export const Summary = ({
                 </div>
                 <div className={styles.observersBlock}>
                     <h1>Top observers</h1>
-                    {summaryData.observers?.top && <ObserverList observers={summaryData.observers.top} className={observersListClass} />}
+                    {summaryData.observers?.top && (
+                        <ObserverList
+                            observers={summaryData.observers.top}
+                            className={observersListClass}
+                            generalClasses={generalClasses}
+                        />
+                    )}
                 </div>
             </section>
         </div>
