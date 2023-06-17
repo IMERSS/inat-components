@@ -13,27 +13,31 @@
       "str": "bc"
     }
   ],
-  "features": {
-    "recentObservations": {
+  "features": [
+    {
+      "feature": "recentObservations",
       "numResults": 100,
       "desc": "This page lists recent observations.",
       "className": "recentObservationsPanel"
     },
-    "commonTaxa": {
+    {
+      "feature": "commonTaxa",
       "numResults": 100,
       "numYears": 10,
       "desc": "These are the most common species.",
       "className": "commonTaxaPanel"
     },
-    "favourites": {
+    {
+      "feature": "favourites",
       "numResults": 100,
       "numYears": 10,
       "desc": "These are the most favourited observations.",
       "className": "favouritesPanel"
     },
-    "stats": {
+    {
+      "feature": "stats",
       "numTopObservers": 10,
       "className": "statsPanel"
     }
-  }
+  ]
 }

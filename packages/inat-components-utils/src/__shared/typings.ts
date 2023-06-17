@@ -44,3 +44,39 @@ export type BaseComponentProps = {
 	generalClasses?: GeneralClasses;
 	tabDesc?: string;
 };
+
+export type RecentObservationsConfig = {
+	feature: Feature.recentObservations,
+	title?: string;
+	numResults?: number;
+	desc?: string;
+	className?: string;
+}
+export type CommonTaxaConfig = {
+	feature: Feature.commonTaxa,
+	title?: string;
+	numResults?: number;
+	numYears?: number;
+	desc?: string;
+	className?: string;
+}
+export type FavouritesConfig = {
+	feature: Feature.favourites;
+	title?: string;
+	numResults?: number;
+	numYears?: number;
+	desc?: string;
+	className?: string;
+}
+export type StatsConfig = {
+	feature: Feature.stats;
+	title?: string;
+	numTopObservers?: number;
+	numYears?: number;
+	desc?: string;
+	className?: string;
+	observersListClass?: string;
+	statsCountSummaryClass?: string;
+};
+
+export type TaxonPanelFeatures = (RecentObservationsConfig|CommonTaxaConfig|FavouritesConfig|StatsConfig)[];

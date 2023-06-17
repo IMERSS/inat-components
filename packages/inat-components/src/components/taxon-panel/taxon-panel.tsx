@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { C, getSourceFile, DataSource, DataSourceEnum, Feature, GeneralClasses } from "../../__shared";
+import { C, getSourceFile, DataSource, DataSourceEnum, Feature, GeneralClasses, TaxonPanelFeatures } from "../../__shared";
 import { RecentObservations } from '../recent-observations/recent-observations';
 import { CommonTaxa } from '../common-taxa/common-taxa';
 import { Favourites } from "../favourites/favourites"
@@ -20,43 +20,13 @@ export type TaxonPanelProps = {
     }
     dataSourceBaseUrl: string;
     dataSource: DataSource;
-    itemWidth?: number;
-    features: {
-        [Feature.recentObservations]?: {
-            title?: string;
-            numResults?: number;
-            desc?: string;
-            className?: string;
-        };
-        [Feature.commonTaxa]?: {
-            title?: string;
-            numResults?: number;
-            numYears?: number;
-            desc?: string;
-            className?: string;
-        };
-        [Feature.favourites]?: {
-            title?: string;
-            numResults?: number;
-            numYears?: number;
-            desc?: string;
-            className?: string;
-        };
-        [Feature.stats]?: {
-            title?: string;
-            numTopObservers?: number;
-            numYears?: number;
-            desc?: string;
-            className?: string;
-            observersListClass?: string;
-            statsCountSummaryClass?: string;
-        };
-    };
+    features: TaxonPanelFeatures;
     generalClasses: GeneralClasses;
+    itemWidth?: number;
 }
 
 const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, itemWidth, generalClasses }: TaxonPanelProps) => {
-    const [tab, setTab] = useState(Feature.recentObservations);
+    const [tab, setTab] = useState(features[0].feature);
     const [year, setYear] = useState<string>("all");
     const titles = useFeatureTitles(features);
 
@@ -111,12 +81,12 @@ const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, ite
 
     return (
         <div className={styles.page}>
-            <Tabs
+            {features.length > 1 && <Tabs
                 selectedTab={tab}
                 onChangeTab={setTab}
                 features={features}
                 className={tabsClass}
-            />
+            />}
             <div>
                 {tab !== Feature.recentObservations && (
                     <div style={{ float: "right" }} className={yearDropdownClass}>
