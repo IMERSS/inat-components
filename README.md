@@ -133,6 +133,7 @@ then use simple JS + CSS to pass in whatever values you need to configure the ap
 
 #### @imerss/inat-components
 
+- `2.0.1` - Jun 17th 2022, doc updates.
 - `2.0.0` - Jun 17th 2022, misc updates and new standalone.min.js added to `/dist`.
 - `1.1.2` - Aug 6th 2022, initial version.
 
