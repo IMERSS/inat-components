@@ -1,5 +1,6 @@
 {
   "name": "inat-components",
+  "private": true,
   "license": "MIT",
   "scripts": {
     "boot": "run-s copyShared lernaBootstrap",
