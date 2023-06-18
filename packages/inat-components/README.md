@@ -1,20 +1,12 @@
-# inat-components
+# @imerss/inat-components
 
+The [inat-components repo](https://github.com/IMERSS/inat-components) contains some pre-built React components to
+display iNaturalist data on your own sites. The original goal was to provide add an 
+[interactive page to the BC Lepidoptera website](https://bcleps.weebly.com/inat.html) so visitors could see some
+high-level information about lepidoptera (butterflies and moths) spotted in British Columbia. But the code
+was written to allow it to be re-used by any website and for any taxon or place.
 
+This specific package is only the React components, plus a standalone.min.js file for 
 
-### Standalone app
-
-From `@imerss/inat-components` 2.0.0 onwards, the package contains a `/dist/standalone.min.js` script which can be used
-for any.
-
-Usage:
-
-1. Download the package from npmjs.org either manually, or via `npm install @imerss/inat-components`.
-2. Copy the standalone.min.js file onto your site. 
-3. Add it to your page:
-
-```
-<script src="./path/to/standalone.min.js"></script>
-```
-
-4. 
+Please see the [main documentation](https://github.com/IMERSS/inat-components) for more information on the script, 
+including the standalone version.
