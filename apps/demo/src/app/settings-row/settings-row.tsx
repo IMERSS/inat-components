@@ -2,9 +2,6 @@ import React from "react";
 import styles from "./settings-row.module.scss";
 import { DataSource, DataSourceEnum } from "@imerss/inat-components";
 
-// TODO
-// import { ItemConfig } from "../../../../../shared";
-
 export type SettingsProp = {
     taxonId: number;
     placeId: number;

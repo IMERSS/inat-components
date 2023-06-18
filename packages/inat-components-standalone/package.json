@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.16.0",
-    "@imerss/inat-components": "^1.1.2",
+    "@imerss/inat-components": "^2.0.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@svgr/webpack": "^5.5.0",
     "@testing-library/jest-dom": "^5.16.5",

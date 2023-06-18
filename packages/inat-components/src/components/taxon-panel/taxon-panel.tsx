@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { C, getSourceFile, DataSource, DataSourceEnum, Feature, GeneralClasses, TaxonPanelFeatures } from "../../__shared";
 import { RecentObservations } from '../recent-observations/recent-observations';
 import { CommonTaxa } from '../common-taxa/common-taxa';
@@ -28,7 +28,9 @@ export type TaxonPanelProps = {
 const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, itemWidth, generalClasses }: TaxonPanelProps) => {
     const [tab, setTab] = useState(features[0].feature);
     const [year, setYear] = useState<string>("all");
-    const featuresObj = convertFeaturesToObj(features);
+    const featuresObj = useMemo(() => {
+        return convertFeaturesToObj(features);
+    }, [features]);
     const titles = useFeatureTitles(featuresObj);
 
     const getProps = (feature: Feature): any => {

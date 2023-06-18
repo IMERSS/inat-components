@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Feature } from "../../__shared";
-import { TaxonPanelFeatures } from "../../../../../shared";
+import { Feature, TaxonPanelFeatures } from "../../__shared";
 
 const defaultTitles = {
     [Feature.recentObservations]: "Recent",
