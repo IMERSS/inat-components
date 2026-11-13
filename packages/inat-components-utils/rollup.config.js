@@ -1,5 +1,6 @@
 import typescript from "@rollup/plugin-typescript";
 import commonjs from "@rollup/plugin-commonjs";
+import {sharedSources} from "../inat-components-shared/rollup.js";
 
 export default [
     {
@@ -17,7 +18,7 @@ export default [
             "date-fns"
         ],
         plugins: [
-            typescript(),
+            typescript({include: ["src/**/*.ts", sharedSources]}),
             commonjs() // TODO needed any more?
         ]
     }

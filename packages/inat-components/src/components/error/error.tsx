@@ -1,15 +1,13 @@
-import styles from './error.module.scss';
+import React from "react";
+import styles from "./error.module.css";
 
-/* eslint-disable-next-line */
-export interface ErrorProps {
-}
+/**
+ * Shown in place of a tab's results when they could not be loaded. A site may supply its own, as `components.error`.
+ */
+export const LoadError = () => (
+	<p className={styles.error}>
+		The observations could not be loaded from iNaturalist. Please try again later.
+	</p>
+);
 
-export const Error = (props: ErrorProps) => {
-	return (
-		<div className={styles['container']}>
-			<h1>Error!</h1>
-		</div>
-	);
-};
-
-export default Error;
+export default LoadError;

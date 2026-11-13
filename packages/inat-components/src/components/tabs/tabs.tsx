@@ -1,6 +1,6 @@
 import React from "react";
-import { Feature, TaxonPanelFeatures } from "../../__shared";
-import styles from "./tabs.module.scss";
+import { Feature, TaxonPanelFeatures } from "@imerss/inat-components-shared";
+import styles from "./tabs.module.css";
 import { useFeatureTitles } from "../hooks/hooks";
 
 export type TabsProps = {

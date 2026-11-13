@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getCurrentYear } from "../../__shared";
-import styles from "./year-dropdown.module.scss";
+import { getCurrentYear } from "@imerss/inat-components-shared";
+import styles from "./year-dropdown.module.css";
 
 interface YearsProps {
     value: string;

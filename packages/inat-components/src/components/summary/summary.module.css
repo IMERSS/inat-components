@@ -1,0 +1,94 @@
+.summaryPage {
+  position: relative;
+}
+.summaryPage section {
+  display: flex;
+}
+
+.top {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.top .avatar, .top .noAvatar {
+  margin-right: 10px;
+  border-radius: 20px;
+  width: 40px;
+  height: 40px;
+}
+
+.top .noAvatar {
+  display: inline-block;
+  background-color: #efefef;
+}
+
+.top h3 {
+  flex: 1;
+  color: black;
+}
+
+.top label {
+  flex: 0;
+  background-color: #efefef;
+  color: #666666;
+  padding: 2px 8px;
+  margin-top: 6px;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.top li {
+  border-radius: 3px;
+}
+.top li a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.top li:hover {
+  background-color: #efefef;
+}
+
+.countSummary {
+  list-style-type: none;
+  line-height: 28px;
+  font-size: 16px;
+  padding: 0;
+  margin: 0 0 30px;
+}
+
+/* The chart fills the height left to it in its block, which must have a height of its own. Its month labels are
+   rotated, and drawn beyond the chart's height, which leaves room for them beneath it */
+.seasonalityBlock {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  box-sizing: border-box;
+}
+
+.chart {
+  flex: 1 1 0;
+  min-height: 0;
+  margin-bottom: 80px;
+}
+
+.observersBlock {
+  flex: 1;
+  margin-left: 40px;
+  margin-bottom: -40px;
+}
+
+@media screen and (max-width: 800px) {
+  .summaryPage section {
+    display: block;
+  }
+  .seasonalityBlock {
+    height: 330px;
+  }
+  .observersBlock {
+    margin-left: 0;
+  }
+}

@@ -12,12 +12,12 @@ generated locally in this package if you choose to run the script (see the next 
 
 - check out this repo and navigate to the root folder in your terminal, then run:
 - `nvm install` (or `nvm use`) to get the right node version
-- `yarn install`
-- `yarn boot`
-- `yarn build`
-- `yarn standalone`
+- `npm install`
+- `npm run build`
+- `npm run standalone`
 
-That'll open up a browser window with a simple dev server running. It's loading this file in this package:
+That builds the standalone script, and opens a browser window at `http://localhost:8080` with a simple server
+running. It's loading this file in this package:
 `./public/index.html`
 
 You can just edit that file and refresh the page to see your changes.
@@ -27,7 +27,11 @@ also available in the `@imerss/inat-components` npm package under `/dist/standal
 configuration. 
 
 
-### Example Setup 
+### Example Setup
+
+See [the standalone version](../../README.md#standalone-version) in the root documentation for `initTaxonPanel`'s
+arguments, and the `update` and `destroy` methods of the panel it returns.
+ 
 
 The following code is similar to what you'll see in the `./public/index.html` file. It shows you how to include the file
 and initialize the taxon panel in your web page. It also provides a few example styles in case you want to target specific 
@@ -163,3 +167,27 @@ DOM nodes.
 Ahh! That's the tricky part! See the [documentation in the root of this monorepo](https://github.com/IMERSS/inat-components/tree/main). 
 You'll need to generate those files separately with the `@imerss/inat-components-utils` repo so they exist somewhere
 on a website for this site to link to.
+
+### How do I show the observations of an iNaturalist project?
+
+Supply a `project` in place of the `taxon` and `place`:
+
+```javascript
+inatComponents.initTaxonPanel("panel", {
+    project: {
+        id: 303782, // or its slug, "lost-plants-of-the-saanich-peninsula"
+        str: "lostplants"
+    },
+    dataSource: "autoLoad",
+    // ...features and classes as above
+});
+```
+
+Each request to iNaturalist then carries `project_id`, so that iNaturalist applies whatever rules the project has at
+the time - its places, taxa, quality grades and so on - and the panel follows the project as it is edited. A `taxon` or
+`place` supplied as well narrows the project's observations further. With the `url` data source, the files are named
+by the `str` of each of the taxon, place and project supplied, in that order, e.g. `lostplants-recent.json`, and
+`@imerss/inat-components-utils` writes them when its config has a `project`.
+
+The `id` of a taxon or place may also be a comma-separated list of ids, e.g. `"154453,81137"`, which matches the
+observations of any of them.

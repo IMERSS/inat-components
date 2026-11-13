@@ -1,0 +1,13 @@
+{
+  "name": "@imerss/inat-components-shared",
+  "version": "0.0.0",
+  "description": "Code shared by @imerss/inat-components and @imerss/inat-components-utils, compiled into each of their bundles. It is never published.",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "date-fns": "^2.28.0",
+    "isomorphic-unfetch": "^3.1.0"
+  }
+}

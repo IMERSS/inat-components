@@ -1,6 +1,6 @@
 import React from "react";
-import { numberWithCommas, Observer, C, GeneralClasses } from "../../__shared";
-import styles from "./summary.module.scss";
+import { numberWithCommas, Observer, C, GeneralClasses } from "@imerss/inat-components-shared";
+import styles from "./summary.module.css";
 
 export const ObserverList = ({ observers, generalClasses, className = '' }: { observers: Observer[], generalClasses?: GeneralClasses, className?: string }) => {
 	let classes = styles.top;

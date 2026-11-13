@@ -1,0 +1,28 @@
+.tabs {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  font-size: 18px;
+  padding: 0;
+  margin-bottom: 30px;
+}
+.tabs li {
+  margin: 0 20px;
+  padding: 4px 20px;
+  cursor: pointer;
+  color: #999999;
+  /* Every tab bears the border which marks the selected one, so that selecting or hovering over a tab moves nothing */
+  border-bottom: 5px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+.tabs li.selected, .tabs li:hover {
+  border-bottom-color: #0099cc;
+  color: black;
+}
+
+@media screen and (max-width: 600px) {
+  .tabs li {
+    margin: 0 5px;
+    padding: 4px 6px;
+  }
+}

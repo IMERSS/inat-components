@@ -1,6 +1,7 @@
 import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
 import dts from "rollup-plugin-dts";
+import {inlineShared, sharedSources} from "../inat-components-shared/rollup.js";
 
 export default [
 
@@ -29,7 +30,7 @@ export default [
                 modules: true,
                 plugins: []
             }),
-            typescript()
+            typescript({include: ["src/**/*.{ts,tsx}", sharedSources, "declaration.d.ts"]})
         ],
     },
 
@@ -41,6 +42,7 @@ export default [
             format: "es"
         },
         plugins: [
+            inlineShared(),
             dts()
         ]
     }

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { C, getSourceFile, DataSource, DataSourceEnum, Feature, GeneralClasses, TaxonPanelFeatures } from "../../__shared";
+import { C, getSourceFile, DataSource, DataSourceEnum, Feature, GeneralClasses, ItemConfig, TaxonPanelFeatures } from "@imerss/inat-components-shared";
 import { RecentObservations } from '../recent-observations/recent-observations';
 import { CommonTaxa } from '../common-taxa/common-taxa';
 import { Favourites } from "../favourites/favourites"
@@ -7,25 +7,23 @@ import { Summary } from "../summary/summary";
 import Years from "../year-dropdown/year-dropdown";
 import Tabs from "../tabs/tabs";
 import { convertFeaturesToObj, useFeatureTitles } from "../hooks/hooks";
-import styles from "../shared/css/general.module.scss";
+import styles from "../shared/css/general.module.css";
 
 export type TaxonPanelProps = {
-    taxon: {
-        id: number;
-        str: string;
-    };
-    place: {
-        id: number;
-        str: string;
-    }
-    dataSourceBaseUrl: string;
+    // Each of these narrows the observations shown. A project, whose own rules on iNaturalist choose its observations,
+    // may be supplied in place of a taxon and a place - see ObservationFilter
+    taxon?: ItemConfig;
+    place?: ItemConfig;
+    project?: ItemConfig;
+    // The URL of the folder holding the data files, for a "url" dataSource
+    dataSourceBaseUrl?: string;
     dataSource: DataSource;
     features: TaxonPanelFeatures;
-    generalClasses: GeneralClasses;
+    generalClasses?: GeneralClasses;
     itemWidth?: number;
 }
 
-const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, itemWidth, generalClasses }: TaxonPanelProps) => {
+const TaxonPanel = ({ taxon, place, project, features, dataSource, dataSourceBaseUrl, itemWidth, generalClasses }: TaxonPanelProps) => {
     const [tab, setTab] = useState(features[0].feature);
     const [year, setYear] = useState<string>("all");
     const featuresObj = useMemo(() => {
@@ -42,10 +40,11 @@ const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, ite
             className: featuresObj[feature]?.className
         };
         if (dataSource === DataSourceEnum.url) {
-            props.dataUrl = dataSourceBaseUrl + '/' + getSourceFile(feature, taxon, place, year);
+            props.dataUrl = dataSourceBaseUrl + '/' + getSourceFile(feature, taxon, place, year, project);
         } else {
-            props.placeId = place.id;
-            props.taxonId = taxon.id;
+            props.placeId = place?.id;
+            props.taxonId = taxon?.id;
+            props.projectId = project?.id;
         }
 
         if (feature !== Feature.stats) {
@@ -74,6 +73,7 @@ const TaxonPanel = ({ taxon, place, features, dataSource, dataSourceBaseUrl, ite
                         {...getProps(Feature.stats)}
                         observersListClass={featuresObj[Feature.stats]?.observersListClass}
                         statsCountSummaryClass={featuresObj[Feature.stats]?.statsCountSummaryClass}
+                        numTopObservers={featuresObj[Feature.stats]?.numTopObservers}
                     />
                 );
         }

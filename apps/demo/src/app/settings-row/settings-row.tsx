@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./settings-row.module.scss";
+import styles from "./settings-row.module.css";
 import { DataSource, DataSourceEnum } from "@imerss/inat-components";
 
 export type SettingsProp = {

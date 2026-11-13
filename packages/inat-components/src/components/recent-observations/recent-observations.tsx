@@ -7,12 +7,13 @@ import {
 	BaseComponentProps,
 	DataSourceEnum,
 	GeneralClasses
-} from "../../__shared";
-import { Observation } from "../observation/observation";
+} from "@imerss/inat-components-shared";
+import { Observation, gridColumns } from "../observation/observation";
 import Loader from "../loader/loader";
 import { NoResults } from "../no-results/no-results";
+import LoadError from "../error/error";
 import { useLoadSourceData } from "../../hooks/useLoadSourceData";
-import styles from "../shared/css/general.module.scss";
+import styles from "../shared/css/general.module.css";
 
 export type RecentObservationsProps = BaseComponentProps;
 
@@ -34,6 +35,7 @@ export const RecentObservationLabel = (obs: RecentObservationData & { classes: G
 export const RecentObservations = ({
 	taxonId,
 	placeId,
+	projectId,
 	dataUrl,
 	components,
 	className,
@@ -43,15 +45,17 @@ export const RecentObservations = ({
 	numResults = C.NUM_RESULTS,
 	itemWidth = C.DEFAULT_ITEM_WIDTH
 }: RecentObservationsProps) => {
-	const { loading, results: observations } = useLoadSourceData({
+	const { loading, results: observations, error } = useLoadSourceData({
 		taxonId,
 		placeId,
+		projectId,
 		numResults,
 		dataUrl,
 		source,
 		action: getRecentObservations
 	});
 	const Load = components?.loader ? components.loader as any : Loader;
+	const ErrorMessage = components?.error ? components.error as any : LoadError;
 	const Label = components?.label ? components.label as any : RecentObservationLabel;
 
 	let componentClasses = styles.panel;
@@ -67,13 +71,13 @@ export const RecentObservations = ({
 		<div className={componentClasses}>
 			{tabDesc && <p className={descClasses}>{tabDesc}</p>}
 			<Load loading={loading}/>
-			<div className={styles.grid} style={{ gridTemplateColumns: `repeat(auto-fit, minmax(${itemWidth}px, 1fr))` }}>
-				{!loading && observations.length === 0 && <NoResults/>}
+			<div className={styles.grid} style={{ gridTemplateColumns: gridColumns(itemWidth) }}>
+				{error && <ErrorMessage/>}
+				{!loading && !error && observations.length === 0 && <NoResults/>}
 				{observations.map((obs: RecentObservationData) => (
 					<Observation
 						key={obs.id}
 						imageUrl={obs.imageUrl.replace(/square/, "medium")}
-						itemWidth={itemWidth}
 						linkUrl={obs.obsUrl}>
 						<Label {...obs} classes={generalClasses} />
 					</Observation>

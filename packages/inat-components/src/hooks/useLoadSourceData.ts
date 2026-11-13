@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { DataSource, DataSourceEnum } from "../__shared";
+import { DataSource, DataSourceEnum } from "@imerss/inat-components-shared";
 
 type UseLoadSourceData = {
 	action: any;
-	taxonId?: number;
-	placeId?: number;
+	taxonId?: number | string;
+	placeId?: number | string;
+	projectId?: number | string;
 	numResults?: number;
 	source?: DataSource;
 	dataUrl?: string;
@@ -14,13 +15,14 @@ type UseLoadSourceData = {
 
 /**
  * This hook handles loading the iNat data from whatever source has been specified (DataSource):
- *   nothing needs to be done.
- * - "autoLoad": the user is developing locally and wants to just ping iNat directly for the source
- * - "url": the user has generated the data sources at a URL somewhere via @imerss/inat-component-utils
+ * - "autoLoad": the data is requested from iNaturalist's API directly, by the `action` supplied
+ * - "url": the data is read from files generated at a URL somewhere via @imerss/inat-components-utils
+ * It returns `error` as `true` once a request has failed, or returned something other than the data.
  */
 export const useLoadSourceData = ({
 	taxonId,
 	placeId,
+	projectId,
 	numResults,
 	source,
 	dataUrl,
@@ -30,27 +32,40 @@ export const useLoadSourceData = ({
 }: UseLoadSourceData) => {
 	const [loading, setLoading] = useState(false);
 	const [results, setResults] = useState<any>([]);
+	const [error, setError] = useState(false);
+
+	// Runs a load, recording its results, or else that it failed
+	const load = async (fetchResults: () => Promise<any>) => {
+		setLoading(true);
+		setError(false);
+		try {
+			setResults(await fetchResults());
+		} catch (e) {
+			console.error("Failed to load iNaturalist data", e);
+			setResults([]);
+			setError(true);
+		}
+		setLoading(false);
+	};
 
 	useEffect(() => {
 		if (source === DataSourceEnum.autoLoad) {
-			if (!taxonId) {
-				console.error("Please supply a `taxonId` prop for the `autoLoad` source prop option.");
+			// A project brings its own taxa and places, so that it may be supplied in place of both
+			if (!projectId && !taxonId) {
+				console.error("Please supply a `taxonId` or `projectId` prop for the `autoLoad` source prop option.");
 				return;
 			}
-			if (!placeId) {
-				console.error("Please supply a `placeId` prop for the `autoLoad` source prop option.");
+			if (!projectId && !placeId) {
+				console.error("Please supply a `placeId` or `projectId` prop for the `autoLoad` source prop option.");
 				return;
 			}
 
-			(async () => {
-				setLoading(true);
-
-				// note that `year` isn't used for recentObservations, but we pass it anyway to get more reusability out
-				// of this hook
-				const obs = await action({ taxonId, placeId, numResults, year });
-				setResults(obs.results);
-				setLoading(false);
-			})();
+			// note that `year` isn't used for recentObservations, but we pass it anyway to get more reusability out
+			// of this hook
+			load(async () => {
+				const obs = await action({ taxonId, placeId, projectId, numResults, year });
+				return obs.results;
+			});
 		}
 
 		if (source === DataSourceEnum.url) {
@@ -59,23 +74,20 @@ export const useLoadSourceData = ({
 				return;
 			}
 
-			(async () => {
-				setLoading(true);
+			load(async () => {
 				const obs = await fetch(dataUrl);
+				if (!obs.ok) {
+					throw new Error(`${dataUrl} returned ${obs.status}`);
+				}
 				const json = await obs.json();
 
 				// hack workaround. Better solution would have been to standardize the JSON structure at the top-level
-				if (isSummaryData) {
-					setResults(json);
-				} else {
-					setResults(json.results);
-				}
-				setLoading(false);
-			})();
+				return isSummaryData ? json : json.results;
+			});
 		}
-	}, [source, dataUrl, taxonId, placeId, year, numResults, isSummaryData]);
+	}, [source, dataUrl, taxonId, placeId, projectId, year, numResults, isSummaryData]);
 
 	return {
-		loading, results
+		loading, results, error
 	};
 }

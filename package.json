@@ -3,26 +3,26 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "boot": "run-s copyShared lernaBootstrap",
-    "lernaBootstrap": "lerna bootstrap",
-    "build": "run-s copyShared buildAll",
-    "buildAll": "lerna run build",
-    "clean": "lerna run clean && lerna clean",
-    "generate": "cd apps/demo && yarn generate",
-    "copyShared": "grunt",
-    "watchPackages": "lerna exec --parallel --ignore=@imerss/inat-components-standalone -- yarn watch",
-    "watchShared": "npx grunt watch",
-    "dev": "npm-run-all --parallel copyShared watchPackages watchShared",
-    "standalone": "lerna run watch --scope=@imerss/inat-components-standalone"
+    "build": "npm run build -w @imerss/inat-components && npm run build -w @imerss/inat-components-utils",
+    "clean": "npm run clean --workspaces --if-present",
+    "generate": "npm run generate -w demo",
+    "watchPackages": "npm-run-all --parallel watchComponents watchUtils",
+    "watchComponents": "npm run watch -w @imerss/inat-components",
+    "watchUtils": "npm run watch -w @imerss/inat-components-utils",
+    "dev": "npm run watchPackages",
+    "standalone": "npm run watch -w @imerss/inat-components-standalone",
+    "watchDemo": "npm run watch -w demo",
+    "demo": "npm-run-all --parallel watchPackages watchDemo"
   },
   "devDependencies": {
-    "grunt": "^1.5.3",
-    "grunt-cli": "^1.4.3",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-watch": "^1.1.0",
-    "lerna": "^5.1.6",
-    "node-sass": "^7.0.1",
     "npm-run-all": "^4.1.5"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "workspaces": [
+    "packages/inat-components-shared",
+    "packages/inat-components",
+    "packages/inat-components-utils",
+    "packages/inat-components-standalone",
+    "apps/demo"
+  ]
 }

@@ -1,0 +1,22 @@
+.obs {
+  cursor: pointer;
+  border-radius: 8px;
+  /* Rounds the corners of the photo with those of the card */
+  overflow: hidden;
+  background-color: #f9f9f9;
+  text-align: center;
+  transition: all 0.15s ease-in-out;
+}
+.obs:hover {
+  background-color: #e1e1e1;
+}
+
+.obs h3 {
+  margin: 0;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+}

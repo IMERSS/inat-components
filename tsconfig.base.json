@@ -19,6 +19,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "paths": {
+      "@imerss/inat-components-shared": [
+        "./packages/inat-components-shared/src/index.ts"
+      ]
+    }
   }
 }

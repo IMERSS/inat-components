@@ -1,13 +1,8 @@
 .DS_Store
-node_modules
 .idea
-dist
-apps/demo/public/source/**
-packages/inat-components/dist/**
-packages/inat-components-utils/dist/**
-packages/shared/dist/**
-build
-.DS_Store
-__shared
-__shared/*
 .parcel-cache
+node_modules
+dist
+build
+# Data generated for the demo by "npm run generate"
+apps/demo/public/source/**
